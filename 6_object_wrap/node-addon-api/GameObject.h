@@ -3,9 +3,9 @@
 
 class GameObject {
  public:
-    GameObject();
-    ~GameObject();
-    void startGame();
+  GameObject();
+  ~GameObject();
+  void startGame();
 
  private:
   double value_;

@@ -4,7 +4,8 @@
       "target_name": "addon",
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
-      "sources": [ "addon.cc", "myobject.cc" ],
+      "sources": [ "addon.cc", "myobject.cc",
+                   "GameObject.h", "GameObject.cc" ],
       "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")"
       ],

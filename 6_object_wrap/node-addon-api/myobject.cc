@@ -38,7 +38,7 @@ Napi::Value MyObject::GetValue(const Napi::CallbackInfo& info) {
 }
 
 Napi::Value MyObject::PlusOne(const Napi::CallbackInfo& info) {
-  this->value_ = this->value_ + 1;
+  this->_gameObject.startGame();
 
   return MyObject::GetValue(info);
 }

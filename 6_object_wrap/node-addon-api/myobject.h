@@ -2,6 +2,7 @@
 #define MYOBJECT_H
 
 #include <napi.h>
+#include "GameObject.h"
 
 class MyObject : public Napi::ObjectWrap<MyObject> {
  public:
@@ -14,6 +15,7 @@ class MyObject : public Napi::ObjectWrap<MyObject> {
   Napi::Value Multiply(const Napi::CallbackInfo& info);
 
   double value_;
+  GameObject _gameObject;
 };
 
 #endif

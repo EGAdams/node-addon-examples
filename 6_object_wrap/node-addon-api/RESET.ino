@@ -1,13 +1,7 @@
-
 #include <iostream>
-
-#ifndef DIGI_V6_15_H_ONLY_
-#define DIGI_V6_15_H_ONLY_
 #include "DIGI_V6_15.h"
-#endif
-
 #include "RESET.h"
-
+#include "DigiFunctions.h"
 
 Reset::Reset( Player *player1, Player *player2, DigiFunctions *digiFunctions ) :
 			  _player1( player1 ),

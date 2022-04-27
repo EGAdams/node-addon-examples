@@ -1,5 +1,5 @@
 // #include <iostream>
-// #include <chrono>
+#include <chrono>
 #include "DigiFunctions.h"
 #include "Player.h"
 #include "ScoreBoard.h"
@@ -7,8 +7,9 @@
 #include "INPUTS.h"
 #include "GAME_MODES.h"
 // #include "CurlObject.h"
+#include "INPUTS.h"
+#include "GAME_MODES.h"
 
-DigiFunctions::DigiFunctions() {}
 DigiFunctions::~DigiFunctions() {}
 
 void DigiFunctions::clearPinState() { _pinState.clear(); }
@@ -24,7 +25,7 @@ void DigiFunctions::digitalWrite( int pin, int mode ) {
     //     // std::cout << "digitalWrite(" << pin << ", " << mode 
     //     //           << ") - pin already set to this mode" << std::endl;
     // }
-    digitalWrite( int pin, int mode );    
+    // digitalWrite( int pin, int mode );    
 }
 
 int DigiFunctions::digitalRead( int pin ) {
@@ -33,7 +34,7 @@ int DigiFunctions::digitalRead( int pin ) {
     // std::string data = _curlObject.getData( std::to_string( pin ));
     // std::cout << "data from curl: " << data << std::endl;
     // return stoi( data ); 
-    return digitalRead( int pin );
+    // return digitalRead( int pin );
 }
 
 int DigiFunctions::analogRead( int pin ) { 
@@ -41,7 +42,7 @@ int DigiFunctions::analogRead( int pin ) {
     // std::string data = _curlObject.getData( std::to_string( pin ));
     // std::cout << "read curl data: " << data << std::endl; 
     // return stoi( data ); 
-    return analogRead( int pin );
+    // return analogRead( int pin );
 }
 
 void DigiFunctions::gameDelay( int ms ) {
@@ -55,32 +56,28 @@ unsigned long DigiFunctions::millis( int placeHolder ) {
 }
 
 // void pinMode(int pin, int mode) {std::cout << "pinMode(" << pin << ", " << mode << ")" << std::endl; }
-void DigiFunctions::setGameState( GameState *gameState ) { _gameState = gameState; }
+
+DigiFunctions::DigiFunctions( Player *player1, Player *player2, GameState *state, ScoreBoard *scoreBoard ): 
+    _player1( player1 ), _player2( player2 ), _gameState( state ), _scoreBoard( scoreBoard ),
+    _gameInputs( player1, player2, this ), _gameModes( player1, player2, this ) {}
 
 void DigiFunctions::loop() {
     int loopCount = 1;
-    Player player1( 1 );
-    Player player2( 2 );
-    GameState gameState( &player1, &player2 );
-    setGameState( &gameState );
-    Inputs gameInputs( &player1, &player2, this );
-    ScoreBoard scoreBoard( &player1, &player2, &gameState );
-    GameModes gameModes( &player1, &player2, this );
 	while ( loopCount < 1000 ) {
         system( "cls" );
-        scoreBoard.update();
+        _scoreBoard->update();
         // std::cout << "loopCount: " << loopCount << std::endl;
-        gameInputs.readReset();              // reads the reset button.  
+        _gameInputs->readReset();              // reads the reset button.  
             // If it is pressed, it resets the score leds and state variables.
         
-        gameModes.setGameMode( gameInputs.readRotary()); // reads the rotary 
+        _gameModes->setGameMode( _gameInputs->readRotary()); // reads the rotary 
                                 // encoder and sets the game mode.  If the mode is changed, 
                                 // it resets the score leds and state variables.
                                 // also triggers game start in the mode selected by the rotary switch.
         gameDelay( 750 );
         loopCount++;  
 	}
-    std::cout << ("exiting loop...") << std::endl;
+    std::cout << ( "exiting loop..." ) << std::endl;
     system( "pause" );
    return;
 }

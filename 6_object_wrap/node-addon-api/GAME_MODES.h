@@ -1,9 +1,9 @@
-#pragma once
 //
 // GAME_MODES.h
 //
 #ifndef GAME_MODES_h
 #define GAME_MODES_h
+#pragma once
 
 #include "DigiFunctions.h"
 #include "GAME_LEDs.h"

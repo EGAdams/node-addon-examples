@@ -3,10 +3,7 @@
 
 #pragma once
 #include <string>
-typedef struct {
-  int key;
-  std::string value;
-} constantDictionary;
+#include "DIGI_V6_15.h"
 
 class TranslateConstant {
  public:

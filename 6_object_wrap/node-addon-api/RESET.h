@@ -1,15 +1,11 @@
 #pragma once
-//
-//
-//
 #ifndef RESET_h
 #define RESET_h
 
-#include "DigiFunctions.h"
 #include "GameState.h"
 // #include "Serial.h"
 #include "Player.h"
-
+class DigiFunctions;
 class Reset {
  public:
   Reset(Player* player1, Player* player2, DigiFunctions* digiFunctions);
@@ -21,8 +17,8 @@ class Reset {
   void tieLEDsOff();
 
  private:
-  GameState* _gameState;
   DigiFunctions* _digiFunctions;
+  GameState* _gameState;
   Player* _player1;
   Player* _player2;
 };

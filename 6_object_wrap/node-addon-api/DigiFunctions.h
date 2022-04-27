@@ -9,9 +9,19 @@
 #include "GameTimer.h"
 #include "PinState.h"
 #include "TranslateConstant.h"
+// #include "INPUTS.h"
+#include "LiquidCrystal_I2C.h"
+#include "Player.h"
+#include "ScoreBoard.h"
+// #include "GameModes.h"
+class GameModes;
+class Inputs;
 class DigiFunctions {
  public:
-  DigiFunctions();
+  DigiFunctions(Player* player1,
+                Player* player2,
+                GameState* state,
+                ScoreBoard* scoreBoard);
   ~DigiFunctions();
   // void pinMode(int pin, int mode);
   // void setup();
@@ -22,11 +32,15 @@ class DigiFunctions {
   void gameDelay(int ms);
   unsigned long millis(int hack);
   void clearPinState();
-  void setGameState(GameState* gameState);
   GameState* getGameState() { return _gameState; }
 
  private:
+  Player* _player1;
+  Player* _player2;
   GameState* _gameState;
+  Inputs* _gameInputs;
+  ScoreBoard* _scoreBoard;
+  GameModes* _gameModes;
   TranslateConstant _translateConstant;
   PinState _pinState;
 };

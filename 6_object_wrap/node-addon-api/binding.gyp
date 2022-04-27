@@ -5,7 +5,6 @@
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
       "sources": [ "addon.cc", "myobject.cc",
-                   "GameObject.h", "GameObject.cc",
                    "GameTimer.h", "GameTimer.ino",
                    "TranslateConstant.h", "TranslateConstant.cpp",
                    "GameState.h", "GameState.cpp",
@@ -16,12 +15,18 @@
                    "RESET.h", "RESET.ino",
                    "DIGI_V6_15.h",
                    "INPUTS.h", "INPUTS.ino",
-                   "GAME_MODES.h", "GAME_MODES.ino"
+                   "GAME_MODES.h", "GAME_MODES.ino",
+                   "GameObject.h", "GameObject.cc",
                    "POINT_LEDs.h", "POINT_LEDs.ino",
                    "GAME_LEDs.h", "GAME_LEDs.ino",
                    "SET_LEDs.h", "SET_LEDs.ino",
                    "SERVO_LEDs.h", "SERVO_LEDs.ino",
-                   "UNDO.h", "UNDO.ino"
+                   "UNDO.h", "UNDO.ino",
+                   "MODE_1_SCORE.h", "MODE_1_SCORE.ino",
+                   "MODE_1_FUNCTIONS.h", "MODE_1_FUNCTIONS.ino",
+                   "MODE_2_FUNCTIONS.h", "MODE_2_FUNCTIONS.ino",
+                   "MODE_1_WIN_SEQUENCES.h", "MODE_1_WIN_SEQUENCES.ino",
+                   "MODE_1_TIEBRAKER.h", "MODE_1_TIEBRAKER.ino"
                     ],
       "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")"

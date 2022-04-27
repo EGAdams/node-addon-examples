@@ -7,6 +7,8 @@
 #endif
 
 #include "INPUTS.h"
+#include "Serial.h"
+#include "DigiFunctions.h"
 
 Inputs::Inputs( Player *player1, Player *player2, DigiFunctions *digiFunctions ) :
                 _gameState( digiFunctions->getGameState()),

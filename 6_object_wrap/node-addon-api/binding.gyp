@@ -4,7 +4,7 @@
       "target_name": "addon",
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
-      "sources": [ "addon.cc", "myobject.cc",
+      "sources": [ "addon.cc", "CppInterface.cpp",
                    "GameTimer.h", "GameTimer.cpp",
                    "TranslateConstant.h", "TranslateConstant.cpp",
                    "GameState.h", "GameState.cpp",

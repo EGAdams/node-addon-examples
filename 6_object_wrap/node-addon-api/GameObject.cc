@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "GameTimer.h"
 
 GameObject::GameObject() {
   _liquidCrystal_I2C = new LiquidCrystal_I2C();
@@ -15,5 +16,10 @@ GameObject::~GameObject(){};
 
 void GameObject::startGame() {
   std::cout << "starting game inside gameObject..." << std::endl;
-  std::cout << "player1 points: " << _player1->getPoints() << std::endl;
+  int temp = 1;
+  while (temp++ < 5) {
+    GameTimer::delay(1000);
+    _player1->setPoints(_player1->getPoints() + 1);
+    std::cout << "player1 points: " << _player1->getPoints() << std::endl;
+  }
 }

@@ -1,37 +1,23 @@
 #include <iostream>
 #include <string>
-
-#ifndef DIGI_V6_15_H_ONLY_
-#define DIGI_V6_15_H_ONLY_
 #include "DIGI_V6_15.h"
-#endif
-
-#ifndef Serial_h_
-#define Serial_h_
 #include "Serial.h"
-#endif
-
-#ifndef Player_h_
-#define Player_h_
 #include "Player.h"
-#endif
-
 #include "MODE_2_FUNCTIONS.h"
 
-Mode2Functions::Mode2Functions( Player *player1, Player *player2, DigiFunctions *digiFunctions ):
-                                 _gameState( digiFunctions->getGameState() ),
-                                 _player1( player1 ),
-                                 _player2( player2 ),
-                                 _digiFunctions( digiFunctions ),
-                                 _gameLeds(  player1, player2, digiFunctions ),
-                                 _setLeds(   player1, player2, digiFunctions ),
-                                 _pointLeds( player1, player2, digiFunctions ) {};
+Mode2Functions::Mode2Functions( Player *player1, Player *player2, PinInterface *pinInterface, GameState *gameState ) :
+                                 _player1(   player1 ),
+                                 _player2(   player2 ),
+                                 _gameState( gameState ),
+                                 _gameLeds(  player1, player2, pinInterface ),
+                                 _setLeds(   player1, player2, pinInterface ),
+                                 _pointLeds( player1, player2, pinInterface ) {};
 
 Mode2Functions::~Mode2Functions(){}
 
 void Mode2Functions::m2Loop() {
     SerialObject Serial;
-    _gameState->setNow( /* now = */ _digiFunctions->millis( 1 ));
+    _gameState->setNow( /* now = */ GameTimer::millis( 1 ));
     // unsigned long elapsed_time = now -  previous_time;
     // Serial.println( "elapsed_time: " + to_string( elapsed_time ));
     if ( _gameState->getNow() /* now */ - _gameState->getPreviousTime() /* previous_time */ >= 1000 /*10000*/ ) {

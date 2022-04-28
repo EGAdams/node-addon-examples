@@ -4,11 +4,11 @@
 //
 #ifndef MODE_1_TIEBREAKER_H
 #define MODE_1_TIEBREAKER_H
-#include "DigiFunctions.h"
 #include "GAME_LEDs.h"
 #include "GameState.h"
 #include "MODE_1_WIN_SEQUENCES.h"
 #include "POINT_LEDs.h"
+#include "PinInterface.h"
 #include "Player.h"
 #include "SERVE_LEDs.h"
 #include "SET_LEDs.h"
@@ -18,7 +18,8 @@ class Mode1TieBreaker {
  public:
   Mode1TieBreaker(Player* player1,
                   Player* player2,
-                  DigiFunctions* digiFunctions);
+                  PinInterface* pinInterface,
+                  GameState* gameState);
   ~Mode1TieBreaker();
   void tieBreaker();
   void setTieBreaker();
@@ -47,7 +48,7 @@ class Mode1TieBreaker {
   Player* _player2;
   GameState* _gameState;
   Undo _undo;
-  DigiFunctions _digiFunctions;
+  PinInterface* _pinInterface;
   PointLeds _pointLeds;
   GameLeds _gameLeds;
   ServeLeds _serveLeds;

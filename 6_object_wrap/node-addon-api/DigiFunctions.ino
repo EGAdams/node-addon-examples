@@ -47,7 +47,7 @@ int DigiFunctions::analogRead( int pin ) {
 
 void DigiFunctions::gameDelay( int ms ) {
     GameTimer timer;
-    timer.sleep( ms );
+    timer.delay( ms );
     std::cout << "delay(" << ms << ")" << std::endl; }
 
 unsigned long DigiFunctions::millis( int placeHolder ) {

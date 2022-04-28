@@ -6,12 +6,12 @@
 #include "Player.h"
 class GameLeds {
  public:
-  GameLeds(Player* player1, Player* player2, DigiFunctions* digiFunctions);
+  GameLeds(Player* player1, Player* player2, PinInterface* pinInterface);
   ~GameLeds();
   void updateGames();
 
  private:
-  DigiFunctions* _digiFunctions;
+  PinInterface* _pinInterface;
   Player* _player1;
   Player* _player2;
 };

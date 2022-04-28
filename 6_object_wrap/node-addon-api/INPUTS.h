@@ -1,15 +1,10 @@
 #pragma once
-//
-//
-//
 #ifndef INPUTS_h
 #define INPUTS_h
 
 #include "GameState.h"
-#include "RESET.h"
-// #include "Serial.h"
-#include "GameState.h"
 #include "PinInterface.h"
+#include "RESET.h"
 class Inputs {
  public:
   Inputs(Player* player1,
@@ -23,10 +18,9 @@ class Inputs {
   void readPlayerButtons();
 
  private:
-  GameState* _gameState;
-  DigiFunctions* _digiFunctions;
-  Reset _reset;
   PinInterface* _pinInterface;
+  GameState* _gameState;
+  Reset _reset;
 };
 
 #endif

@@ -5,7 +5,8 @@ class GameTimer {
  public:
   GameTimer();
   void sleep_until(int milliseconds);
-  void sleep(int milliseconds);
+  static void delay(int milliseconds);
+  static unsigned long millis(int default);
   ~GameTimer();
 };
 

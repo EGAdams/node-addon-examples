@@ -4,7 +4,6 @@
 
 #include "GameState.h"
 #include "PinInterface.h"
-#include "Serial.h"
 class Reset {
  public:
   Reset(Player* player1,

@@ -1,26 +1,15 @@
 #include <iostream>
 #include <chrono>
-
-#ifndef DIGI_V6_15_H_ONLY_
-#define DIGI_V6_15_H_ONLY_
 #include "DIGI_V6_15.h"
-#endif
-
-#ifndef SERVE_LEDS_HEADER_
-#define SERVE_LEDS_HEADER_
-//#include "SERVE_LEDs.h"
-#endif
-
 #include "MODE_1_FUNCTIONS.h"
-#include "Serial.h"
 
-Mode1Functions::Mode1Functions( Player *player1, Player *player2, DigiFunctions *digiFunctions ) :
-    _mode1Score( player1, player2, digiFunctions ),
-    _undo(       player1, player2, digiFunctions ),
-    _gameState(  digiFunctions->getGameState() ),
+Mode1Functions::Mode1Functions( Player *player1, Player *player2, PinInterface *pinInterface, GameState *gameState ) :
     _player1(    player1 ),
     _player2(    player2 ),
-    _pointLeds(  player1, player2, digiFunctions ) {}
+    _gameState(  gameState ),
+    _pointLeds(  player1, player2, pinInterface ),
+    _mode1Score( player1, player2, pinInterface, gameState ),
+    _undo(       player1, player2, pinInterface, gameState ) {}
 
 Mode1Functions::~Mode1Functions() {
     SerialObject Serial;
@@ -43,16 +32,14 @@ void Mode1Functions::mode1ButtonFunction() {
             _pointLeds.updatePoints();
         }
 
-        Serial.println(" p1 button up" );
-        _digiFunctions.gameDelay( buttonDelay );
+        GameTimer::delay( buttonDelay );
         _player1->setPoints( _player1->getPoints() + 1 ); // p1Points++;
         _undo.memory();
         _mode1Score.mode1P1Score();
         break;
 
     case 2:
-        Serial.println( "p1 button undo" );
-        _digiFunctions.gameDelay( buttonDelay );
+        GameTimer::delay( buttonDelay );
         _undo.mode1Undo();  // Mode1Undo();
         break;
 
@@ -65,16 +52,14 @@ void Mode1Functions::mode1ButtonFunction() {
             _pointLeds.updatePoints();           // UpdatePoints();
         }
 
-        Serial.println( "p2 button up" );
-        _digiFunctions.gameDelay( buttonDelay );
+        GameTimer::delay( buttonDelay );
         _player2->setPoints( _player2->getPoints() + 1 );   // p2Points++;
         _undo.memory();                                     // Memory();
         _mode1Score.mode1P2Score();                         // Mode1P2Score();
         break;
 
     case 4:
-        Serial.println( "p2 button undo" );
-        _digiFunctions.gameDelay( buttonDelay );
+        GameTimer::delay( buttonDelay );
         _undo.mode1Undo();                                  // Mode1Undo();
         break;
     }

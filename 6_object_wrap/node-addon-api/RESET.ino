@@ -4,16 +4,13 @@
 #include "PinInterface.h"
 
 Reset::Reset( Player *player1, Player *player2, PinInterface *pinInterface, GameState *gameState ) :
-			  _player1( player1 ),
-			  _player2( player2 ),
+			  _player1(      player1      ),
+			  _player2(      player2      ),
               _pinInterface( pinInterface ),
-			  _gameState( gameState ) {}
-              
+			  _gameState(    gameState    ) {}     
 Reset::~Reset() {}
 
 void Reset::resetScoreboard() {
-    // SerialObject Serial;
-    // Serial.println( "resetting score board..." );
     _pinInterface->digitalWrite( P1_POINTS_LED1, LOW );
     _pinInterface->digitalWrite( P1_POINTS_LED2, LOW );
     _pinInterface->digitalWrite( P1_POINTS_LED3, LOW );
@@ -51,11 +48,7 @@ void Reset::resetScoreboard() {
     _pinInterface->digitalWrite( P1_SERVE, LOW );
     _pinInterface->digitalWrite( P2_SERVE, LOW );
 
-    tieLEDsOff(); // TieLEDsOff(); // replaced with below code
-    // _gameState->setTieLEDsOn( 0 ); // tieLEDsOn = false;
-    // _pinInterface->digitalWrite( P1_TIEBREAKER, LOW );
-    // _pinInterface->digitalWrite( P2_TIEBREAKER, LOW ); 
-
+    tieLEDsOff();
 
     _gameState->setTieBreak(     0 ); // tieBreak = false;
     _gameState->setSetTieBreak(  0 ); // setTieBreak = false;
@@ -67,9 +60,7 @@ void Reset::resetScoreboard() {
 }
 
 void Reset::refresh() {
-    // SerialObject Serial;
     if ( _gameState->getRotaryChange() == 1 /* rotaryChange == true */ ) {
-        // Serial.println( "rotaryChange == true, setting to false..." );
         _gameState->setRotaryChange( 0 ); // rotaryChange = false;
         resetScoreboard();
         resetPreviousValues();
@@ -80,14 +71,12 @@ void Reset::refresh() {
 void Reset::tieLEDsOn() {
     _gameState->setTieLEDsOn( 1 ); // tieLEDsOn = true;
     _pinInterface->digitalWrite( P1_TIEBREAKER, HIGH );
-    _pinInterface->digitalWrite( P2_TIEBREAKER, HIGH ); 
-}
+    _pinInterface->digitalWrite( P2_TIEBREAKER, HIGH ); }
 
 void Reset::tieLEDsOff() {
     _gameState->setTieLEDsOn( 0 ); // tieLEDsOn = false;
     _pinInterface->digitalWrite( P1_TIEBREAKER, LOW );
-    _pinInterface->digitalWrite( P2_TIEBREAKER, LOW ); 
-}
+    _pinInterface->digitalWrite( P2_TIEBREAKER, LOW ); }
 
 void Reset::resetPreviousValues() {
     prev3TieLEDsOn = false;

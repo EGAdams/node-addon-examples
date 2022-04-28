@@ -1,4 +1,6 @@
 #pragma once
+#ifndef DIGI_V6_15_H
+#define DIGI_V6_15_H
 // #include <string>
 // typedef struct {
 //   int key;
@@ -255,3 +257,5 @@ int MatchWinPulseCount = 5;
 // int p2SetsMem = 0;
 // unsigned long now = 1000;
 }  // namespace
+
+#endif

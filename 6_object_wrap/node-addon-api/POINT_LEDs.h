@@ -6,17 +6,19 @@
 #define POINT_LEDS_h
 
 #include "DigiFunctions.h"
+#include "GameState.h"
+#include "PinInterface.h"
 #include "Player.h"
 
 class PointLeds {
  public:
-  PointLeds(Player* player1, Player* player2, DigiFunctions* digiFunctions);
+  PointLeds(Player* player1, Player* player2, PinInterface* pinInterface);
   ~PointLeds();
   void updatePoints();
   void updateTBPoints();
 
  private:
-  DigiFunctions* _digiFunctions;
+  PinInterface* _pinInterface;
   Player* _player1;
   Player* _player2;
 };

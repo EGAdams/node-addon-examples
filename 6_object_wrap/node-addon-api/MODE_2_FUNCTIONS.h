@@ -15,7 +15,8 @@ class Mode2Functions {
  public:
   Mode2Functions(Player* player1,
                  Player* player2,
-                 DigiFunctions* digiFunctions);
+                 PinInterface* pinInterface,
+                 GameState* gameState);
   ~Mode2Functions();
   void m2Loop();
   void m2PlayerButtons(int playerButton);

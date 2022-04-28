@@ -1,27 +1,19 @@
-
-#include <iostream>
-#include <chrono>
-#include "DIGI_V6_15.h"
-#include "MODE_1_TIEBREAKER.h"
-#include "SERVE_LEDs.h"
-#include "Serial.h"
-#include "INPUTS.h"
 #include "GAME_MODES.h"
 
 GameModes::~GameModes() {}
 GameModes::GameModes( Player *player1, Player *player2, PinInterface *pinInterface, GameState *gameState ) :
-                      _player1( player1 ),
-                      _player2( player2 ),
-                      _gameState( gameState ),
-                      _inputs(          player1, player2, pinInterface, gameState ), ), 
+                      _player1(         player1 ),
+                      _player2(         player2 ),
+                      _gameState(       gameState ),
+                      _serveLeds(       pinInterface, gameState ),
                       _gameLeds(        player1, player2, pinInterface ), 
                       _pointLeds(       player1, player2, pinInterface ), 
                       _setLeds(         player1, player2, pinInterface ),
-                      _mode1TieBreaker( player1, player2, pinInterface ),
-                      _mode1Functions(  player1, player2, pinInterface ),
-                      _mode2Functions(  player1, player2, pinInterface ),
-                      _undo(            player1, player2, pinInterface ),
-                      _serveLeds(                         pinInterface ) {}
+                      _inputs(          player1, player2, pinInterface, gameState ), 
+                      _mode1TieBreaker( player1, player2, pinInterface, gameState ),
+                      _mode1Functions(  player1, player2, pinInterface, gameState ),
+                      _mode2Functions(  player1, player2, pinInterface, gameState ),
+                      _undo(            player1, player2, pinInterface, gameState ){}
 
 void GameModes::gameStart() {
     if ( _gameState->getStarted() == 0 /* gameStart == true */ ) { // if not started...
@@ -44,7 +36,7 @@ void GameModes::gameStart() {
 }
 
 void GameModes::mode1() {
-    _gameState->setNow( _digiFunctions->millis( 1 )); // now = 
+    _gameState->setNow( GameTimer::millis( 1 )); // now = 
     _inputs.readUndoButton();   // ReadUndoButton();
     if ( _gameState->getUndo() == 1 /* undo == true */ ) { // undo button pressed
         _gameState->setUndo( 0 );   // undo = false;
@@ -77,7 +69,7 @@ void GameModes::mode2() {
 }
 
 void GameModes::mode4() {
-    _gameState->setNow( _digiFunctions->millis( 1 )); // now = 
+    _gameState->setNow( GameTimer::millis( 1 )); // now = 
     if ( _gameState->getTieBreakOnly() == 0 ) {
         _gameState->setTieBreak( 1 ); // tieBreak = true;
         _mode1TieBreaker.tieBreakEnable();
@@ -90,10 +82,10 @@ void GameModes::noCode() {
     Serial.println("No Code");
     _player1->setPoints( _player1->getPoints() + 1 ); // p1Points++;
     _pointLeds.updatePoints();  // UpdatePoints();
-    _digiFunctions->gameDelay( 1000 );
+    GameTimer::delay( 1000 );
     _player1->setPoints( _player1->getPoints() - 1 ); // p1Points--;
     _pointLeds.updatePoints();      // UpdatePoints();
-    _digiFunctions->gameDelay( 1000 );
+    GameTimer::delay( 1000 );
 }
 
 

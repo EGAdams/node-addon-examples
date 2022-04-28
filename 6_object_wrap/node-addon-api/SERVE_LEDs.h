@@ -5,12 +5,12 @@
 #ifndef SERVE_LEDS_h
 #define SERVE_LEDS_h
 
-#include "DigiFunctions.h"
 #include "GameState.h"
+#include "PinInterface.h"
 
 class ServeLeds {
  public:
-  ServeLeds(DigiFunctions* digiFunctions);
+  ServeLeds(PinInterface* pinInterface, GameState* gameState);
   ~ServeLeds();
   void updateServeLED();
   void serveSwitch();
@@ -18,7 +18,7 @@ class ServeLeds {
 
  private:
   GameState* _gameState;
-  DigiFunctions* _digiFunctions;
+  PinInterface* _pinInterface;
 };
 
 #endif

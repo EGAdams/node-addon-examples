@@ -1,38 +1,29 @@
-#include <iostream>
-
-#ifndef DIGI_V6_15_H_ONLY_
-#define DIGI_V6_15_H_ONLY_
 #include "DIGI_V6_15.h"
-#endif
-
-#include "Serial.h"
 #include "UNDO.h"
 
-Undo::Undo( Player *player1, Player *player2, DigiFunctions *digiFunctions ) : 
-    _player1( player1 ),
-    _player2( player2 ),
-    _gameState( digiFunctions->getGameState()   ),
-    _pointLeds( player1, player2, digiFunctions ),
-    _gameLeds( player1,  player2, digiFunctions ),
-    _setLeds( player1,   player2, digiFunctions ),
-    _serveLeds( digiFunctions                   ){};
+Undo::Undo( Player *player1, Player *player2, PinInterface *pinInterface, GameState *gameState ) : 
+    _player1(   player1                        ),
+    _player2(   player2                        ), 
+    _gameState( gameState                      ),
+    _pointLeds( player1, player2, pinInterface ),
+    _gameLeds(  player1, player2, pinInterface ),
+    _setLeds(   player1, player2, pinInterface ),
+    _serveLeds( pinInterface, gameState        ){};
 
 Undo::~Undo(){};
 
 void Undo::memory() {
-    /* p1PointsMem */ _gameState->setP1PointsMem( _player1->getPoints()); // = p1Points;
-    /* p2PointsMem */ _gameState->setP2PointsMem( _player2->getPoints()); // = p2Points;
-    /* p1GamesMem  */ _gameState->setP1GamesMem(  _player1->getGames());  // = p1Games;
-    /* p2GamesMem  */ _gameState->setP2GamesMem(  _player2->getGames());  // = p2Games;
-    /* p1SetsMem   */ _gameState->setP1SetsMem(   _player1->getSets());   // = p1Sets;
-    /* p2SetsMem   */ _gameState->setP1SetsMem(   _player2->getSets());   // = p2Sets;
+   _gameState->setP1PointsMem(  /* p1PointsMem */ _player1->getPoints()); // = p1Points;
+    _gameState->setP2PointsMem( /* p2PointsMem */ _player2->getPoints()); // = p2Points;
+    _gameState->setP1GamesMem(  /* p1GamesMem  */ _player1->getGames());  // = p1Games;
+    _gameState->setP2GamesMem(  /* p2GamesMem  */ _player2->getGames());  // = p2Games;
+    _gameState->setP1SetsMem(   /* p1SetsMem   */ _player1->getSets());   // = p1Sets;
+    _gameState->setP1SetsMem(   /* p2SetsMem   */ _player2->getSets());   // = p2Sets;
     // tieBreakMem    = _gameState->getTieBreak();     // tieBreak;
     // setTieBreakMem = _gameState->getSetTieBreak();  // setTieBreak;
 }
 
 void Undo::setMode1Undo() {
-    SerialObject Serial;
-    Serial.println( "Set Undo" );
     prev3PointFlash = prev2PointFlash;
     prev3P1Points = prev2P1Points;
     prev3P2Points = prev2P2Points;
@@ -151,14 +142,14 @@ void Undo::mode1Undo() {
     if ( _gameState->getTieLEDsOn() == 1 /* tieLEDsOn == true */ ) {
         // _mode1TieBreaker.tieLEDsOn();  // TieLEDsOn();
         _gameState->setTieLEDsOn( 1 ); // tieLEDsOn = true;
-        _digiFunctions.digitalWrite( P1_TIEBREAKER, HIGH );
-        _digiFunctions.digitalWrite( P2_TIEBREAKER, HIGH );
+        _pinInterface->digitalWrite( P1_TIEBREAKER, HIGH );
+        _pinInterface->digitalWrite( P2_TIEBREAKER, HIGH );
     }
     if ( _gameState->getTieLEDsOn() == 0 /* tieLEDsOn == false */ ) {
         // _mode1TieBreaker.tieLEDsOff(); // TieLEDsOff();
         _gameState->setTieLEDsOn( 0 ); // tieLEDsOn = false;
-        _digiFunctions.digitalWrite( P1_TIEBREAKER, LOW );
-        _digiFunctions.digitalWrite( P2_TIEBREAKER, LOW );
+        _pinInterface->digitalWrite( P1_TIEBREAKER, LOW );
+        _pinInterface->digitalWrite( P2_TIEBREAKER, LOW );
     }
     _pointLeds.updatePoints();   // UpdatePoints();
     _gameLeds.updateGames();     // UpdateGames(); 

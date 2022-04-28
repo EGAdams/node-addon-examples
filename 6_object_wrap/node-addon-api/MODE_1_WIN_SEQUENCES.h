@@ -4,22 +4,22 @@
 //
 #ifndef MODE_1_WIN_SEQUENCES_H
 #define MODE_1_WIN_SEQUENCES_H
-#include "DigiFunctions.h"
+#include "GAME_LEDs.h"
 #include "GameState.h"
+#include "POINT_LEDs.h"
+#include "PinInterface.h"
 #include "Player.h"
 #include "RESET.h"
-#include "UNDO.h"
-// #include "MODE_1_TIEBREAKER.h"
-#include "GAME_LEDs.h"
-#include "POINT_LEDs.h"
 #include "SET_LEDs.h"
 #include "Serial.h"
+#include "UNDO.h"
 
 class Mode1WinSequences {
  public:
   Mode1WinSequences(Player* player1,
                     Player* player2,
-                    DigiFunctions* digiFunctions);
+                    PinInterface* pinInterface,
+                    GameState* gameState);
   ~Mode1WinSequences();
   void p1GameWinSequence();
   void p1SetWinSequence();
@@ -42,7 +42,7 @@ class Mode1WinSequences {
   Player* _player1;
   Player* _player2;
   Undo _undo;
-  DigiFunctions _digiFunctions;
+  PinInterface* _pinInterface;
   GameState* _gameState;
   PointLeds _pointLeds;
   GameLeds _gameLeds;

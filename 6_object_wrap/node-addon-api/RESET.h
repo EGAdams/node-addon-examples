@@ -3,12 +3,14 @@
 #define RESET_h
 
 #include "GameState.h"
-// #include "Serial.h"
-#include "Player.h"
-class DigiFunctions;
+#include "PinInterface.h"
+#include "Serial.h"
 class Reset {
  public:
-  Reset(Player* player1, Player* player2, DigiFunctions* digiFunctions);
+  Reset(Player* player1,
+        Player* player2,
+        PinInterface* pinInterface,
+        GameState* gameState);
   ~Reset();
   void resetScoreboard();
   void resetPreviousValues();
@@ -17,7 +19,7 @@ class Reset {
   void tieLEDsOff();
 
  private:
-  DigiFunctions* _digiFunctions;
+  PinInterface* _pinInterface;
   GameState* _gameState;
   Player* _player1;
   Player* _player2;

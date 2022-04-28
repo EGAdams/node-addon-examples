@@ -21,6 +21,7 @@ class GameObject {
   Inputs* _inputs;
   GameModes* _gameModes;
   GameState* _gameState;
+  PinInterface* _pinInterface;
   LiquidCrystal_I2C* _liquidCrystal_I2C;
 };
 

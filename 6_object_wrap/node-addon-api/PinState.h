@@ -2,6 +2,7 @@
 #define PINSTATE_H
 
 #pragma once
+#include <map>
 #include <string>
 typedef struct {
   int key;
@@ -17,7 +18,7 @@ class PinState {
   void clear();
 
  private:
-  // const constantDicitionary _pin_map[];
+  std::map<std::string, int> _pin_map;
 };
 
 #endif

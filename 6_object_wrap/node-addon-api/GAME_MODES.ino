@@ -9,20 +9,19 @@
 #include "GAME_MODES.h"
 
 GameModes::~GameModes() {}
-GameModes::GameModes( Player *player1, Player *player2, DigiFunctions *digiFunctions ) :
+GameModes::GameModes( Player *player1, Player *player2, PinInterface *pinInterface, GameState *gameState ) :
                       _player1( player1 ),
                       _player2( player2 ),
-                      _gameState( digiFunctions->getGameState()),
-                      _digiFunctions( digiFunctions ),
-                      _inputs(          player1, player2, digiFunctions ), 
-                      _gameLeds(        player1, player2, digiFunctions ), 
-                      _pointLeds(       player1, player2, digiFunctions ), 
-                      _setLeds(         player1, player2, digiFunctions ),
-                      _mode1TieBreaker( player1, player2, digiFunctions ),
-                      _mode1Functions(  player1, player2, digiFunctions ),
-                      _mode2Functions(  player1, player2, digiFunctions ),
-                      _undo(            player1, player2, digiFunctions ),
-                      _serveLeds(                         digiFunctions ) {}
+                      _gameState( gameState ),
+                      _inputs(          player1, player2, pinInterface, gameState ), ), 
+                      _gameLeds(        player1, player2, pinInterface ), 
+                      _pointLeds(       player1, player2, pinInterface ), 
+                      _setLeds(         player1, player2, pinInterface ),
+                      _mode1TieBreaker( player1, player2, pinInterface ),
+                      _mode1Functions(  player1, player2, pinInterface ),
+                      _mode2Functions(  player1, player2, pinInterface ),
+                      _undo(            player1, player2, pinInterface ),
+                      _serveLeds(                         pinInterface ) {}
 
 void GameModes::gameStart() {
     if ( _gameState->getStarted() == 0 /* gameStart == true */ ) { // if not started...
@@ -34,7 +33,7 @@ void GameModes::gameStart() {
         _player1->setSets(   0 );   // p1Sets = 0;
         _player2->setSets(   0 );   // p2Sets = 0;
         std::cout << "updating points, games and set LEDs..." << std::endl;
-        _digiFunctions->clearPinState();  // clear the pin state map
+        // _digiFunctions->clearPinState();  // clear the pin state map
         _pointLeds.updatePoints();  // UpdatePoints();
         _gameLeds.updateGames();    // UpdateGames();
         _setLeds.updateSets();      // UpdateSets();

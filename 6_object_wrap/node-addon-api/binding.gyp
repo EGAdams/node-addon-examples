@@ -26,7 +26,9 @@
                    "MODE_1_FUNCTIONS.h", "MODE_1_FUNCTIONS.ino",
                    "MODE_2_FUNCTIONS.h", "MODE_2_FUNCTIONS.ino",
                    "MODE_1_WIN_SEQUENCES.h", "MODE_1_WIN_SEQUENCES.ino",
-                   "MODE_1_TIEBRAKER.h", "MODE_1_TIEBRAKER.ino"
+                   "MODE_1_TIEBRAKER.h", "MODE_1_TIEBRAKER.ino",
+                   "PinState.h", "PinState.cpp",
+                   "PinInterface.h", "PinInterface.cpp",
                     ],
       "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")"

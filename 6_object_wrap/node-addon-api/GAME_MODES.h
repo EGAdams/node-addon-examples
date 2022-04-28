@@ -18,9 +18,13 @@
 #include "SERVE_LEDs.h"
 #include "UNDO.h"
 
+class Inputs;
 class GameModes {
  public:
-  GameModes(Player* player1, Player* player2, DigiFunctions* digiFunctions);
+  GameModes(Player* player1,
+            Player* player2,
+            PinInterface* pinInterface,
+            GameState* gameState);
   ~GameModes();
   void gameStart();
   void mode1();
@@ -32,7 +36,6 @@ class GameModes {
  private:
   Player* _player1;
   Player* _player2;
-  DigiFunctions* _digiFunctions;
   GameState* _gameState;
   PointLeds _pointLeds;
   GameLeds _gameLeds;

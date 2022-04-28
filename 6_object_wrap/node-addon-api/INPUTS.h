@@ -8,10 +8,14 @@
 #include "GameState.h"
 #include "RESET.h"
 // #include "Serial.h"
-class DigiFunctions;
+#include "GameState.h"
+#include "PinInterface.h"
 class Inputs {
  public:
-  Inputs(Player* player1, Player* player2, DigiFunctions* digiFunctions);
+  Inputs(Player* player1,
+         Player* player2,
+         PinInterface* pinInterface,
+         GameState* gameState);
   ~Inputs();
   void readReset();
   void readUndoButton();
@@ -22,6 +26,7 @@ class Inputs {
   GameState* _gameState;
   DigiFunctions* _digiFunctions;
   Reset _reset;
+  PinInterface* _pinInterface;
 };
 
 #endif

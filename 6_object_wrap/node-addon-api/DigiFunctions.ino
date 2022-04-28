@@ -58,8 +58,7 @@ unsigned long DigiFunctions::millis( int placeHolder ) {
 // void pinMode(int pin, int mode) {std::cout << "pinMode(" << pin << ", " << mode << ")" << std::endl; }
 
 DigiFunctions::DigiFunctions( Player *player1, Player *player2, GameState *state, ScoreBoard *scoreBoard ): 
-    _player1( player1 ), _player2( player2 ), _gameState( state ), _scoreBoard( scoreBoard ),
-    _gameInputs( player1, player2, this ), _gameModes( player1, player2, this ) {}
+    _player1( player1 ), _player2( player2 ), _gameState( state ), _scoreBoard( scoreBoard ){}
 
 void DigiFunctions::loop() {
     int loopCount = 1;

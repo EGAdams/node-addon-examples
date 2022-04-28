@@ -10,6 +10,15 @@
 </head>
 <body>
     <div class="app"></div>
-    <script type="text/javascript" src="addon.js"></script>
+    <script type="module">
+        
+    
+        import addon from "../node-addon-api/build/Release/addon.node";
+
+        var cppInterface = new addon.CppInterface(10);
+
+        $( '.app' ).html( cppInterface.value() );
+       
+    </script>
 </body>
 </html>

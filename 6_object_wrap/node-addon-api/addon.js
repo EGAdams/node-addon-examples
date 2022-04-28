@@ -13,3 +13,5 @@ console.log( cppInterface.multiply(10).value() ); // 130
 var newobj = cppInterface.multiply(-1);
 console.log( newobj.value() ); // -13
 console.log( cppInterface === newobj ); // false
+
+export default addon;

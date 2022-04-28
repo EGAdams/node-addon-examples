@@ -20,7 +20,7 @@ class DigiFunctions {
  public:
   DigiFunctions(Player* player1,
                 Player* player2,
-                GameState* state,
+                GameState* gameState,
                 ScoreBoard* scoreBoard);
   ~DigiFunctions();
   // void pinMode(int pin, int mode);

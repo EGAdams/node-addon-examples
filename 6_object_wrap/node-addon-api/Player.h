@@ -5,6 +5,7 @@
 class Player {
  public:
   Player(int player_number);
+  ~Player();
   void setPoints(int points);
   int getPoints();
   void setGames(int games);

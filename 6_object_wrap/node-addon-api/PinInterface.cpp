@@ -1,8 +1,7 @@
 #include "PinInterface.h"
 
-PinInterface::PinInterface(PinState pinState) : _pinState(pinState) {
-  std::cout << "PinInterface constructed." << std::endl;
-}
+PinInterface::PinInterface(PinState pinState) : _pinState(pinState) {}
+PinInterface::~PinInterface() {}
 
 int PinInterface::analogRead(int pin) {
   int value = 0;
@@ -15,7 +14,4 @@ int PinInterface::digitalRead(int pin) {
 }
 
 void PinInterface::analogWrite(int pin, int value) {}
-
-PinInterface::~PinInterface() {
-  std::cout << "PinInterface destructor called..." << std::endl;
-}
+void PinInterface::digitalWrite(int pin, int value) {}

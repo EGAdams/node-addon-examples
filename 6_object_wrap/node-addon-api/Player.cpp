@@ -1,12 +1,7 @@
-/*
- * class Player
- */
-#include "Player.h"
 #pragma once
-#include <iostream>
+#include "Player.h"
 
-Player::Player(int playerNumber) {
-  _playerNumber = playerNumber;
+Player::Player(int playerNumber) : _playerNumber(playerNumber) {
   _points = 0;
   _games = 0;
   _sets = 0;
@@ -14,6 +9,7 @@ Player::Player(int playerNumber) {
   _mode = 0;
   _setting = 0;
 }
+Player::~Player() {}
 
 void Player::setPoints(int points) {
   _points = points;

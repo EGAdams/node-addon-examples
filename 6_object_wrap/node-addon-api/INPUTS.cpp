@@ -6,7 +6,9 @@ Inputs::Inputs(Player* player1,
                Player* player2,
                PinInterface* pinInterface,
                GameState* gameState)
-    : _gameState(gameState),
+    : _player1(player1),
+      _player2(player2),
+      _gameState(gameState),
       _pinInterface(pinInterface),
       _reset(player1, player2, pinInterface, gameState) {}
 Inputs::~Inputs(){};

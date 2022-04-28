@@ -1,7 +1,4 @@
 #pragma once
-//
-//
-//
 #ifndef MODE_2_FUNCTIONS_h
 #define MODE_2_FUNCTIONS_h
 #include "DigiFunctions.h"
@@ -10,7 +7,6 @@
 #include "POINT_LEDs.h"
 #include "Player.h"
 #include "SET_LEDs.h"
-
 class Mode2Functions {
  public:
   Mode2Functions(Player* player1,
@@ -24,7 +20,6 @@ class Mode2Functions {
  private:
   Player* _player1;
   Player* _player2;
-  DigiFunctions* _digiFunctions;
   GameState* _gameState;
   PointLeds _pointLeds;
   GameLeds _gameLeds;

@@ -30,7 +30,6 @@ void GameModes::gameStart() {
     _player1->setSets(0);    // p1Sets = 0;
     _player2->setSets(0);    // p2Sets = 0;
     std::cout << "updating points, games and set LEDs..." << std::endl;
-    // _digiFunctions->clearPinState();  // clear the pin state map
     _pointLeds.updatePoints();       // UpdatePoints();
     _gameLeds.updateGames();         // UpdateGames();
     _setLeds.updateSets();           // UpdateSets();

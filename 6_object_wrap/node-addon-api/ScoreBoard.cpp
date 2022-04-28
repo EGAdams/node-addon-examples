@@ -15,8 +15,8 @@ ScoreBoard::ScoreBoard(Player* player1,
   _lcd->setCursor(1, 2);
   _lcd->print("Arduino LCM IIC");
 }
-ScoreBoard::~ScoreBoard() { /* Serial.println( "ScoreBoard destructor called."
-                               ); */
+ScoreBoard::~ScoreBoard() { /* Serial.println( "ScoreBoard destructor called.");
+                             */
 }
 
 void ScoreBoard::update() {

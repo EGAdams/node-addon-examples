@@ -20,6 +20,8 @@ class Inputs {
   void readPlayerButtons();
 
  private:
+  Player* _player1;
+  Player* _player2;
   PinInterface* _pinInterface;
   GameState* _gameState;
   Reset _reset;

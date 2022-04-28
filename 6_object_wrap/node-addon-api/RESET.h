@@ -18,10 +18,10 @@ class Reset {
   void tieLEDsOff();
 
  private:
-  PinInterface* _pinInterface;
-  GameState* _gameState;
   Player* _player1;
   Player* _player2;
+  PinInterface* _pinInterface;
+  GameState* _gameState;
 };
 
 #endif

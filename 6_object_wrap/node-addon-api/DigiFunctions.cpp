@@ -1,20 +1,15 @@
-// #include <iostream>
 #include "DigiFunctions.h"
-#include <chrono>
-#include "Player.h"
-#include "ScoreBoard.h"
-// #include "PinInterface.h"
-#include "GAME_MODES.h"
-#include "INPUTS.h"
-// #include "CurlObject.h"
-#include "GAME_MODES.h"
-#include "INPUTS.h"
 
+DigiFunctions::DigiFunctions(Player* player1,
+                             Player* player2,
+                             PinInterface* pinInterface,
+                             GameState* gameState)
+    : _player1(player1),
+      _player2(player2),
+      _gameState(gameState),
+      _gameInputs(player1, player2, pinInterface, gameState),
+      _gameModes(player1, player2, pinInterface, gameState) {}
 DigiFunctions::~DigiFunctions() {}
-
-void DigiFunctions::clearPinState() {
-  _pinState.clear();
-}
 
 void DigiFunctions::digitalWrite(int pin, int mode) {
   // std::cout << "digitalWrite(" << pin << ", " << mode << ")" << std::endl;
@@ -56,46 +51,21 @@ void DigiFunctions::gameDelay(int ms) {
 }
 
 unsigned long DigiFunctions::millis(int placeHolder) {
-  std::chrono::milliseconds ms =
-      std::chrono::duration_cast<std::chrono::milliseconds>(
-          std::chrono::system_clock::now().time_since_epoch());
-  return ms.count();
+  //   std::chrono::milliseconds ms =
+  //       std::chrono::duration_cast<std::chrono::milliseconds>(
+  //           std::chrono::system_clock::now().time_since_epoch());
+  //   return ms.count();
+  return GameTimer::millis(1);
 }
 
 // void pinMode(int pin, int mode) {std::cout << "pinMode(" << pin << ", " <<
 // mode << ")" << std::endl; }
 
-DigiFunctions::DigiFunctions(Player* player1,
-                             Player* player2,
-                             GameState* gameState,
-                             ScoreBoard* scoreBoard)
-    : _player1(player1),
-      _player2(player2),
-      _gameState(gameState),
-      _scoreBoard(scoreBoard) {}
-
 void DigiFunctions::loop() {
-  int loopCount = 1;
-  while (loopCount < 1000) {
-    system("cls");
-    _scoreBoard->update();
-    // std::cout << "loopCount: " << loopCount << std::endl;
-    _gameInputs->readReset();  // reads the reset button.
-                               // If it is pressed, it resets the score leds and
-                               // state variables.
-
-    _gameModes->setGameMode(
-        _gameInputs
-            ->readRotary());  // reads the rotary
-                              // encoder and sets the game mode.  If the mode is
-                              // changed, it resets the score leds and state
-                              // variables. also triggers game start in the mode
-                              // selected by the rotary switch.
-    gameDelay(750);
-    loopCount++;
-  }
+  _gameInputs.readReset();
+  _gameModes.setGameMode(_gameInputs.readRotary());
+  gameDelay(750);
   std::cout << ("exiting loop...") << std::endl;
-  system("pause");
   return;
 }
 

@@ -17,6 +17,7 @@ class ScoreBoard {
   Player* _player1;
   Player* _player2;
   LiquidCrystal_I2C* _lcd;
+  ScoreBoard* _scoreBoard;
 };
 
 #endif

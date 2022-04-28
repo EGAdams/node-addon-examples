@@ -1,15 +1,10 @@
 #pragma once
-//
-//
-//
 #ifndef POINT_LEDS_h
 #define POINT_LEDS_h
 
-#include "DigiFunctions.h"
 #include "GameState.h"
 #include "PinInterface.h"
 #include "Player.h"
-
 class PointLeds {
  public:
   PointLeds(Player* player1, Player* player2, PinInterface* pinInterface);

@@ -1,11 +1,5 @@
-#include <iostream>
-
-#ifndef DIGI_V6_15_H_
-#define DIGI_V6_15_H_
-#include "DIGI_V6_15.h"
-#endif
-
 #include "POINT_LEDs.h"
+#include "DIGI_V6_15.h"
 
 PointLeds::PointLeds(Player* player1,
                      Player* player2,

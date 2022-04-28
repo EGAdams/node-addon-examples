@@ -8,6 +8,7 @@
 #include "INPUTS.h"
 #include "LiquidCrystal_I2C.h"
 #include "PinInterface.h"
+#include "PinState.h"
 #include "Player.h"
 #include "ScoreBoard.h"
 class GameObject {
@@ -18,6 +19,14 @@ class GameObject {
 
  private:
   double value_;
+  Player* _player1;
+  Player* _player2;
+  GameState* _gameState;
+  PinState* _pinState;
+  PinInterface* _pinInterface;
+  LiquidCrystal_I2C* _liquidCrystal_I2C;
+  ScoreBoard* _scoreBoard;
+  DigiFunctions* _digiFunctions;
 };
 
 #endif

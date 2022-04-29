@@ -5,6 +5,7 @@
 #include "DigiFunctions.h"
 #include "GAME_MODES.h"
 #include "GameState.h"
+#include "GameTimer.h"
 #include "INPUTS.h"
 #include "LiquidCrystal_I2C.h"
 #include "PinInterface.h"
@@ -17,6 +18,7 @@ class GameObject {
   ~GameObject();
   void startGame();
   PinInterface* getPinInterface();
+  void loop();
 
  private:
   double value_;
@@ -28,6 +30,8 @@ class GameObject {
   LiquidCrystal_I2C* _liquidCrystal_I2C;
   ScoreBoard* _scoreBoard;
   DigiFunctions* _digiFunctions;
+  Inputs* _gameInputs;
+  GameModes* _gameModes;
 };
 
 #endif

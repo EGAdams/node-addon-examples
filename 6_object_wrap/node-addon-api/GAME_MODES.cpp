@@ -1,5 +1,5 @@
 #include "GAME_MODES.h"
-
+#include <iostream>
 GameModes::~GameModes() {}
 GameModes::GameModes(Player* player1,
                      Player* player2,
@@ -40,6 +40,8 @@ void GameModes::gameStart() {
 }
 
 void GameModes::mode1() {
+  // std::cout << "mode 1.  PLAYER_BUTTON: " << _pinInterface->digitalRead(
+  // PLAYER_BUTTONS ) << std::endl;
   _gameState->setNow(GameTimer::millis(1));             // now =
   _inputs.readUndoButton();                             // ReadUndoButton();
   if (_gameState->getUndo() == 1 /* undo == true */) {  // undo button pressed
@@ -59,8 +61,12 @@ void GameModes::mode1() {
   if (_gameState->getSetTieBreak() /* setTieBreak == true */ == 1) {
     _mode1TieBreaker.setTieBreaker();  // SetTieBreaker();
   } else {
+    std::cout << "mode 1.  playerButton: "
+              << _pinInterface->digitalRead(PLAYER_BUTTONS) << std::endl;
+    std::cout << "calling mode1ButtonFunction... " << std::endl;
     _mode1Functions.mode1ButtonFunction();  // Mode1ButtonFunction();
-    _mode1Functions.pointFlash();           // PointFlash();
+    std::cout << "calling pointFlash... " << std::endl;
+    _mode1Functions.pointFlash();  // PointFlash();
   }
 }
 
@@ -102,14 +108,13 @@ void GameModes::noCode() {
 
 void GameModes::setGameMode(int rotaryPosition) {
   SerialObject Serial;
-  // std::cout << "switching to rotaryPosition: " << rotaryPosition <<
-  // std::endl;
+  std::cout << "switching to rotaryPosition: " << rotaryPosition << std::endl;
   switch (rotaryPosition) {
     case 0:
       break;
 
     case 1:
-      // Serial.println( "Game Mode 1" );
+      Serial.println("Game Mode 1");
       gameStart();  // sets gameStart to true. resets player and score board.
       mode1();
       break;

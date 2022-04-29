@@ -21,6 +21,9 @@ Mode1Functions::~Mode1Functions() {
 
 void Mode1Functions::mode1ButtonFunction() {
   SerialObject Serial;
+  std::cout << "player button in game state: " << _gameState->getPlayerButton()
+            << std::endl;
+  std::cout << "switching... " << std::endl;
   switch (_gameState->getPlayerButton() /* playerButton */) {
     case 0:
       break;

@@ -2,6 +2,7 @@
 #define CppInterface_H
 
 #include <napi.h>
+#include <iostream>
 #include "GameObject.h"
 
 class CppInterface : public Napi::ObjectWrap<CppInterface> {
@@ -15,6 +16,8 @@ class CppInterface : public Napi::ObjectWrap<CppInterface> {
   Napi::Value Multiply(const Napi::CallbackInfo& info);
   Napi::Value digitalWrite(const Napi::CallbackInfo& info);
   Napi::Value digitalRead(const Napi::CallbackInfo& info);
+  Napi::Value analogRead(const Napi::CallbackInfo& info);
+  Napi::Value gameLoop(const Napi::CallbackInfo& info);
 
   double value_;
   GameObject _gameObject;

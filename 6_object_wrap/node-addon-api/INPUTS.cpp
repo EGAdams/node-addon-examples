@@ -16,27 +16,29 @@ Inputs::~Inputs(){};
 void Inputs::readReset() {
   SerialObject Serial;
   Serial.println("readReset()");
+  std::cout << "PLAYER_BUTTONS: " << _pinInterface->analogRead(PLAYER_BUTTONS)
+            << std::endl;
   if (_pinInterface->digitalRead(RESET) == LOW) {
-    // Serial.println( "Reset press detected _pinInterface->digitalRead( RESET )
-    // == LOW infinite loop starts here..." );
-    while (_pinInterface->digitalRead(RESET) == LOW) {
-      Serial.println("waiting for reset release...");
-      // _digiFunctions->gameDelay( 1000 );                   // careful here!!!
-    }  // infinite loop
+    Serial.println("Reset press detected _pinInterface->digitalRead( RESET ) "
+                   "== LOW infinite loop starts here...");
+    // while ( _pinInterface->digitalRead( RESET ) == LOW ) {
+    Serial.println("NOT waiting for reset release...");
+    // _digiFunctions->gameDelay( 1000 );                   // careful here!!!
+    //}  // infinite loop
     Serial.println("exited loop.");
     // _digiFunctions->gameDelay( 1000 );
     _reset.resetScoreboard();
     // _digiFunctions->clearPinState();
   } else {
-    // Serial.println( "_pinInterface->digitalRead( RESET ) != LOW" );
+    Serial.println("_pinInterface->digitalRead( RESET ) != LOW");
   }
 }
 
 void Inputs::readUndoButton() {
   SerialObject Serial;
   if (_pinInterface->digitalRead(UNDO) == LOW) {
-    Serial.println("entering _pinInterface->digitalRead( UNDO ) == LOW "
-                   "infinite loop...  waiting for it to go HIGH...");
+    Serial.println("entering _pinInterface->digitalRead( UNDO ) == LOW ");
+    Serial.println("infinite loop...  waiting for it to go HIGH...");
     // while ( _pinInterface->digitalRead( UNDO ) == LOW  ) {}
     Serial.println("broke out of loop.");
     GameTimer::delay(2000);
@@ -102,9 +104,10 @@ void Inputs::readPlayerButtons() {
       _gameState->setPlayerButton(4); /* playerButton = 4 */
     }
     while (_pinInterface->analogRead(PLAYER_BUTTONS) <= 1000) {
+      std::cout << "PLAYER_BUTTONS: "
+                << _pinInterface->analogRead(PLAYER_BUTTONS) << std::endl;
       Serial.println("waiting for player button to release...");
-      // _digiFunctions->gameDelay( 1000 );                          // Be
-      // careful with the infinite loop!!!
+      GameTimer::delay(1000);  // Be careful with the infinite loop!!!
     }
     std::string thePlayerButton = std::to_string(_gameState->getPlayerButton());
     Serial.println("done reading buttons.  playerButton = " +

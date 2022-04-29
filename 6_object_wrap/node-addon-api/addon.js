@@ -1,14 +1,17 @@
 var addon = require('bindings')('addon');
 console.log( "started..." );
-var obj = new addon.CppInterface(10);
-console.log( obj.plusOne() ); // 11
-// console.log( obj.plusOne() ); // 12
-// console.log( obj.plusOne() ); // 13
 
-// console.log( obj.multiply().value() ); // 13
-// console.log( obj.multiply(10).value() ); // 130
-
-// var newobj = obj.multiply(-1);
-// console.log( newobj.value() ); // -13
-// console.log( obj === newobj ); // false
+let iterations = 0;
+const PLAYER_BUTTONS = 202;
+var cppInterface = new addon.CppInterface( 42 );
+cppInterface.digitalWrite( 38,  1    );  // RESET
+cppInterface.digitalWrite( 26,  1    );  // UNDO
+cppInterface.digitalWrite( PLAYER_BUTTONS, 2000 );  // PLAYER_BUTTONS
+while ( iterations < 10 ) {
+    if ( cppInterface.digitalRead( PLAYER_BUTTONS ) < 2000 ) {
+        console.log( "pin PLAYER_BUTTONS is low!" );
+        exit( 0 ); }    
+    cppInterface.gameLoop();
+    postMessage( "iteration: " + ++iterations );
+}  
 

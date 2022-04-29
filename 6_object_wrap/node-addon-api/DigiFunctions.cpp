@@ -45,9 +45,7 @@ unsigned long DigiFunctions::millis(int num) {
 // mode << ")" << std::endl; }
 
 void DigiFunctions::loop() {
-  _gameInputs.readReset();
-  _gameModes.setGameMode(_gameInputs.readRotary());
-  gameDelay(750);
+  std::cout << "loop()" << std::endl;
   std::cout << ("exiting loop...") << std::endl;
   return;
 }

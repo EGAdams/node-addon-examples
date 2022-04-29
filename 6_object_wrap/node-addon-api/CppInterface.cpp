@@ -7,7 +7,9 @@ Napi::Object CppInterface::Init(Napi::Env env, Napi::Object exports) {
       {InstanceMethod("plusOne", &CppInterface::PlusOne),
        InstanceMethod("value", &CppInterface::GetValue),
        InstanceMethod("multiply", &CppInterface::Multiply),
+       InstanceMethod("gameLoop", &CppInterface::gameLoop),
        InstanceMethod("digitalRead", &CppInterface::digitalRead),
+       InstanceMethod("analogRead", &CppInterface::analogRead),
        InstanceMethod("digitalWrite", &CppInterface::digitalWrite)});
 
   Napi::FunctionReference* constructor = new Napi::FunctionReference();
@@ -39,7 +41,7 @@ Napi::Value CppInterface::GetValue(const Napi::CallbackInfo& info) {
 }
 
 Napi::Value CppInterface::PlusOne(const Napi::CallbackInfo& info) {
-  this->_gameObject.startGame();
+  _gameObject.startGame();
 
   return CppInterface::GetValue(info);
 }
@@ -54,6 +56,11 @@ Napi::Value CppInterface::Multiply(const Napi::CallbackInfo& info) {
   Napi::Object obj = info.Env().GetInstanceData<Napi::FunctionReference>()->New(
       {Napi::Number::New(info.Env(), this->value_ * multiple.DoubleValue())});
   return obj;
+}
+
+Napi::Value CppInterface::gameLoop(const Napi::CallbackInfo& info) {
+  _gameObject.loop();
+  return CppInterface::GetValue(info);
 }
 
 Napi::Value CppInterface::digitalRead(const Napi::CallbackInfo& info) {
@@ -73,6 +80,23 @@ Napi::Value CppInterface::digitalRead(const Napi::CallbackInfo& info) {
   return Napi::Number::New(info.Env(), pin_value);
 }
 
+Napi::Value CppInterface::analogRead(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  if (info.Length() < 1) {
+    Napi::TypeError::New(env, "Wrong number of arguments")
+        .ThrowAsJavaScriptException();
+    return env.Null();
+  }
+  if (!info[0].IsNumber()) {
+    Napi::TypeError::New(env, "Wrong arguments").ThrowAsJavaScriptException();
+    return env.Null();
+  }
+
+  int pin_value = _gameObject.getPinInterface()->analogRead(
+      info[0].As<Napi::Number>().Int32Value());
+  return Napi::Number::New(info.Env(), pin_value);
+}
+
 Napi::Value CppInterface::digitalWrite(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
   if (info.Length() < 2) {
@@ -88,7 +112,9 @@ Napi::Value CppInterface::digitalWrite(const Napi::CallbackInfo& info) {
   double pin = info[0].As<Napi::Number>().DoubleValue();
   double value = info[1].As<Napi::Number>().DoubleValue();
 
-  this->_gameObject.getPinInterface()->digitalWrite(pin, value);
+  SerialObject Serial;
+  std::cout << " writing " << value << " to pin " << pin << "..." << std::endl;
+  _gameObject.getPinInterface()->digitalWrite(pin, value);
   Napi::Number setValue = Napi::Number::New(env, pin + value);
   return setValue;
 }

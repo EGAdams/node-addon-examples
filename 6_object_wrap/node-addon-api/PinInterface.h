@@ -8,7 +8,7 @@
 
 class PinInterface {
  public:
-  PinInterface(PinState pinState);
+  PinInterface(PinState* pinState);
   ~PinInterface();
   int analogRead(int pin);
   int digitalRead(int pin);
@@ -16,7 +16,7 @@ class PinInterface {
   void analogWrite(int pin, int value);
 
  private:
-  PinState _pinState;
+  PinState* _pinState;
 };
 
 #endif

@@ -16,6 +16,7 @@ class GameObject {
   GameObject();
   ~GameObject();
   void startGame();
+  PinInterface* getPinInterface();
 
  private:
   double value_;

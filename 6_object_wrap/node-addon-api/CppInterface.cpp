@@ -69,3 +69,26 @@ Napi::Value CppInterface::digitalRead(const Napi::CallbackInfo& info) {
 
   return obj;
 }
+
+Napi::Value CppInterface::digitalWrite(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+
+  if (info.Length() < 2) {
+    Napi::TypeError::New(env, "Wrong number of arguments")
+        .ThrowAsJavaScriptException();
+    return env.Null();
+  }
+
+  if (!info[0].IsNumber() || !info[1].IsNumber()) {
+    Napi::TypeError::New(env, "Wrong arguments").ThrowAsJavaScriptException();
+    return env.Null();
+  }
+
+  double pin = info[0].As<Napi::Number>().DoubleValue();
+  double value = info[1].As<Napi::Number>().DoubleValue();
+
+  this->_gameObject.getPinInterface()->digitalWrite(pin, value);
+  Napi::Number setValue = Napi::Number::New(env, pin + value);
+
+  return setValue;
+}

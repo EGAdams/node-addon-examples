@@ -12,37 +12,25 @@ DigiFunctions::DigiFunctions(Player* player1,
 DigiFunctions::~DigiFunctions() {}
 
 void DigiFunctions::digitalWrite(int pin, int mode) {
-  // std::cout << "digitalWrite(" << pin << ", " << mode << ")" << std::endl;
-  // std::string pin_name = _translateConstant.get_translated_constant( pin );
-  // if ( _pinState.getPinState( pin_name ) != mode ) {
-  //     _curlObject.writeDataToPin( pin_name,
-  //     _translateConstant.get_translated_digital_mode( mode ));
-
-  //     _pinState.setPinState( pin_name, mode );
-  // } else {
-  //     // std::cout << "digitalWrite(" << pin << ", " << mode
-  //     //           << ") - pin already set to this mode" << std::endl;
-  // }
-  // digitalWrite( int pin, int mode );
+  std::cout << "digitalWrite(" << pin << ", " << mode << ")" << std::endl;
+  std::string pin_name = _translateConstant.get_translated_constant(pin);
+  // _curlObject.writeDataToPin( pin_name,
+  // _translateConstant.get_translated_digital_mode( mode ));
+  _pinState.setPinState(pin_name, mode);
 }
 
 int DigiFunctions::digitalRead(int pin) {
-  // std::cout << "digitalRead(" << pin << ")" << std::endl;
-  // // std::cout << "getting data with curl object..." << std::endl;
+  std::cout << "digitalRead(" << pin << ")" << std::endl;
+  return _pinState.getPinState(_translateConstant.get_translated_constant(pin));
   // std::string data = _curlObject.getData( std::to_string( pin ));
-  // std::cout << "data from curl: " << data << std::endl;
   // return stoi( data );
-  // return digitalRead( int pin );
-  return 0;
 }
 
 int DigiFunctions::analogRead(int pin) {
-  // std::cout << "analogRead(" << pin << ")" << std::endl;
+  std::cout << "analogRead(" << pin << ")" << std::endl;
+  return _pinState.getPinState(_translateConstant.get_translated_constant(pin));
   // std::string data = _curlObject.getData( std::to_string( pin ));
-  // std::cout << "read curl data: " << data << std::endl;
   // return stoi( data );
-  // return analogRead( int pin );
-  return 0;
 }
 
 void DigiFunctions::gameDelay(int ms) {
@@ -50,14 +38,9 @@ void DigiFunctions::gameDelay(int ms) {
   std::cout << "delay(" << ms << ")" << std::endl;
 }
 
-unsigned long DigiFunctions::millis(int placeHolder) {
-  //   std::chrono::milliseconds ms =
-  //       std::chrono::duration_cast<std::chrono::milliseconds>(
-  //           std::chrono::system_clock::now().time_since_epoch());
-  //   return ms.count();
+unsigned long DigiFunctions::millis(int num) {
   return GameTimer::millis(1);
 }
-
 // void pinMode(int pin, int mode) {std::cout << "pinMode(" << pin << ", " <<
 // mode << ")" << std::endl; }
 

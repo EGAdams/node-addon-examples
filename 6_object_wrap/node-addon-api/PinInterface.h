@@ -10,10 +10,10 @@ class PinInterface {
  public:
   PinInterface(PinState* pinState);
   ~PinInterface();
+  void analogWrite(int pin, int value);
+  void digitalWrite(int pin, int value);
   int analogRead(int pin);
   int digitalRead(int pin);
-  void digitalWrite(int pin, int value);
-  void analogWrite(int pin, int value);
 
  private:
   PinState* _pinState;

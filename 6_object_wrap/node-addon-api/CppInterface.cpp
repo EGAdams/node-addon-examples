@@ -1,12 +1,14 @@
 #include "CppInterface.h"
 
 Napi::Object CppInterface::Init(Napi::Env env, Napi::Object exports) {
-  Napi::Function func =
-      DefineClass(env,
-                  "CppInterface",
-                  {InstanceMethod("plusOne", &CppInterface::PlusOne),
-                   InstanceMethod("value", &CppInterface::GetValue),
-                   InstanceMethod("multiply", &CppInterface::Multiply)});
+  Napi::Function func = DefineClass(
+      env,
+      "CppInterface",
+      {InstanceMethod("plusOne", &CppInterface::PlusOne),
+       InstanceMethod("value", &CppInterface::GetValue),
+       InstanceMethod("multiply", &CppInterface::Multiply),
+       InstanceMethod("digitalRead", &CppInterface::digitalRead),
+       InstanceMethod("digitalWrite", &CppInterface::digitalWrite)});
 
   Napi::FunctionReference* constructor = new Napi::FunctionReference();
   *constructor = Napi::Persistent(func);
@@ -49,36 +51,35 @@ Napi::Value CppInterface::Multiply(const Napi::CallbackInfo& info) {
   } else {
     multiple = info[0].As<Napi::Number>();
   }
-
   Napi::Object obj = info.Env().GetInstanceData<Napi::FunctionReference>()->New(
       {Napi::Number::New(info.Env(), this->value_ * multiple.DoubleValue())});
-
   return obj;
 }
 
 Napi::Value CppInterface::digitalRead(const Napi::CallbackInfo& info) {
-  Napi::Number multiple;
-  if (info.Length() <= 0 || !info[0].IsNumber()) {
-    multiple = Napi::Number::New(info.Env(), 1);
-  } else {
-    multiple = info[0].As<Napi::Number>();
+  Napi::Env env = info.Env();
+  if (info.Length() < 1) {
+    Napi::TypeError::New(env, "Wrong number of arguments")
+        .ThrowAsJavaScriptException();
+    return env.Null();
+  }
+  if (!info[0].IsNumber()) {
+    Napi::TypeError::New(env, "Wrong arguments").ThrowAsJavaScriptException();
+    return env.Null();
   }
 
-  Napi::Object obj = info.Env().GetInstanceData<Napi::FunctionReference>()->New(
-      {Napi::Number::New(info.Env(), this->value_ * multiple.DoubleValue())});
-
-  return obj;
+  int pin_value = _gameObject.getPinInterface()->digitalRead(
+      info[0].As<Napi::Number>().Int32Value());
+  return Napi::Number::New(info.Env(), pin_value);
 }
 
 Napi::Value CppInterface::digitalWrite(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
-
   if (info.Length() < 2) {
     Napi::TypeError::New(env, "Wrong number of arguments")
         .ThrowAsJavaScriptException();
     return env.Null();
   }
-
   if (!info[0].IsNumber() || !info[1].IsNumber()) {
     Napi::TypeError::New(env, "Wrong arguments").ThrowAsJavaScriptException();
     return env.Null();
@@ -89,6 +90,5 @@ Napi::Value CppInterface::digitalWrite(const Napi::CallbackInfo& info) {
 
   this->_gameObject.getPinInterface()->digitalWrite(pin, value);
   Napi::Number setValue = Napi::Number::New(env, pin + value);
-
   return setValue;
 }

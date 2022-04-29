@@ -14,6 +14,7 @@ class PinInterface {
   void digitalWrite(int pin, int value);
   int analogRead(int pin);
   int digitalRead(int pin);
+  std::map<std::string, int> getPinStateMap();
 
  private:
   PinState* _pinState;

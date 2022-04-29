@@ -23,3 +23,7 @@ void PinInterface::digitalWrite(int pin, int value) {
   // std::cout << "setting pin " << pin << " to " << value << std::endl;
   _pinState->setPinState(std::to_string(pin), value);
 }
+
+std::map<std::string, int> PinInterface::getPinStateMap() {
+  return _pinState->getMap();
+}

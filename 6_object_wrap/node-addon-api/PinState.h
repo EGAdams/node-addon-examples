@@ -16,6 +16,7 @@ class PinState {
   void setPinState(std::string pin, int state);
   int getPinState(std::string pin);
   void clear();
+  std::map<std::string, int> getMap();
 
  private:
   std::map<std::string, int> _pin_map;

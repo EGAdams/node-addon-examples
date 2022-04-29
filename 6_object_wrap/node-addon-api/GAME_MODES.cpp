@@ -61,12 +61,8 @@ void GameModes::mode1() {
   if (_gameState->getSetTieBreak() /* setTieBreak == true */ == 1) {
     _mode1TieBreaker.setTieBreaker();  // SetTieBreaker();
   } else {
-    std::cout << "mode 1.  playerButton: "
-              << _pinInterface->digitalRead(PLAYER_BUTTONS) << std::endl;
-    std::cout << "calling mode1ButtonFunction... " << std::endl;
     _mode1Functions.mode1ButtonFunction();  // Mode1ButtonFunction();
-    std::cout << "calling pointFlash... " << std::endl;
-    _mode1Functions.pointFlash();  // PointFlash();
+    _mode1Functions.pointFlash();           // PointFlash();
   }
 }
 

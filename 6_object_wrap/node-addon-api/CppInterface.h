@@ -3,7 +3,9 @@
 
 #include <napi.h>
 #include <iostream>
+#include <string>
 #include "GameObject.h"
+#include "TranslateConstant.h"
 
 class CppInterface : public Napi::ObjectWrap<CppInterface> {
  public:
@@ -18,9 +20,11 @@ class CppInterface : public Napi::ObjectWrap<CppInterface> {
   Napi::Value digitalRead(const Napi::CallbackInfo& info);
   Napi::Value analogRead(const Napi::CallbackInfo& info);
   Napi::Value gameLoop(const Napi::CallbackInfo& info);
+  Napi::Value getPinState(const Napi::CallbackInfo& info);
 
   double value_;
   GameObject _gameObject;
+  TranslateConstant _translator;
 };
 
 #endif

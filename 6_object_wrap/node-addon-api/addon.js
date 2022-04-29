@@ -7,11 +7,16 @@ var cppInterface = new addon.CppInterface( 42 );
 cppInterface.digitalWrite( 38,  1    );  // RESET
 cppInterface.digitalWrite( 26,  1    );  // UNDO
 cppInterface.digitalWrite( PLAYER_BUTTONS, 2000 );  // PLAYER_BUTTONS
+let temp = cppInterface.getPinState();
+console.table( temp );
 while ( iterations < 10 ) {
     if ( cppInterface.digitalRead( PLAYER_BUTTONS ) < 2000 ) {
         console.log( "pin PLAYER_BUTTONS is low!" );
         exit( 0 ); }    
     cppInterface.gameLoop();
-    postMessage( "iteration: " + ++iterations );
+    console.log( "iteration: " + ++iterations );
+    // postMessage( "iteration: " + iterations );
+    temp = cppInterface.getPinState();
+    console.table( temp );  
 }  
 

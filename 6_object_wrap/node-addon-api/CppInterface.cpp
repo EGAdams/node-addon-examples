@@ -8,6 +8,7 @@ Napi::Object CppInterface::Init(Napi::Env env, Napi::Object exports) {
        InstanceMethod("value", &CppInterface::GetValue),
        InstanceMethod("multiply", &CppInterface::Multiply),
        InstanceMethod("gameLoop", &CppInterface::gameLoop),
+       InstanceMethod("getPinState", &CppInterface::getPinState),
        InstanceMethod("digitalRead", &CppInterface::digitalRead),
        InstanceMethod("analogRead", &CppInterface::analogRead),
        InstanceMethod("digitalWrite", &CppInterface::digitalWrite)});
@@ -117,4 +118,19 @@ Napi::Value CppInterface::digitalWrite(const Napi::CallbackInfo& info) {
   _gameObject.getPinInterface()->digitalWrite(pin, value);
   Napi::Number setValue = Napi::Number::New(env, pin + value);
   return setValue;
+}
+
+Napi::Value CppInterface::getPinState(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+
+  // Create a new instance
+  Napi::Object pinMap = Napi::Object::New(env);
+  std::map<std::string, int> pinState =
+      _gameObject.getPinInterface()->getPinStateMap();
+  for (const std::pair<const std::string, int>& p : pinState) {
+    int key = std::stoi(p.first);
+    pinMap.Set(_translator.get_translated_constant(key), p.second);
+  }
+
+  return pinMap;
 }

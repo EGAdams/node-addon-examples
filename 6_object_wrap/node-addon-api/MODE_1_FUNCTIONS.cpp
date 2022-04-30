@@ -20,7 +20,7 @@ Mode1Functions::~Mode1Functions() {
 }
 
 void Mode1Functions::mode1ButtonFunction() {
-  SerialObject Serial;
+  //   SerialObject Serial;
   std::cout << "player button in game state: " << _gameState->getPlayerButton()
             << std::endl;
   switch (_gameState->getPlayerButton() /* playerButton */) {

@@ -110,7 +110,7 @@ void GameModes::setGameMode(int rotaryPosition) {
       break;
 
     case 1:
-      Serial.println("Game Mode 1");
+      // Serial.println("Game Mode 1");
       gameStart();  // sets gameStart to true. resets player and score board.
       mode1();
       break;

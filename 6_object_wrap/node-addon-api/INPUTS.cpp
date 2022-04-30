@@ -103,12 +103,12 @@ void Inputs::readPlayerButtons() {
     } else if (anlgPlyrBtnVal >= 750 && anlgPlyrBtnVal <= 800) {
       _gameState->setPlayerButton(4); /* playerButton = 4 */
     }
-    while (_pinInterface->analogRead(PLAYER_BUTTONS) <= 1000) {
-      std::cout << "PLAYER_BUTTONS: "
-                << _pinInterface->analogRead(PLAYER_BUTTONS) << std::endl;
-      Serial.println("waiting for player button to release...");
-      GameTimer::delay(1000);  // Be careful with the infinite loop!!!
-    }
+    // while (_pinInterface->analogRead(PLAYER_BUTTONS) <= 1000) {
+    //   std::cout << "PLAYER_BUTTONS: " <<
+    //   _pinInterface->analogRead(PLAYER_BUTTONS) << std::endl;
+    //   Serial.println("waiting for player button to release...");
+    //   GameTimer::delay(1000);  // Be careful with the infinite loop!!!
+    // }
     std::string thePlayerButton = std::to_string(_gameState->getPlayerButton());
     Serial.println("done reading buttons.  playerButton = " +
                    thePlayerButton /* playerButton */);

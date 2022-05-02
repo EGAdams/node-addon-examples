@@ -228,9 +228,9 @@ unsigned long pointFlashPrev = 0;
 /*--------------------------------------USER SELECTABLE
  * VARIABLES--------------------------------------*/
 
-int buttonDelay = 100;         // 300;
-int updateDisplayDelay = 100;  // 700;
-int winDelay = 100;            // 1000;
+int buttonDelay = 20;         // 300;
+int updateDisplayDelay = 20;  // 700;
+int winDelay = 20;            // 1000;
 // long matchWinDelay = 15000;
 int flashDelay = 1000;  // SET TO 1000
 int tiePulseCount = 3;

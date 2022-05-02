@@ -27,5 +27,5 @@ void GameObject::loop() {
   std::cout << "inside loop, before read reset..." << std::endl;
   _gameInputs->readReset();
   _gameModes->setGameMode(_gameInputs->readRotary());
-  GameTimer::delay(750);
+  // GameTimer::delay(750);
 }

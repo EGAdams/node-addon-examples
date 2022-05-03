@@ -1,5 +1,4 @@
 #include "MODE_1_SCORE.h"
-#include <iostream>
 #include "DIGI_V6_15.h"
 
 Mode1Score::Mode1Score(Player* player1,
@@ -36,9 +35,9 @@ void Mode1Score::mode1P1Score() {
     }
 
     if (_player1->getPoints() /* p1Points */ == 4) {
-      _gameState->setPointFlash(1);                       // pointFlash = true;
-      _gameState->setPreviousTime(GameTimer::millis(1));  // now;
-      _gameState->setToggle(0);                           // toggle = 0;
+      _gameState->setPointFlash(1);                      // pointFlash = true;
+      _gameState->setPreviousTime(GameTimer::millis());  // now;
+      _gameState->setToggle(0);                          // toggle = 0;
     }
   }
   _pointLeds.updatePoints();
@@ -228,9 +227,9 @@ void Mode1Score::mode1P2Score() {
     }
 
     if (_player2->getPoints() /* p2Points */ == 4) {
-      _gameState->setPointFlash(1);                       //  pointFlash = true;
-      _gameState->setPreviousTime(GameTimer::millis(1));  // now;
-      _gameState->setToggle(0);                           // toggle = 0;
+      _gameState->setPointFlash(1);                      //  pointFlash = true;
+      _gameState->setPreviousTime(GameTimer::millis());  // now;
+      _gameState->setToggle(0);                          // toggle = 0;
     }
   }
   _pointLeds.updatePoints();  // UpdatePoints();

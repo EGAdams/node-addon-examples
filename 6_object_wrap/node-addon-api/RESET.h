@@ -2,6 +2,7 @@
 #ifndef RESET_h
 #define RESET_h
 
+#include "Arduino.h"
 #include "GameState.h"
 #include "PinInterface.h"
 class Reset {

@@ -6,7 +6,7 @@
 #include "GameState.h"
 #include "GameTimer.h"
 #include "INPUTS.h"
-#include "LiquidCrystal_I2C.h"
+// #include "LiquidCrystal.h"
 #include "PinInterface.h"
 #include "PinState.h"
 #include "Player.h"

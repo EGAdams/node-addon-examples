@@ -1,6 +1,5 @@
 #include "MODE_1_FUNCTIONS.h"
-#include <chrono>
-#include <iostream>
+// #include <chrono>
 #include "DIGI_V6_15.h"
 
 Mode1Functions::Mode1Functions(Player* player1,
@@ -14,15 +13,9 @@ Mode1Functions::Mode1Functions(Player* player1,
       _mode1Score(player1, player2, pinInterface, gameState),
       _undo(player1, player2, pinInterface, gameState) {}
 
-Mode1Functions::~Mode1Functions() {
-  SerialObject Serial;
-  Serial.println("Mode 1 destructor");
-}
+Mode1Functions::~Mode1Functions() {}
 
 void Mode1Functions::mode1ButtonFunction() {
-  //   SerialObject Serial;
-  std::cout << "player button in game state: " << _gameState->getPlayerButton()
-            << std::endl;
   switch (_gameState->getPlayerButton() /* playerButton */) {
     case 0:
       break;

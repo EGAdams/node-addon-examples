@@ -60,7 +60,7 @@ Napi::Value CppInterface::Multiply(const Napi::CallbackInfo& info) {
 }
 
 Napi::Value CppInterface::gameLoop(const Napi::CallbackInfo& info) {
-  _gameObject.loop();
+  _gameObject.beginLoop();
   return CppInterface::GetValue(info);
 }
 

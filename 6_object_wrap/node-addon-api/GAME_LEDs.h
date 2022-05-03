@@ -2,6 +2,7 @@
 #ifndef GAME_LEDs_HEADER_H
 #define GAME_LEDs_HEADER_H
 
+#include "Arduino.h"
 #include "DIGI_V6_15.h"
 #include "PinInterface.h"
 #include "Player.h"

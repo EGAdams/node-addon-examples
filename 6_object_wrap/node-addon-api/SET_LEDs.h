@@ -2,6 +2,7 @@
 //
 // class SetLeds
 //
+#include "Arduino.h"
 #include "PinInterface.h"
 #include "Player.h"
 class SetLeds {

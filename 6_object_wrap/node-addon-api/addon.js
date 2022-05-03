@@ -2,7 +2,7 @@ var addon = require('bindings')('addon');
 console.log( "started..." );
 
 let iterations = 0;
-const PLAYER_BUTTONS = 202;
+const PLAYER_BUTTONS = 202; 
 var cppInterface = new addon.CppInterface( 42 );
 cppInterface.digitalWrite( 38,  1    );  // RESET
 cppInterface.digitalWrite( 26,  1    );  // UNDO

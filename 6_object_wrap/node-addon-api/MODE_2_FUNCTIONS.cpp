@@ -1,9 +1,9 @@
 #include "MODE_2_FUNCTIONS.h"
-#include <iostream>
-#include <string>
+// #include <string>
 #include "DIGI_V6_15.h"
 #include "Player.h"
-#include "Serial.h"
+// #include "Serial.h"
+#include "Arduino.h"
 
 Mode2Functions::Mode2Functions(Player* player1,
                                Player* player2,
@@ -20,7 +20,7 @@ Mode2Functions::~Mode2Functions() {}
 
 void Mode2Functions::m2Loop() {
   SerialObject Serial;
-  _gameState->setNow(/* now = */ GameTimer::millis(1));
+  _gameState->setNow(/* now = */ GameTimer::millis());
   // unsigned long elapsed_time = now -  previous_time;
   // Serial.println( "elapsed_time: " + to_string( elapsed_time ));
   if (_gameState->getNow() /* now */ -
@@ -117,7 +117,6 @@ void Mode2Functions::m2Loop() {
 
 void Mode2Functions::m2PlayerButtons(int playerButton) {
   SerialObject Serial;
-  std::cout << "entering M2PlayerButtons()..." << std::endl;
   switch (playerButton) {
     case 0:
       break;
@@ -125,16 +124,14 @@ void Mode2Functions::m2PlayerButtons(int playerButton) {
     case 1:
       Serial.println("p1 Set 1 LED");
       p1Setting++;
-      std::cout << "p1Setting: " << p1Setting << std::endl;
       _gameState->setNow(_gameState->getNow() +
                          10000);  // now = ( now + 10000 );
-      //      Mode2Button1();
+      // Mode2Button1();
       break;
 
     case 2:
       Serial.println("p1 Set 2 LED");
       p1Setting--;
-      std::cout << "p1Setting: " << p1Setting << std::endl;
       _gameState->setNow(_gameState->getNow() +
                          10000);  // now = ( now + 10000 );
       //      Mode2Button2();
@@ -156,8 +153,7 @@ void Mode2Functions::m2PlayerButtons(int playerButton) {
       //      Mode2Button4();
       break;
   }
-  std::cout << "setting playerButton to zero." << std::endl;
-  playerButton = 0;
+  _gameState->setPlayerButton(0);  // playerButton = 0;
 }
 
 // void Mode2Button1() {

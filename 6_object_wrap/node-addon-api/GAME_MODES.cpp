@@ -1,5 +1,4 @@
 #include "GAME_MODES.h"
-#include <iostream>
 GameModes::~GameModes() {}
 GameModes::GameModes(Player* player1,
                      Player* player2,
@@ -21,28 +20,28 @@ GameModes::GameModes(Player* player1,
 void GameModes::gameStart() {
   if (_gameState->getStarted() ==
       0 /* gameStart == true */) {  // if not started...
-    std::cout << "resetting points, games and set counters to zero..."
-              << std::endl;
+    // std::cout << "resetting points, games and set counters to zero..." <<
+    // std::endl;
     _player1->setPoints(0);  // p1Points = 0;
     _player2->setPoints(0);  // p2Points = 0;
     _player1->setGames(0);   // p1Games = 0;
     _player2->setGames(0);   // p2Games = 0;
     _player1->setSets(0);    // p1Sets = 0;
     _player2->setSets(0);    // p2Sets = 0;
-    std::cout << "updating points, games and set LEDs..." << std::endl;
+    // std::cout << "updating points, games and set LEDs..." << std::endl;
     _pointLeds.updatePoints();       // UpdatePoints();
     _gameLeds.updateGames();         // UpdateGames();
     _setLeds.updateSets();           // UpdateSets();
     _gameState->setTieBreakOnly(0);  // tieBreakOnly = false;
-    std::cout << "setting game started flag..." << std::endl;
+    // std::cout << "setting game started flag..." << std::endl;
     _gameState->setStarted(1);  // gameStart = false; // set to started.
   }
 }
 
 void GameModes::mode1() {
-  // std::cout << "mode 1.  PLAYER_BUTTON: " << _pinInterface->digitalRead(
+  // // std::cout << "mode 1.  PLAYER_BUTTON: " << _pinInterface->digitalRead(
   // PLAYER_BUTTONS ) << std::endl;
-  _gameState->setNow(GameTimer::millis(1));             // now =
+  _gameState->setNow(GameTimer::millis());              // now =
   _inputs.readUndoButton();                             // ReadUndoButton();
   if (_gameState->getUndo() == 1 /* undo == true */) {  // undo button pressed
     _gameState->setUndo(0);                             // undo = false;
@@ -82,7 +81,7 @@ void GameModes::mode2() {
 }
 
 void GameModes::mode4() {
-  _gameState->setNow(GameTimer::millis(1));  // now =
+  _gameState->setNow(GameTimer::millis());  // now =
   if (_gameState->getTieBreakOnly() == 0) {
     _gameState->setTieBreak(1);  // tieBreak = true;
     _mode1TieBreaker.tieBreakEnable();
@@ -104,7 +103,8 @@ void GameModes::noCode() {
 
 void GameModes::setGameMode(int rotaryPosition) {
   SerialObject Serial;
-  std::cout << "switching to rotaryPosition: " << rotaryPosition << std::endl;
+  // std::cout << "switching to rotaryPosition: " << rotaryPosition <<
+  // std::endl;
   switch (rotaryPosition) {
     case 0:
       break;
@@ -116,7 +116,7 @@ void GameModes::setGameMode(int rotaryPosition) {
       break;
 
     case 2:  // Game mode 2 (test mode)
-      std::cout << "Game Mode 2" << std::endl;
+      // std::cout << "Game Mode 2" << std::endl;
       gameStart();
       mode2();
       Serial.println("Game Mode 2");

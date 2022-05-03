@@ -1,5 +1,4 @@
-#include <iostream>
-#include <string>
+// #include <string>
 
 #ifndef DIGI_V6_15_H_ONLY_
 #define DIGI_V6_15_H_ONLY_

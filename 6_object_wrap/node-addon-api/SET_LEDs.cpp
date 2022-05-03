@@ -1,5 +1,4 @@
 #include "SET_LEDs.h"
-#include <iostream>
 #include "DIGI_V6_15.h"
 
 SetLeds::SetLeds(Player* player1, Player* player2, PinInterface* pinInterface)

@@ -2,6 +2,7 @@
 #ifndef INPUTS_h
 #define INPUTS_h
 
+#include "Arduino.h"
 #include "GameState.h"
 #include "GameTimer.h"
 #include "PinInterface.h"

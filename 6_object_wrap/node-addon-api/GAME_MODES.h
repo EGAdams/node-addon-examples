@@ -5,7 +5,7 @@
 #include "GAME_LEDs.h"
 #include "GameState.h"
 #include "GameTimer.h"
-#include "INPUTs.h"
+#include "INPUTS.h"
 #include "MODE_1_FUNCTIONS.h"
 #include "MODE_1_TIEBREAKER.h"
 #include "MODE_2_FUNCTIONS.h"

@@ -4,16 +4,12 @@
 #include <iostream>
 #include <thread>
 
-GameTimer::GameTimer() {
-  // cout << "GameTimer::GameTimer() called..." << endl;
-}
+GameTimer::GameTimer() {}
+GameTimer::~GameTimer() {}
 
 void GameTimer::delay(int milliseconds) {
   // cout << "Sleeping for " << milliseconds << " milliseconds" << endl;
   std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
-}
-GameTimer::~GameTimer() {
-  // cout << "GameTimer::GameTimer() called..." << endl;
 }
 
 void GameTimer::sleep_until(int milliseconds) {

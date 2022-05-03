@@ -1,13 +1,12 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 #pragma once
-#include <iostream>
 #include "DigiFunctions.h"
 #include "GAME_MODES.h"
 #include "GameState.h"
 #include "GameTimer.h"
 #include "INPUTS.h"
-#include "LiquidCrystal_I2C.h"
+#include "LiquidCrystal.h"
 #include "PinInterface.h"
 #include "PinState.h"
 #include "Player.h"
@@ -18,7 +17,7 @@ class GameObject {
   ~GameObject();
   void startGame();
   PinInterface* getPinInterface();
-  void loop();
+  void beginLoop();
 
  private:
   double value_;
@@ -27,7 +26,7 @@ class GameObject {
   GameState* _gameState;
   PinState* _pinState;
   PinInterface* _pinInterface;
-  LiquidCrystal_I2C* _liquidCrystal_I2C;
+  LiquidCrystal* _liquidCrystal;
   ScoreBoard* _scoreBoard;
   DigiFunctions* _digiFunctions;
   Inputs* _gameInputs;

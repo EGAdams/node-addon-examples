@@ -2,6 +2,7 @@
 #ifndef POINT_LEDS_h
 #define POINT_LEDS_h
 
+#include "Arduino.h"
 #include "GameState.h"
 #include "PinInterface.h"
 #include "Player.h"

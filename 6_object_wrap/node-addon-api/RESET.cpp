@@ -1,5 +1,4 @@
 #include "RESET.h"
-#include <iostream>
 #include "DIGI_V6_15.h"
 #include "PinInterface.h"
 
@@ -17,9 +16,9 @@ void Reset::resetScoreboard() {
   _pinInterface->digitalWrite(P1_POINTS_LED1, LOW);
   _pinInterface->digitalWrite(P1_POINTS_LED2, LOW);
   _pinInterface->digitalWrite(P1_POINTS_LED3, LOW);
-  _pinInterface->digitalWrite(P1_POINTS_LED4,
-                              LOW);  ///////// <------- add a mapped for loop to
-                                     /// flash Player 1 LED's ---<<
+  _pinInterface->digitalWrite(
+      P1_POINTS_LED4,
+      LOW);  //<------- add a mapped for loop to flash Player 1 LED's ---<<
 
   _pinInterface->digitalWrite(P2_POINTS_LED1, LOW);
   _pinInterface->digitalWrite(P2_POINTS_LED2, LOW);

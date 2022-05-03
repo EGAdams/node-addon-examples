@@ -6,7 +6,7 @@ class GameTimer {
   GameTimer();
   void sleep_until(int milliseconds);
   static void delay(int milliseconds);
-  static unsigned long millis(int default);
+  static unsigned long millis(int default = 0);
   ~GameTimer();
 };
 

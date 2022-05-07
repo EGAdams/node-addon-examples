@@ -12,7 +12,7 @@
                    "DigiFunctions.h", "DigiFunctions.cpp",
                    "LiquidCrystal.h", "LiquidCrystal.cpp",
                    "RESET.h", "RESET.cpp",
-                   "DIGI_V6_15.h",
+                   "DIGI_V6_15/DIGI_V6_15.h",
                    "INPUTS.h", "INPUTS.cpp",
                    "GAME_MODES.h", "GAME_MODES.cpp",
                    "ScoreBoard.h", "ScoreBoard.cpp",
@@ -21,7 +21,7 @@
                    "GAME_LEDs.h", "GAME_LEDs.cpp",
                    "SET_LEDs.h", "SET_LEDs.cpp",
                    "SERVE_LEDs.h", "SERVE_LEDs.cpp",
-                   "UNDO.h", "UNDO.cpp",
+                   "UNDO/UNDO.h", "UNDO/UNDO.cpp",
                    "MODE_1_SCORE.h", "MODE_1_SCORE.cpp",
                    "MODE_1_FUNCTIONS.h", "MODE_1_FUNCTIONS.cpp",
                    "MODE_2_FUNCTIONS.h", "MODE_2_FUNCTIONS.cpp",
@@ -33,7 +33,9 @@
                    "Serial.h", "Serial.cpp",
                     ],
       "include_dirs": [
-        "<!@(node -p \"require('node-addon-api').include\")"
+        "<!@(node -p \"require('node-addon-api').include\")",
+        "UNDO",
+        "DIGI_V6_15"
       ],
       'defines': [ 'NAPI_DISABLE_CPP_EXCEPTIONS' ],
     }

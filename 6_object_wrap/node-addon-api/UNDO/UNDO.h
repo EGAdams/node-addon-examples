@@ -1,12 +1,13 @@
 #pragma once
 #ifndef UNDO_h
 #define UNDO_h
-#include "GAME_LEDs.h"
-#include "GameState.h"
-#include "POINT_LEDs.h"
-#include "PinInterface.h"
-#include "SERVE_LEDs.h"
-#include "SET_LEDs.h"
+#include "../DIGI_V6_15.h"
+#include "../GAME_LEDs.h"
+#include "../GameState.h"
+#include "../POINT_LEDs.h"
+#include "../PinInterface.h"
+#include "../SERVE_LEDs.h"
+#include "../SET_LEDs.h"
 
 class Undo {
  public:

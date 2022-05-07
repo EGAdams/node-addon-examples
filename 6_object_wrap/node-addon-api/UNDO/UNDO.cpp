@@ -1,5 +1,4 @@
 #include "UNDO.h"
-#include "DIGI_V6_15.h"
 
 Undo::Undo(Player* player1,
            Player* player2,

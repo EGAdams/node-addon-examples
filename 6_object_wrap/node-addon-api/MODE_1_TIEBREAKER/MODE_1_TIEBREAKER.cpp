@@ -38,7 +38,6 @@ void Mode1TieBreaker::tieLEDsOff() {
 
 //------------------------------------------------------------------------------------------------------------------------
 void Mode1TieBreaker::mode1TBButtonFunction() {
-  SerialObject Serial;
   switch (_gameState->getPlayerButton() /* playerButton */) {
     case 0:
       break;

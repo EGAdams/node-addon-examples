@@ -7,7 +7,6 @@
 #include "GameTimer.h"
 #include "PinInterface.h"
 #include "RESET.h"
-#include "Serial.h"
 class Inputs {
  public:
   Inputs(Player* player1,

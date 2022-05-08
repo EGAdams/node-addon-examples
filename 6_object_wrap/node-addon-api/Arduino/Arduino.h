@@ -6,5 +6,3 @@
 
 #define String                                                                 \
   (std::string x) { return std::itoa(x); }
-
-#include "Serial.h"

@@ -3,9 +3,7 @@
 PinInterface::PinInterface(PinState* pinState) : _pinState(pinState) {}
 PinInterface::~PinInterface() {}
 
-int PinInterface::
-
-    analogRead(int pin) {
+int PinInterface::analogRead(int pin) {
   int pin_value = _pinState->getPinState(std::to_string(pin));
   std::cout << "analog read pin_value: " << pin_value << std::endl;
   return pin_value;

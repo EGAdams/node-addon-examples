@@ -113,7 +113,6 @@ Napi::Value CppInterface::digitalWrite(const Napi::CallbackInfo& info) {
   double pin = info[0].As<Napi::Number>().DoubleValue();
   double value = info[1].As<Napi::Number>().DoubleValue();
 
-  SerialObject Serial;
   std::cout << " writing " << value << " to pin " << pin << "..." << std::endl;
   _gameObject.getPinInterface()->digitalWrite(pin, value);
   Napi::Number setValue = Napi::Number::New(env, pin + value);

@@ -144,7 +144,6 @@ void Mode1WinSequences::p2MatchWinSequence() {
   _pointLeds.updateTBPoints();  // UpdateTBPoints();
   _player1->setGames(99);       // p1Games = 99;
   _gameLeds.updateGames();      // UpdateGames();
-  SerialObject Serial;
 
   for (int currentPulseCount = 0; currentPulseCount < MatchWinPulseCount;
        currentPulseCount++) {
@@ -175,7 +174,6 @@ void Mode1WinSequences::p2MatchWinSequence() {
     GameTimer::delay(flashDelay);
   }
   _reset.resetScoreboard();
-  Serial.println("End P2 Match Win Sequence");
 }
 
 void Mode1WinSequences::p1TBGameWinSequence() {

@@ -19,7 +19,6 @@ Mode2Functions::Mode2Functions(Player* player1,
 Mode2Functions::~Mode2Functions() {}
 
 void Mode2Functions::m2Loop() {
-  SerialObject Serial;
   _gameState->setNow(/* now = */ GameTimer::millis());
   // unsigned long elapsed_time = now -  previous_time;
   // Serial.println( "elapsed_time: " + to_string( elapsed_time ));
@@ -111,18 +110,17 @@ void Mode2Functions::m2Loop() {
     _gameState->setPreviousTime(_gameState->getNow());  //  previous_time = now;
   } else {
     // Serial.println( "elapsed_time: " + to_string( elapsed_time ));
-    Serial.println("*** DID NOT ENTER BECAUSE NOT ENOUGH TIME HAS PASSED ***");
+    // Serial.println("*** DID NOT ENTER BECAUSE NOT ENOUGH TIME HAS PASSED
+    // ***");
   }
 }
 
 void Mode2Functions::m2PlayerButtons(int playerButton) {
-  SerialObject Serial;
   switch (playerButton) {
     case 0:
       break;
 
     case 1:
-      Serial.println("p1 Set 1 LED");
       p1Setting++;
       _gameState->setNow(_gameState->getNow() +
                          10000);  // now = ( now + 10000 );
@@ -130,7 +128,6 @@ void Mode2Functions::m2PlayerButtons(int playerButton) {
       break;
 
     case 2:
-      Serial.println("p1 Set 2 LED");
       p1Setting--;
       _gameState->setNow(_gameState->getNow() +
                          10000);  // now = ( now + 10000 );
@@ -138,7 +135,6 @@ void Mode2Functions::m2PlayerButtons(int playerButton) {
       break;
 
     case 3:
-      Serial.println("p2 Set 2 LED");
       p2Setting++;
       _gameState->setNow(_gameState->getNow() +
                          10000);  // now = ( now + 10000 );
@@ -146,7 +142,6 @@ void Mode2Functions::m2PlayerButtons(int playerButton) {
       break;
 
     case 4:
-      Serial.println("p2 Set 1 LED");
       p2Setting--;
       _gameState->setNow(_gameState->getNow() +
                          10000);  // now = ( now + 10000 );

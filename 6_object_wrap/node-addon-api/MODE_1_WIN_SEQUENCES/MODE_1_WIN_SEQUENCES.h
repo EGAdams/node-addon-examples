@@ -11,7 +11,6 @@
 #include "Player.h"
 #include "RESET.h"
 #include "SET_LEDs.h"
-#include "Serial.h"
 #include "UNDO.h"
 
 class Mode1WinSequences {

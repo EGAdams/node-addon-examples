@@ -19,28 +19,22 @@ GameModes::GameModes(Player* player1,
 
 void GameModes::gameStart() {
   if (_gameState->getStarted() ==
-      0 /* gameStart == true */) {  // if not started...
-    // std::cout << "resetting points, games and set counters to zero..." <<
-    // std::endl;
-    _player1->setPoints(0);  // p1Points = 0;
-    _player2->setPoints(0);  // p2Points = 0;
-    _player1->setGames(0);   // p1Games = 0;
-    _player2->setGames(0);   // p2Games = 0;
-    _player1->setSets(0);    // p1Sets = 0;
-    _player2->setSets(0);    // p2Sets = 0;
-    // std::cout << "updating points, games and set LEDs..." << std::endl;
+      0 /* gameStart == true */) {   // if not started...
+    _player1->setPoints(0);          // p1Points = 0;
+    _player2->setPoints(0);          // p2Points = 0;
+    _player1->setGames(0);           // p1Games = 0;
+    _player2->setGames(0);           // p2Games = 0;
+    _player1->setSets(0);            // p1Sets = 0;
+    _player2->setSets(0);            // p2Sets = 0;
     _pointLeds.updatePoints();       // UpdatePoints();
     _gameLeds.updateGames();         // UpdateGames();
     _setLeds.updateSets();           // UpdateSets();
     _gameState->setTieBreakOnly(0);  // tieBreakOnly = false;
-    // std::cout << "setting game started flag..." << std::endl;
-    _gameState->setStarted(1);  // gameStart = false; // set to started.
+    _gameState->setStarted(1);       // gameStart = false; // set to started.
   }
 }
 
 void GameModes::mode1() {
-  // // std::cout << "mode 1.  PLAYER_BUTTON: " << _pinInterface->digitalRead(
-  // PLAYER_BUTTONS ) << std::endl;
   _gameState->setNow(GameTimer::millis());              // now =
   _inputs.readUndoButton();                             // ReadUndoButton();
   if (_gameState->getUndo() == 1 /* undo == true */) {  // undo button pressed
@@ -66,8 +60,6 @@ void GameModes::mode1() {
 }
 
 void GameModes::mode2() {
-  SerialObject Serial;
-  Serial.println(" Starting Mode2.");
   _inputs.readUndoButton();     // ReadUndoButton();    // sets undo to true if
                                 // button is pressed.
   _inputs.readPlayerButtons();  // ReadPlayerButtons();
@@ -91,8 +83,6 @@ void GameModes::mode4() {
 }
 
 void GameModes::noCode() {
-  SerialObject Serial;
-  Serial.println("No Code");
   _player1->setPoints(_player1->getPoints() + 1);  // p1Points++;
   _pointLeds.updatePoints();                       // UpdatePoints();
   GameTimer::delay(1000);
@@ -102,9 +92,6 @@ void GameModes::noCode() {
 }
 
 void GameModes::setGameMode(int rotaryPosition) {
-  SerialObject Serial;
-  // std::cout << "switching to rotaryPosition: " << rotaryPosition <<
-  // std::endl;
   switch (rotaryPosition) {
     case 0:
       break;
@@ -119,11 +106,9 @@ void GameModes::setGameMode(int rotaryPosition) {
       // std::cout << "Game Mode 2" << std::endl;
       gameStart();
       mode2();
-      Serial.println("Game Mode 2");
       break;
 
     case 3:  // Game mode 3 (Not yet written)
-      Serial.println("Game Mode 3 redirecting to Mode1...");
       gameStart();
       mode1();
       // Mode2();
@@ -131,7 +116,6 @@ void GameModes::setGameMode(int rotaryPosition) {
       break;
 
     case 4:  // Game mode 4 (Not yet written)
-      Serial.println("Game Mode 4");
       gameStart();
       mode4();
       // Mode2();
@@ -139,7 +123,6 @@ void GameModes::setGameMode(int rotaryPosition) {
       break;
 
     case 5:  // Game mode 5 (Not yet written)
-      Serial.println("Game Mode 5");
       // Mode2();
       noCode();
       break;

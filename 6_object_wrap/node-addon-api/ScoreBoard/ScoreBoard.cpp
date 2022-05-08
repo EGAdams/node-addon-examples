@@ -1,10 +1,10 @@
 #include "ScoreBoard.h"
-// #include <LiquidCrystal.h>
-#include "LiquidCrystal.h"
+// #include <WebLiquidCrystal.h>
+#include "WebLiquidCrystal.h"
 
 ScoreBoard::ScoreBoard(Player* player1,
                        Player* player2,
-                       LiquidCrystal* lcdDisplay)
+                       WebLiquidCrystal* lcdDisplay)
     : _player1(player1), _player2(player2), _lcd(lcdDisplay) {
   _lcd->init();
   _lcd->backlight();

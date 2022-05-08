@@ -2,7 +2,7 @@
 
 GameObject::GameObject() {
   _pinState = new PinState();
-  _liquidCrystal = new LiquidCrystal();
+  _liquidCrystal = new WebLiquidCrystal();
   _player1 = new Player(1);
   _player2 = new Player(2);
   _pinInterface = new PinInterface(_pinState);

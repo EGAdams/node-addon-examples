@@ -1,16 +1,15 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 #pragma once
-#include "DigiFunctions.h"
 #include "GAME_MODES.h"
 #include "GameState.h"
 #include "GameTimer.h"
 #include "INPUTS.h"
-#include "LiquidCrystal.h"
 #include "PinInterface.h"
 #include "PinState.h"
 #include "Player.h"
 #include "ScoreBoard.h"
+#include "WebLiquidCrystal.h"
 class GameObject {
  public:
   GameObject();
@@ -26,9 +25,8 @@ class GameObject {
   GameState* _gameState;
   PinState* _pinState;
   PinInterface* _pinInterface;
-  LiquidCrystal* _liquidCrystal;
+  WebLiquidCrystal* _liquidCrystal;
   ScoreBoard* _scoreBoard;
-  DigiFunctions* _digiFunctions;
   Inputs* _gameInputs;
   GameModes* _gameModes;
 };

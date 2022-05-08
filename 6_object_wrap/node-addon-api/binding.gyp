@@ -9,13 +9,13 @@
                    "TranslateConstant.h", "TranslateConstant.cpp",
                    "GameState/GameState.h", "GameState/GameState.cpp",
                    "DigiFunctions.h", "DigiFunctions.cpp",
-                   "LiquidCrystal.h", "LiquidCrystal.cpp",
+                   "WebLiquidCrystal/WebLiquidCrystal.h", "WebLiquidCrystal/WebLiquidCrystal.cpp",
                    "RESET/RESET.h", "RESET/RESET.cpp",
                    "DIGI_V6_15/DIGI_V6_15.h",
                    "INPUTS/INPUTS.h", "INPUTS/INPUTS.cpp",
                    "GAME_MODES/GAME_MODES.h", "GAME_MODES/GAME_MODES.cpp",
-                   "ScoreBoard.h", "ScoreBoard.cpp",
-                   "GameObject.h", "GameObject.cpp",
+                   "ScoreBoard/ScoreBoard.h", "ScoreBoard/ScoreBoard.cpp",
+                   "GameObject/GameObject.h", "GameObject/GameObject.cpp",
                    "POINT_LEDs/POINT_LEDs.h", "POINT_LEDs/POINT_LEDs.cpp",
                    "GAME_LEDs/GAME_LEDs.h", "GAME_LEDs/GAME_LEDs.cpp",
                    "SET_LEDs/SET_LEDs.h", "SET_LEDs/SET_LEDs.cpp",
@@ -37,7 +37,8 @@
         "UNDO", "DIGI_V6_15", "GAME_LEDs", "GAME_MODES", "Arduino", "PinState",
         "PinInterface", "Player", "GameState", "GameTimer", "INPUTS", "RESET",
         "POINT_LEDs", "MODE_1_FUNCTIONS", "MODE_1_SCORE", "SERVE_LEDs", "MODE_1_TIEBREAKER",
-        "MODE_1_WIN_SEQUENCES", "SET_LEDs", "MODE_2_FUNCTIONS"
+        "MODE_1_WIN_SEQUENCES", "SET_LEDs", "MODE_2_FUNCTIONS", "GameObject",
+        "WebLiquidCrystal", "ScoreBoard"
       ],
       'defines': [ 'NAPI_DISABLE_CPP_EXCEPTIONS' ],
     }

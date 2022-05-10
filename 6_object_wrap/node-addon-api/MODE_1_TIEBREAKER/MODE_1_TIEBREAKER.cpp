@@ -1,10 +1,9 @@
-// #include <string>
-
 #ifndef DIGI_V6_15_H_ONLY_
 #define DIGI_V6_15_H_ONLY_
 #include "DIGI_V6_15.h"
 #endif
 
+#include "Arduino.h"
 #include "GameTimer.h"
 #include "MODE_1_TIEBREAKER.h"
 
@@ -14,59 +13,61 @@ Mode1TieBreaker::Mode1TieBreaker(Player* player1,
                                  GameState* gameState)
     : _player1(player1),
       _player2(player2),
+      _pinInterface(pinInterface),
       _gameState(gameState),
-      _serveLeds(pinInterface, gameState),
       _pointLeds(player1, player2, pinInterface),
       _gameLeds(player1, player2, pinInterface),
+      _serveLeds(pinInterface, gameState),
       _setLeds(player1, player2, pinInterface),
-      _undo(player1, player2, pinInterface, gameState),
-      _mode1WinSequences(player1, player2, pinInterface, gameState) {}
+      _mode1WinSequences(player1, player2, pinInterface, gameState),
+      _undo(player1, player2, pinInterface, gameState) {}
 
 Mode1TieBreaker::~Mode1TieBreaker() {}
 
 void Mode1TieBreaker::tieLEDsOn() {
   _gameState->setTieLEDsOn(1);  // tieLEDsOn = true;
-  _pinInterface->digitalWrite(P1_TIEBREAKER, HIGH);
-  _pinInterface->digitalWrite(P2_TIEBREAKER, HIGH);
+  _pinInterface->pinDigitalWrite(P1_TIEBREAKER, HIGH);
+  _pinInterface->pinDigitalWrite(P2_TIEBREAKER, HIGH);
 }
 
 void Mode1TieBreaker::tieLEDsOff() {
   _gameState->setTieLEDsOn(0);  // tieLEDsOn = false;
-  _pinInterface->digitalWrite(P1_TIEBREAKER, LOW);
-  _pinInterface->digitalWrite(P2_TIEBREAKER, LOW);
+  _pinInterface->pinDigitalWrite(P1_TIEBREAKER, LOW);
+  _pinInterface->pinDigitalWrite(P2_TIEBREAKER, LOW);
 }
 
 //------------------------------------------------------------------------------------------------------------------------
 void Mode1TieBreaker::mode1TBButtonFunction() {
-  switch (_gameState->getPlayerButton() /* playerButton */) {
+  // SerialObject Serial;
+  switch (_gameState->getPlayerButton()) {
     case 0:
       break;
 
     case 1:
-      GameTimer::delay(buttonDelay);
+      GameTimer::gameDelay(_gameState->getButtonDelay() /* buttonDelay */);
       _undo.setMode1Undo();                          // SetMode1Undo();
       _player1->setGames(_player1->getGames() + 1);  // p1Games++;
       mode1TBP1Games();                              // Mode1TBP1Games();
       break;
 
     case 2:
-      GameTimer::delay(buttonDelay);
+      GameTimer::gameDelay(_gameState->getButtonDelay() /* buttonDelay */);
       _undo.mode1Undo();  // Mode1Undo();
       break;
 
     case 3:
-      GameTimer::delay(buttonDelay);
+      GameTimer::gameDelay(_gameState->getButtonDelay() /* buttonDelay */);
       _undo.setMode1Undo();                          // SetMode1Undo();
       _player2->setGames(_player2->getGames() + 1);  // p2Games++;
       mode1TBP2Games();                              //  Mode1TBP2Games();
       break;
 
     case 4:
-      GameTimer::delay(buttonDelay);
+      GameTimer::gameDelay(_gameState->getButtonDelay() /* buttonDelay */);
       _undo.mode1Undo();  // Mode1Undo();
       break;
   }
-  _gameState->setPlayerButton(0);  // playerButton = 0;
+  _gameState->setPlayerButton(0); /* PlayerButton */ /* playerButton */  // = 0;
 }
 
 void Mode1TieBreaker::tieBreaker() {
@@ -78,35 +79,51 @@ void Mode1TieBreaker::tieBreaker() {
 //-------------------------------------------------------------------------------------------------------------------------
 
 void Mode1TieBreaker::mode1SetTBButtonFunction() {
-  switch (playerButton) {
+  switch (_gameState->getPlayerButton() /* playerButton */) {
     case 0:
       break;
 
     case 1:
-      GameTimer::delay(buttonDelay);                 // delay( buttonDelay );
+      GameTimer::gameDelay(
+          _gameState
+              ->getButtonDelay() /* buttonDelay */);  // delay(
+                                                      // _gameState->getButtonDelay()
+                                                      // /* buttonDelay */  );
       _undo.setMode1Undo();                          // SetMode1Undo();
       _player1->setGames(_player1->getGames() + 1);  // p1Games++;
       mode1SetTBP1Games();
       break;
 
     case 2:
-      GameTimer::delay(buttonDelay);  // delay( buttonDelay );
-      _undo.mode1Undo();              // Mode1Undo();
+      GameTimer::gameDelay(
+          _gameState
+              ->getButtonDelay() /* buttonDelay */);  // delay(
+                                                      // _gameState->getButtonDelay()
+                                                      // /* buttonDelay */  );
+      _undo.mode1Undo();  // Mode1Undo();
       break;
 
     case 3:
-      GameTimer::delay(buttonDelay);                 // delay( buttonDelay );
+      GameTimer::gameDelay(
+          _gameState
+              ->getButtonDelay() /* buttonDelay */);  // delay(
+                                                      // _gameState->getButtonDelay()
+                                                      // /* buttonDelay */  );
       _undo.setMode1Undo();                          // SetMode1Undo();
       _player2->setGames(_player2->getGames() + 1);  // p2Games++;
       mode1SetTBP2Games();
       break;
 
     case 4:
-      GameTimer::delay(buttonDelay);  // delay( buttonDelay );;
-      _undo.mode1Undo();              // Mode1Undo();
+      GameTimer::gameDelay(
+          _gameState
+              ->getButtonDelay() /* buttonDelay */);  // delay(
+                                                      // _gameState->getButtonDelay()
+                                                      // /* buttonDelay */  );;
+      _undo.mode1Undo();  // Mode1Undo();
       break;
   }
-  playerButton = 0;
+  _gameState->setPlayerButton(0); /* playerButton */  // = 0;
 }
 
 void Mode1TieBreaker::setTieBreaker() {
@@ -127,23 +144,25 @@ void Mode1TieBreaker::tieBreakEnable() {
     tieLEDsOn();
   }
 
-  for (int currentPulseCount = 0; currentPulseCount < tiePulseCount;
+  for (int currentPulseCount = 0;
+       currentPulseCount < _gameState->getTiePulseCount();
        currentPulseCount++) {
-    _player1->setGames(6);  // p1Games = 6;
-    _player2->setGames(6);  // p2Games = 6;
+    // _player1->setGames( 6 );  // p1Games = 6;
+    // _player2->setGames( 6 );  // p2Games = 6;
     tieLEDsOff();
-    _gameLeds.updateGames();  // UpdateGames();
-    GameTimer::delay(flashDelay);
-    _player1->setGames(6);  // p1Games = 6;
-    _player2->setGames(6);  // p2Games = 6;
+    // _gameLeds.updateGames();  // UpdateGames();
+    GameTimer::gameDelay(_gameState->getFlashDelay() /* flashDelay */);
+    // _player1->setGames( 6 );  // p1Games = 6;
+    // _player2->setGames( 6 );  // p2Games = 6;
     tieLEDsOn();
-    _gameLeds.updateGames();  //    UpdateGames();
-    GameTimer::delay(flashDelay);
+    // _gameLeds.updateGames();  //    UpdateGames();
+    GameTimer::gameDelay(_gameState->getFlashDelay() /* flashDelay */);
   }
   _player1->setGames(0);    // p1Games = 0;
   _player2->setGames(0);    // p2Games = 0;
   _gameLeds.updateGames();  // UpdateGames();
-  GameTimer::delay(updateDisplayDelay);
+  GameTimer::gameDelay(
+      _gameState->getUpdateDisplayDelay() /* updateDisplayDelay */);
 }
 
 void Mode1TieBreaker::setTieBreakEnable() {
@@ -158,19 +177,24 @@ void Mode1TieBreaker::setTieBreakEnable() {
   if (_gameState->getTieLEDsOn() == 0 /* tieLEDsOn == false */) {
     tieLEDsOn();
   }
-
-  for (int currentPulseCount = 0; currentPulseCount < tiePulseCount;
-       currentPulseCount++) {
-    tieLEDsOff();
-    GameTimer::delay(flashDelay);
-    tieLEDsOn();
-    GameTimer::delay(flashDelay);
-  }
-
-  _player1->setGames(0);                 // p1Games = 0;
-  _player2->setGames(0);                 // p2Games = 0;
-  _gameLeds.updateGames();               // UpdateGames();
-  GameTimer::delay(updateDisplayDelay);  // delay( updateDisplayDelay );
+  // for (int currentPulseCount = 0; currentPulseCount <
+  // _gameState->getTiePulseCount(); // tiePulseCount;
+  //       currentPulseCount++) {
+  //     tieLEDsOff();
+  //     GameTimer::gameDelay( _gameState->getFlashDelay() /* flashDelay */ );
+  //     tieLEDsOn();
+  //     GameTimer::gameDelay( _gameState->getFlashDelay() /* flashDelay */ );
+  // }
+  _player1->setGames(0);    // p1Games = 0;
+  _player2->setGames(0);    // p2Games = 0;
+  _gameLeds.updateGames();  // UpdateGames();
+  GameTimer::gameDelay(
+      _gameState
+          ->getUpdateDisplayDelay() /* updateDisplayDelay */);  // delay(
+                                                                // _gameState->getUpdateDisplayDelay()
+                                                                // /*
+                                                                // updateDisplayDelay
+                                                                // */ );
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -182,7 +206,7 @@ void Mode1TieBreaker::endTieBreak() {
   _player2->setGames(0);          // p2Games = 0;
   _pointLeds.updatePoints();      // UpdatePoints();
   _gameLeds.updateGames();        // UpdateGames();
-  _gameState->setTieBreak(0);     //  tieBreak = false;
+  _gameState->setTieBreak(0);     // tieBreak = false;
   _gameState->setSetTieBreak(0);  // setTieBreak = false;
 }
 
@@ -190,7 +214,8 @@ void Mode1TieBreaker::mode1TBP1Games() {
   _gameLeds.updateGames();  // UpdateGames();
   _gameState->setServeSwitch(_gameState->getServeSwitch() +
                              1);  // serveSwitch++;
-  GameTimer::delay(updateDisplayDelay);
+  GameTimer::gameDelay(
+      _gameState->getUpdateDisplayDelay() /* updateDisplayDelay */);
 
   if (_player1->getGames() == 15 /* p1Games == 15 */) {
     _player1->setSets(_player1->getSets() + 1);  // p1Sets++;
@@ -198,7 +223,7 @@ void Mode1TieBreaker::mode1TBP1Games() {
     if (_player2->getSets() /* p2Sets */ == _player1->getSets() /* p1Sets */) {
       endTieBreak();                            // EndTieBreak();
       _mode1WinSequences.p1TBSetWinSequence();  // P1TBSetWinSequence();
-      _gameState->setTieBreak(1);               // setTieBreak = true;
+      _gameState->setSetTieBreak(1);            // setTieBreak = true;
       setTieBreakEnable();                      // SetTieBreakEnable();
     } else {
       _mode1WinSequences.p1SetWinSequence();  // P1SetWinSequence();
@@ -213,7 +238,7 @@ void Mode1TieBreaker::mode1TBP1Games() {
     if (_player2->getSets() /* p2Sets */ == _player1->getSets() /* p1Sets */) {
       endTieBreak();                            // EndTieBreak();
       _mode1WinSequences.p1TBSetWinSequence();  // P1TBSetWinSequence();
-      _gameState->setTieBreak(1);               // setTieBreak = true;
+      _gameState->setSetTieBreak(1);            // setTieBreak = true;
       setTieBreakEnable();                      // SetTieBreakEnable();
     } else {
       _mode1WinSequences.p1SetWinSequence();  // P1SetWinSequence();
@@ -226,7 +251,8 @@ void Mode1TieBreaker::mode1TBP2Games() {
   _gameLeds.updateGames();  // UpdateGames();
   _gameState->setServeSwitch(_gameState->getServeSwitch() +
                              1);  // serveSwitch++;
-  GameTimer::delay(updateDisplayDelay);
+  GameTimer::gameDelay(
+      _gameState->getUpdateDisplayDelay() /* updateDisplayDelay */);
 
   if (_player2->getGames() /* p2Games */ == 15) {
     _player2->setSets(_player2->getSets() + 1);  // p2Sets++;
@@ -234,7 +260,7 @@ void Mode1TieBreaker::mode1TBP2Games() {
     if (_player2->getSets() /* p2Sets */ == _player1->getSets() /* p1Sets */) {
       endTieBreak();                            // EndTieBreak();
       _mode1WinSequences.p2TBSetWinSequence();  // P2TBSetWinSequence();
-      _gameState->setTieBreak(1);               // setTieBreak = true;
+      _gameState->setSetTieBreak(1);            // setTieBreak = true;
       setTieBreakEnable();                      // SetTieBreakEnable();
     } else {
       _mode1WinSequences.p2SetWinSequence();  // P2SetWinSequence();
@@ -261,12 +287,14 @@ void Mode1TieBreaker::mode1TBP2Games() {
 
 void Mode1TieBreaker::mode1SetTBP2Games() {
   _gameLeds.updateGames();  // UpdateGames();
-  GameTimer::delay(updateDisplayDelay);
+  GameTimer::gameDelay(
+      _gameState->getUpdateDisplayDelay() /* updateDisplayDelay */);
 
   if (_player2->getGames() /* p2Games */ == 7) {
     _player2->setSets(_player2->getSets() + 1);  // p2Sets++;
     _setLeds.updateSets();                       // UpdateSets();
-    GameTimer::delay(updateDisplayDelay);
+    GameTimer::gameDelay(
+        _gameState->getUpdateDisplayDelay() /* updateDisplayDelay */);
     _mode1WinSequences.p2SetTBWinSequence();  // P2SetTBWinSequence();
     tieLEDsOff();                             // TieLEDsOff();
     _mode1WinSequences.p2MatchWinSequence();  // P2MatchWinSequence();
@@ -277,12 +305,14 @@ void Mode1TieBreaker::mode1SetTBP2Games() {
 
 void Mode1TieBreaker::mode1SetTBP1Games() {
   _gameLeds.updateGames();  // UpdateGames();
-  GameTimer::delay(updateDisplayDelay);
+  GameTimer::gameDelay(
+      _gameState->getUpdateDisplayDelay() /* updateDisplayDelay */);
 
   if (_player1->getGames() /* p1Games */ == 7) {
     _player1->setSets(_player1->getSets() + 1);  // p1Sets++;
     _setLeds.updateSets();                       // UpdateSets();
-    GameTimer::delay(updateDisplayDelay);
+    GameTimer::gameDelay(
+        _gameState->getUpdateDisplayDelay() /* updateDisplayDelay */);
     _mode1WinSequences.p1SetTBWinSequence();  // P1SetTBWinSequence();
     tieLEDsOff();                             // TieLEDsOff();
     _mode1WinSequences.p1MatchWinSequence();  // P1MatchWinSequence();

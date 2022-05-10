@@ -1,10 +1,8 @@
 #ifndef SCOREBOARD_H
 #define SCOREBOARD_H
 
-#pragma once
-// #include <WebLiquidCrystal.h>
+#include "Arduino.h"
 #include "Player.h"
-#include "ScoreBoard.h"
 #include "WebLiquidCrystal.h"
 
 class ScoreBoard {

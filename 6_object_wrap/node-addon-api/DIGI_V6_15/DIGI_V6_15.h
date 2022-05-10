@@ -1,6 +1,6 @@
-#pragma once
 #ifndef DIGI_V6_15_H
 #define DIGI_V6_15_H
+#include "Arduino.h"
 // #include <string>
 // typedef struct {
 //   int key;
@@ -113,130 +113,130 @@ namespace {
 // bool setTieBreak = false;
 // bool tieBreak = false;
 // bool tieLEDsOn = false;
-bool prev3TieLEDsOn = false;
-bool prev2TieLEDsOn = false;
-bool prev1TieLEDsOn = false;
-bool prevTieLEDsOn = false;
+// bool prev3TieLEDsOn = false;
+// bool prev2TieLEDsOn = false;
+// bool prev1TieLEDsOn = false;
+// bool prevTieLEDsOn = false;
 
-int prevSetTieBreak = 0;
-int prev1SetTieBreak = 0;
-int prev2SetTieBreak = 0;
-int prev3SetTieBreak = 0;
-int prev3TieBreak = 0;
-int prev2TieBreak = 0;
-int prev1TieBreak = 0;
-int prevTieBreak = 0;
+// int prevSetTieBreak = 0;
+// int prev1SetTieBreak = 0;
+// int prev2SetTieBreak = 0;
+// int prev3SetTieBreak = 0;
+// int prev3TieBreak = 0;
+// int prev2TieBreak = 0;
+// int prev1TieBreak = 0;
+// int prevTieBreak = 0;
 
-// int p1Points = 0;
-// int p2Points = 0;
-// int p1Games = 0;
-// int p2Games = 0;
-// int p1Sets = 0;
-// int p2Sets = 0;
-// int p1Matches = 0;
-// int p2Matches = 0;
-int p1TBGames = 0;
-int p2TBGames = 0;
-int prevP1TBGames = 0;
-int prevP2TBGames = 0;
-int prev1P1TBGames = 0;
-int prev1P2TBGames = 0;
-int prev2P1TBGames = 0;
-int prev2P2TBGames = 0;
-int prev3P1TBGames = 0;
-int prev3P2TBGames = 0;
+// // int p1Points = 0;
+// // int p2Points = 0;
+// // int p1Games = 0;
+// // int p2Games = 0;
+// // int p1Sets = 0;
+// // int p2Sets = 0;
+// // int p1Matches = 0;
+// // int p2Matches = 0;
+// int p1TBGames = 0;
+// int p2TBGames = 0;
+// int prevP1TBGames = 0;
+// int prevP2TBGames = 0;
+// int prev1P1TBGames = 0;
+// int prev1P2TBGames = 0;
+// int prev2P1TBGames = 0;
+// int prev2P2TBGames = 0;
+// int prev3P1TBGames = 0;
+// int prev3P2TBGames = 0;
 
-// Variables for Undo()
-int undoPos = 0;
-int prevPointFlash = 0;
-int prevP1Points = 0;
-int prevP2Points = 0;
-int prevP1Games = 0;
-int prevP2Games = 0;
-int prevP1Sets = 0;
-int prevP2Sets = 0;
-int prevP1Matches = 0;
-int prevP2Matches = 0;
-int prevServe = 0;
+// // Variables for Undo()
+// int undoPos = 0;
+// int prevPointFlash = 0;
+// int prevP1Points = 0;
+// int prevP2Points = 0;
+// int prevP1Games = 0;
+// int prevP2Games = 0;
+// int prevP1Sets = 0;
+// int prevP2Sets = 0;
+// int prevP1Matches = 0;
+// int prevP2Matches = 0;
+// int prevServe = 0;
 
-int prev1PointFlash = 0;
-int prev1P1Points = 0;
-int prev1P2Points = 0;
-int prev1P1Games = 0;
-int prev1P2Games = 0;
-int prev1P1Sets = 0;
-int prev1P2Sets = 0;
-int prev1P1Matches = 0;
-int prev1P2Matches = 0;
-int prev1Serve = 0;
+// int prev1PointFlash = 0;
+// int prev1P1Points = 0;
+// int prev1P2Points = 0;
+// int prev1P1Games = 0;
+// int prev1P2Games = 0;
+// int prev1P1Sets = 0;
+// int prev1P2Sets = 0;
+// int prev1P1Matches = 0;
+// int prev1P2Matches = 0;
+// int prev1Serve = 0;
 
-int prev2PointFlash = 0;
-int prev2P1Points = 0;
-int prev2P2Points = 0;
-int prev2P1Games = 0;
-int prev2P2Games = 0;
-int prev2P1Sets = 0;
-int prev2P2Sets = 0;
-int prev2P1Matches = 0;
-int prev2P2Matches = 0;
-int prev2Serve = 0;
+// int prev2PointFlash = 0;
+// int prev2P1Points = 0;
+// int prev2P2Points = 0;
+// int prev2P1Games = 0;
+// int prev2P2Games = 0;
+// int prev2P1Sets = 0;
+// int prev2P2Sets = 0;
+// int prev2P1Matches = 0;
+// int prev2P2Matches = 0;
+// int prev2Serve = 0;
 
-int prev3PointFlash = 0;
-int prev3P1Points = 0;
-int prev3P2Points = 0;
-int prev3P1Games = 0;
-int prev3P2Games = 0;
-int prev3P1Sets = 0;
-int prev3P2Sets = 0;
-int prev3P1Matches = 0;
-int prev3P2Matches = 0;
-int prev3Serve = 0;
+// int prev3PointFlash = 0;
+// int prev3P1Points = 0;
+// int prev3P2Points = 0;
+// int prev3P1Games = 0;
+// int prev3P2Games = 0;
+// int prev3P1Sets = 0;
+// int prev3P2Sets = 0;
+// int prev3P1Matches = 0;
+// int prev3P2Matches = 0;
+// int prev3Serve = 0;
 
-bool gameStart = true;
+// bool gameStart = true;
 
 // int sequenceTime = 4;
 // int sequence = 0;
 // int flashTime = 1000; // Use to control Win Sequence flash speeds when not
 // using PWM. int flash = 0;
 
-bool resetScoreBoard = false;
+// bool resetScoreBoard = false;
 
-int modeP1 = 0;
-int modeP2 = 0;
-int p1Setting = 0;
-int p2Setting = 0;
+// int modeP1 = 0;
+// int modeP2 = 0;
+// int p1Setting = 0;
+// int p2Setting = 0;
 
-int rotaryValue = 0;
-int rotaryPosition = 0;
-int prevRotaryPosition = 0;
-bool rotaryChange = false;
+// int rotaryValue = 0;
+// int rotaryPosition = 0;
+// int prevRotaryPosition = 0;
+// bool rotaryChange = false;
 
-int buttonValue = 0;
-int playerButton = 0;
-bool buttonPress = false;
+// int buttonValue = 0;
+// int playerButton = 0;
+// bool buttonPress = false;
 // bool undo = false;
 
-int serveButtonValue = 0;
-int serveButtonPress = 0;
+// int serveButtonValue = 0;
+// int serveButtonPress = 0;
 // int serveSwitch = 1;
-int serve = 0;
+// int serve = 0;
 
-unsigned long previous_time = 0;
+// unsigned long previous_time = 0;
 // unsigned long prev = 0;
-unsigned long pointFlashPrev = 0;
+// unsigned long pointFlashPrev = 0;
 
 /*--------------------------------------USER SELECTABLE
  * VARIABLES--------------------------------------*/
 
-int buttonDelay = 100;         // 300;
-int updateDisplayDelay = 100;  // 700;
-int winDelay = 100;            // 1000;
-// long matchWinDelay = 15000;
-int flashDelay = 1000;  // SET TO 1000
-int tiePulseCount = 3;
-int GameWinPulseCount = 0 /* 3 */;
-int SetWinPulseCount = 0 /* 3 */;
-int MatchWinPulseCount = 5;
+// int buttonDelay = 100;         // 300;
+// int updateDisplayDelay = 100;  // 700;
+// int winDelay = 100;            // 1000;
+// // long matchWinDelay = 15000;
+// int flashDelay = 1000;  // SET TO 1000
+// int tiePulseCount = 3;
+// int GameWinPulseCount = 0 /* 3 */;
+// int SetWinPulseCount = 0 /* 3 */;
+// int MatchWinPulseCount = 5;
 
 /*------------------------------------END USER SELECTABLE
  * VARIABLES------------------------------------*/

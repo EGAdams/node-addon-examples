@@ -1,10 +1,13 @@
-#pragma once
 //
 // class SetLeds
 //
+#ifndef SET_LEDS_H
+#define SET_LEDS_H
+
 #include "Arduino.h"
 #include "PinInterface.h"
 #include "Player.h"
+
 class SetLeds {
  public:
   SetLeds(Player* player1, Player* player2, PinInterface* pinInterface);
@@ -16,3 +19,5 @@ class SetLeds {
   Player* _player2;
   PinInterface* _pinInterface;
 };
+
+#endif

@@ -1,9 +1,6 @@
-#pragma once
-//
-//
-//
 #ifndef MODE_1_WIN_SEQUENCES_H
 #define MODE_1_WIN_SEQUENCES_H
+#include "Arduino.h"
 #include "GAME_LEDs.h"
 #include "GameState.h"
 #include "POINT_LEDs.h"
@@ -40,13 +37,13 @@ class Mode1WinSequences {
  private:
   Player* _player1;
   Player* _player2;
-  Undo _undo;
   PinInterface* _pinInterface;
   GameState* _gameState;
   PointLeds _pointLeds;
   GameLeds _gameLeds;
   SetLeds _setLeds;
   Reset _reset;
+  Undo _undo;
 };
 
 #endif

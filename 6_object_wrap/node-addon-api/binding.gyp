@@ -6,7 +6,7 @@
       "cflags_cc!": [ "-fno-exceptions" ],
       "sources": [ "addon.cc", "CppInterface.cpp",
                    "GameTimer/GameTimer.h", "GameTimer/GameTimer.cpp",
-                   "TranslateConstant.h", "TranslateConstant.cpp",
+                   "TranslateConstant/TranslateConstant.h", "TranslateConstant/TranslateConstant.cpp",
                    "GameState/GameState.h", "GameState/GameState.cpp",
                    "DigiFunctions.h", "DigiFunctions.cpp",
                    "WebLiquidCrystal/WebLiquidCrystal.h", "WebLiquidCrystal/WebLiquidCrystal.cpp",
@@ -38,7 +38,7 @@
         "PinInterface", "Player", "GameState", "GameTimer", "INPUTS", "RESET",
         "POINT_LEDs", "MODE_1_FUNCTIONS", "MODE_1_SCORE", "SERVE_LEDs", "MODE_1_TIEBREAKER",
         "MODE_1_WIN_SEQUENCES", "SET_LEDs", "MODE_2_FUNCTIONS", "GameObject",
-        "WebLiquidCrystal", "ScoreBoard"
+        "WebLiquidCrystal", "ScoreBoard", "TranslateConstant"
       ],
       'defines': [ 'NAPI_DISABLE_CPP_EXCEPTIONS' ],
     }

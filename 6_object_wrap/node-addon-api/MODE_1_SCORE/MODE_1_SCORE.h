@@ -1,10 +1,7 @@
-#pragma once
-//
-//
-//
 #ifndef MODE_1_SCORE_H
 #define MODE_1_SCORE_H
 
+#include "Arduino.h"
 #include "GAME_LEDs.h"
 #include "GameState.h"
 #include "GameTimer.h"
@@ -33,16 +30,15 @@ class Mode1Score {
   void mode1SetTBP2Games();
 
  private:
-  Undo _undo;
-  PinInterface* _pinInterface;
   Player* _player1;
   Player* _player2;
+  GameState* _gameState;
   Mode1TieBreaker _mode1TieBreaker;
   PointLeds _pointLeds;
   GameLeds _gameLeds;
   SetLeds _setLeds;
   Mode1WinSequences _mode1WinSequences;
-  GameState* _gameState;
+  Undo _undo;
 };
 
 #endif

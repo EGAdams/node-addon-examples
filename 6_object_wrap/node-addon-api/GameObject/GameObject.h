@@ -1,6 +1,7 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
-#pragma once
+// #include "DigiFunctions.h"
+#include "Arduino.h"
 #include "GAME_MODES.h"
 #include "GameState.h"
 #include "GameTimer.h"
@@ -10,25 +11,35 @@
 #include "Player.h"
 #include "ScoreBoard.h"
 #include "WebLiquidCrystal.h"
+
 class GameObject {
  public:
-  GameObject();
+  GameObject(Player* player1,
+             Player* player2,
+             PinState* pinState,
+             PinInterface* pinInterface,
+             GameState* gameState,
+             GameTimer* gameTimer,
+             Inputs* gameInputs,
+             GameModes* gameModes,
+             ScoreBoard* scoreBoard,
+             WebLiquidCrystal* lcd);
   ~GameObject();
-  void startGame();
+  void start();
   PinInterface* getPinInterface();
-  void beginLoop();
+  void loopGame();
 
  private:
-  double value_;
   Player* _player1;
   Player* _player2;
-  GameState* _gameState;
   PinState* _pinState;
   PinInterface* _pinInterface;
-  WebLiquidCrystal* _liquidCrystal;
-  ScoreBoard* _scoreBoard;
+  GameState* _gameState;
+  GameTimer* _gameTimer;
   Inputs* _gameInputs;
   GameModes* _gameModes;
+  ScoreBoard* _scoreBoard;
+  WebLiquidCrystal* _webLiquidCrystal;
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include "SERVE_LEDs.h"
+#include "Arduino.h"
 #include "DIGI_V6_15.h"
 
 ServeLeds::ServeLeds(PinInterface* pinInterface, GameState* gameState)
@@ -7,11 +8,11 @@ ServeLeds::~ServeLeds() {}
 
 void ServeLeds::updateServeLED() {
   if (_gameState->getServe() /* serve */ == 0) {
-    _pinInterface->digitalWrite(P1_SERVE, HIGH);
-    _pinInterface->digitalWrite(P2_SERVE, LOW);
+    _pinInterface->pinDigitalWrite(P1_SERVE, HIGH);
+    _pinInterface->pinDigitalWrite(P2_SERVE, LOW);
   } else {
-    _pinInterface->digitalWrite(P1_SERVE, LOW);
-    _pinInterface->digitalWrite(P2_SERVE, HIGH);
+    _pinInterface->pinDigitalWrite(P1_SERVE, LOW);
+    _pinInterface->pinDigitalWrite(P2_SERVE, HIGH);
   }
 }
 

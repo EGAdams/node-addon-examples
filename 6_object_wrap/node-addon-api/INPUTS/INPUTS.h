@@ -1,4 +1,3 @@
-#pragma once
 #ifndef INPUTS_h
 #define INPUTS_h
 

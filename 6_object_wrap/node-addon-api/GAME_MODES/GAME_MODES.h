@@ -1,6 +1,6 @@
 #ifndef GAME_MODES_h
 #define GAME_MODES_h
-#pragma once
+#include "Arduino.h"
 #include "DIGI_V6_15.h"
 #include "GAME_LEDs.h"
 #include "GameState.h"

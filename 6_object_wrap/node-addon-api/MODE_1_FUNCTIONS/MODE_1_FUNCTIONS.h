@@ -1,6 +1,6 @@
-#pragma once
 #ifndef MODE_1_FUNCTIONS_h
 #define MODE_1_FUNCTIONS_h
+#include "Arduino.h"
 #include "GameState.h"
 #include "GameTimer.h"
 #include "MODE_1_SCORE.h"
@@ -19,14 +19,13 @@ class Mode1Functions {
   void pointFlash();
 
  private:
-  Undo _undo;
-  PointLeds _pointLeds;
-  bool* _pointFlash;
-  PinInterface* _pinInterface;
-  Mode1Score _mode1Score;
-  GameState* _gameState;
   Player* _player1;
   Player* _player2;
+  GameState* _gameState;
+  Undo _undo;
+  PointLeds _pointLeds;
+  Mode1Score _mode1Score;
+  ServeLeds _serveLeds;
 };
 
 #endif

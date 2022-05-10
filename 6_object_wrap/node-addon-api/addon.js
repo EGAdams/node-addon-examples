@@ -13,7 +13,7 @@ while ( iterations < 10 ) {
     if ( cppInterface.digitalRead( PLAYER_BUTTONS ) < 2000 ) {
         console.log( "pin PLAYER_BUTTONS is low!" );
         exit( 0 ); }    
-    cppInterface.gameLoop();
+    cppInterface.loopGame();
     console.log( "iteration: " + ++iterations );
     // postMessage( "iteration: " + iterations );
     temp = cppInterface.getPinState();

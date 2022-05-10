@@ -1,9 +1,8 @@
 #include "MODE_2_FUNCTIONS.h"
-// #include <string>
+#include <string>
+#include "Arduino.h"
 #include "DIGI_V6_15.h"
 #include "Player.h"
-// #include "Serial.h"
-#include "Arduino.h"
 
 Mode2Functions::Mode2Functions(Player* player1,
                                Player* player2,
@@ -12,21 +11,20 @@ Mode2Functions::Mode2Functions(Player* player1,
     : _player1(player1),
       _player2(player2),
       _gameState(gameState),
+      _pointLeds(player1, player2, pinInterface),
       _gameLeds(player1, player2, pinInterface),
-      _setLeds(player1, player2, pinInterface),
-      _pointLeds(player1, player2, pinInterface){};
+      _setLeds(player1, player2, pinInterface){};
 
 Mode2Functions::~Mode2Functions() {}
 
 void Mode2Functions::m2Loop() {
-  _gameState->setNow(/* now = */ GameTimer::millis());
+  _gameState->setNow(/* now = */ GameTimer::gameMillis());
   // unsigned long elapsed_time = now -  previous_time;
   // Serial.println( "elapsed_time: " + to_string( elapsed_time ));
   if (_gameState->getNow() /* now */ -
           _gameState->getPreviousTime() /* previous_time */
       >= 1000 /*10000*/) {
     // if ( true ) {
-    int playerOneMode = _player1->getMode();
     switch (_player1->getMode()) { /* modeP1 */
 
       // _player1 Points
@@ -121,28 +119,32 @@ void Mode2Functions::m2PlayerButtons(int playerButton) {
       break;
 
     case 1:
-      p1Setting++;
+      // Serial.println("p1 Set 1 LED");
+      _player1->setSetting(_player1->getSetting() + 1);  //  p1Setting++;
       _gameState->setNow(_gameState->getNow() +
                          10000);  // now = ( now + 10000 );
       // Mode2Button1();
       break;
 
     case 2:
-      p1Setting--;
+      // Serial.println("p1 Set 2 LED");
+      _player1->setSetting(_player1->getSetting() - 1);  // p1Setting--;
       _gameState->setNow(_gameState->getNow() +
                          10000);  // now = ( now + 10000 );
       //      Mode2Button2();
       break;
 
     case 3:
-      p2Setting++;
+      // Serial.println("p2 Set 2 LED");
+      _player2->setSetting(_player2->getSetting() + 1);  // p2Setting++;
       _gameState->setNow(_gameState->getNow() +
                          10000);  // now = ( now + 10000 );
       //      Mode2Button3();
       break;
 
     case 4:
-      p2Setting--;
+      // Serial.println("p2 Set 1 LED");
+      _player1->setSetting(_player1->getSetting() - 1);  // p2Setting--;
       _gameState->setNow(_gameState->getNow() +
                          10000);  // now = ( now + 10000 );
       //      Mode2Button4();
@@ -153,44 +155,44 @@ void Mode2Functions::m2PlayerButtons(int playerButton) {
 
 // void Mode2Button1() {
 //   if (p1s1 == 0) {
-//     analogWrite(P1_SETS_LED1, HIGH);
+//     pinAnalogWrite(P1_SETS_LED1, HIGH);
 //     p1s1 = 1;
 //   }
 //   else {
-//     analogWrite(P1_SETS_LED1, LOW);
+//     pinAnalogWrite(P1_SETS_LED1, LOW);
 //     p1s1 = 0;
 //   }
 // }
 //
 // void Mode2Button2() {
 //   if (p1s2 == 0) {
-//     analogWrite(P1_SETS_LED2, HIGH);
+//     pinAnalogWrite(P1_SETS_LED2, HIGH);
 //     p1s2 = 1;
 //   }
 //   else {
-//     analogWrite(P1_SETS_LED2, LOW);
+//     pinAnalogWrite(P1_SETS_LED2, LOW);
 //     p1s2 = 0;
 //   }
 // }
 //
 // void Mode2Button3() {
 //   if (p1s3 == 0) {
-//     analogWrite(P2_SETS_LED2, HIGH);
+//     pinAnalogWrite(P2_SETS_LED2, HIGH);
 //     p1s3 = 1;
 //   }
 //   else {
-//     analogWrite(P2_SETS_LED2, LOW);
+//     pinAnalogWrite(P2_SETS_LED2, LOW);
 //     p1s3 = 0;
 //   }
 // }
 //
 // void Mode2Button4() {
 //   if (p1s4 == 0) {
-//     analogWrite(P2_SETS_LED1, HIGH);
+//     pinAnalogWrite(P2_SETS_LED1, HIGH);
 //     p1s4 = 1;
 //   }
 //   else {
-//     analogWrite(P2_SETS_LED1, LOW);
+//     pinAnalogWrite(P2_SETS_LED1, LOW);
 //     p1s4 = 0;
 //   }
 // }

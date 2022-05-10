@@ -1,19 +1,18 @@
 #ifndef GAMESTATE_H
 #define GAMESTATE_H
 
-#ifndef PLAYER_H
-#define PLAYER_H
+#include "Arduino.h"
 #include "Player.h"
-#endif
-
-#pragma once
 
 class GameState {
  public:
   GameState();
   GameState(Player* player1, Player* player2);
   ~GameState();
-
+  void setUpdateDisplayDelay(int delay);
+  int getUpdateDisplayDelay();
+  void setWinDelay(int winDelay);
+  int getWinDelay();
   void setPointFlash(int pointFlash);
   int getPointFlash();
   void setServe(int serve);
@@ -60,6 +59,128 @@ class GameState {
   int getToggle();
   int getTieBreakOnly();
   void setTieBreakOnly(int tieBreakOnly);
+  void setPrevTieLEDsOn(int prevTieLEDsOn);
+  int getPrevTieLEDsOn();
+  void setPrev1TieLEDsOn(int prev1TieLEDsOn);
+  int getPrev1TieLEDsOn();
+  void setPrev2TieLEDsOn(int prev2TieLEDsOn);
+  int getPrev2TieLEDsOn();
+  void setPrev3TieLEDsOn(int prev3TieLEDsOn);
+  int getPrev3TieLEDsOn();
+  void setPrevSetTieBreak(int prevSetTieBreak);
+  int getPrevSetTieBreak();
+  void setPrev1SetTieBreak(int prev1SetTieBreak);
+  int getPrev1SetTieBreak();
+  void setPrev2SetTieBreak(int prev2SetTieBreak);
+  int getPrev2SetTieBreak();
+  void setPrev3SetTieBreak(int prev3SetTieBreak);
+  int getPrev3SetTieBreak();
+  void setPrevTieBreak(int prevTieBreak);
+  int getPrevTieBreak();
+  void setPrev1TieBreak(int prev1TieBreak);
+  int getPrev1TieBreak();
+  void setPrev2TieBreak(int prev2TieBreak);
+  int getPrev2TieBreak();
+  void setPrev3TieBreak(int prev3TieBreak);
+  int getPrev3TieBreak();
+  void setButtonDelay(int buttonDelay);
+  int getButtonDelay();
+  void setFlashDelay(unsigned long flashDelay);
+  unsigned long getFlashDelay();
+  void setTiePulseCount(int tiePulseCount);
+  int getTiePulseCount();
+  void setGameWinPulseCount(int gameWinPulseCount);
+  int getGameWinPulseCount();
+  void setSetWinPulseCount(int setWinPulseCount);
+  int getSetWinPulseCount();
+  void setMatchWinPulseCount(int matchWinPulseCount);
+  int getMatchWinPulseCount();
+  void setPrevPointFlash(int prevPointFlash);
+  int getPrevPointFlash();
+  void setPrevP1Points(int prevP1Points);
+  int getPrevP1Points();
+  void setPrevP2Points(int prevP2Points);
+  int getPrevP2Points();
+  void setPrevP1Games(int prevP1Games);
+  int getPrevP1Games();
+  void setPrevP2Games(int prevP2Games);
+  int getPrevP2Games();
+  void setPrevP1Sets(int prevP1Sets);
+  int getPrevP1Sets();
+  void setPrevP2Sets(int prevP2Sets);
+  int getPrevP2Sets();
+  void setPrevP1Matches(int prevP1Matches);
+  int getPrevP1Matches();
+  void setPrevP2Matches(int prevP2Matches);
+  int getPrevP2Matches();
+  void setPrevServe(int prevServe);
+  int getPrevServe();
+  void setPrev1PointFlash(int prev1PointFlash);
+  int getPrev1PointFlash();
+  void setPrev1P1Points(int prev1P1Points);
+  int getPrev1P1Points();
+  void setPrev1P2Points(int prev1P2Points);
+  int getPrev1P2Points();
+  void setPrev1P1Games(int prev1P1Games);
+  int getPrev1P1Games();
+  void setPrev1P2Games(int prev1P2Games);
+  int getPrev1P2Games();
+  void setPrev1P1Sets(int prev1P1Sets);
+  int getPrev1P1Sets();
+  void setPrev1P2Sets(int prev1P2Sets);
+  int getPrev1P2Sets();
+  void setPrev1P1Matches(int prev1P1Matches);
+  int getPrev1P1Matches();
+  void setPrev1P2Matches(int prev1P2Matches);
+  int getPrev1P2Matches();
+  void setPrev1Serve(int prev1Serve);
+  int getPrev1Serve();
+  void setTieBreakMem(int tieBreakMem);
+  int getTieBreakMem();
+  void setSetTieBreakMem(int setTieBreakMem);
+  int getSetTieBreakMem();
+
+  void setPrev2PointFlash(int prev2PointFlash);
+  int getPrev2PointFlash();
+  void setPrev2P1Points(int prevP1Points);
+  int getPrev2P1Points();
+  void setPrev2P2Points(int prevP2Points);
+  int getPrev2P2Points();
+  void setPrev2P1Games(int prevP1Games);
+  int getPrev2P1Games();
+  void setPrev2P2Games(int prevP2Games);
+  int getPrev2P2Games();
+  void setPrev2P1Sets(int prevP1Sets);
+  int getPrev2P1Sets();
+  void setPrev2P2Sets(int prevP2Sets);
+  int getPrev2P2Sets();
+  void setPrev2P1Matches(int prevP1Matches);
+  int getPrev2P1Matches();
+  void setPrev2P2Matches(int prevP2Matches);
+  int getPrev2P2Matches();
+  void setPrev2Serve(int prevServe);
+  int getPrev2Serve();
+
+  void setPrev3PointFlash(int prev3PointFlash);
+  int getPrev3PointFlash();
+  void setPrev3P1Points(int prevP1Points);
+  int getPrev3P1Points();
+  void setPrev3P2Points(int prevP2Points);
+  int getPrev3P2Points();
+  void setPrev3P1Games(int prevP1Games);
+  int getPrev3P1Games();
+  void setPrev3P2Games(int prevP2Games);
+  int getPrev3P2Games();
+  void setPrev3P1Sets(int prevP1Sets);
+  int getPrev3P1Sets();
+  void setPrev3P2Sets(int prevP2Sets);
+  int getPrev3P2Sets();
+  void setPrev3P1Matches(int prevP1Matches);
+  int getPrev3P1Matches();
+  void setPrev3P2Matches(int prevP2Matches);
+  int getPrev3P2Matches();
+  void setPrev3Serve(int prevServe);
+  int getPrev3Serve();
 
  private:
   Player* _player1;
@@ -88,6 +209,72 @@ class GameState {
   int _p2SetsMem;
   int _toggle;
   int _tieBreakOnly;
+  int _prev3TieLEDsOn;        // = false;
+  int _prev2TieLEDsOn;        // = false;
+  int _prev1TieLEDsOn;        // = false;
+  int _prevTieLEDsOn;         // = false;
+  int _prevSetTieBreak;       // = 0;
+  int _prev1SetTieBreak;      // = 0;
+  int _prev2SetTieBreak;      // = 0;
+  int _prev3SetTieBreak;      // = 0;
+  int _prev3TieBreak;         // = 0;
+  int _prev2TieBreak;         // = 0;
+  int _prev1TieBreak;         // = 0;
+  int _prevTieBreak;          // = 0;
+  int _winDelay;              // = 100;
+  int _updateDisplayDelay;    // = 100;
+  int _buttonDelay;           // = 100;
+  unsigned long _flashDelay;  // = 1000;
+  int _tiePulseCount;         // = 3;
+  int _gameWinPulseCount;     // = 0 /* 3 */;
+  int _setWinPulseCount;      // = 0 /* 3 */;
+  int _matchWinPulseCount;    // = 5;
+  int _prevPointFlash;        // = 0;
+  int _prevP1Points;          // = 0;
+  int _prevP2Points;          // = 0;
+  int _prevP1Games;           // = 0;
+  int _prevP2Games;           // = 0;
+  int _prevP1Sets;            // = 0;
+  int _prevP2Sets;            // = 0;
+  int _prevP1Matches;         // = 0;
+  int _prevP2Matches;         // = 0;
+  int _prevServe;             // = 0;
+
+  int _prev1PointFlash;
+  int _prev1P1Points;
+  int _prev1P2Points;   // = prevP2Points;
+  int _prev1P1Games;    // = prevP1Games;
+  int _prev1P2Games;    // = prevP2Games;
+  int _prev1P1Sets;     // = prevP1Sets;
+  int _prev1P2Sets;     // = prevP2Sets;
+  int _prev1P1Matches;  // = prevP1Matches;
+  int _prev1P2Matches;  // = prevP2Matches;
+  int _prev1Serve;      // = prevServe;
+
+  int _prev2PointFlash;  // = prev1PointFlash;
+  int _prev2P1Points;    // = prev1P1Points;
+  int _prev2P2Points;    // = prev1P2Points;
+  int _prev2P1Games;     // = prev1P1Games;
+  int _prev2P2Games;     // = prev1P2Games;
+  int _prev2P1Sets;      // = prev1P1Sets;
+  int _prev2P2Sets;      // = prev1P2Sets;
+  int _prev2P1Matches;   // = prev1P1Matches;
+  int _prev2P2Matches;   // = prev1P2Matches;
+  int _prev2Serve;       // = prev1Serve;
+
+  int _setTieBreakMem;
+  int _tieBreakMem;
+
+  int _prev3PointFlash;  //  = prev2PointFlash;
+  int _prev3P1Points;    // = prev2P1Points;
+  int _prev3P2Points;    // = prev2P2Points;
+  int _prev3P1Games;     // = prev2P1Games;
+  int _prev3P2Games;     //  = prev2P2Games;
+  int _prev3P1Sets;      // = prev2P1Sets;
+  int _prev3P2Sets;      // = prev2P2Sets;
+  int _prev3P1Matches;   // = prev2P1Matches;
+  int _prev3P2Matches;   // = prev2P2Matches;
+  int _prev3Serve;       // = prev2Serve;
 };
 
 #endif

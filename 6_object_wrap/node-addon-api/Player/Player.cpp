@@ -1,5 +1,5 @@
-#pragma once
 #include "Player.h"
+#include "Arduino.h"
 
 Player::Player(int playerNumber) : _playerNumber(playerNumber) {
   _points = 0;

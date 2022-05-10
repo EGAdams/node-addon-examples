@@ -1,4 +1,5 @@
 #include "INPUTS.h"
+#include "Arduino.h"
 #include "DIGI_V6_15.h"
 
 Inputs::Inputs(Player* player1,
@@ -7,68 +8,79 @@ Inputs::Inputs(Player* player1,
                GameState* gameState)
     : _player1(player1),
       _player2(player2),
-      _gameState(gameState),
       _pinInterface(pinInterface),
+      _gameState(gameState),
       _reset(player1, player2, pinInterface, gameState) {}
 Inputs::~Inputs(){};
 
 void Inputs::readReset() {
-  //   Serial.println("RESET: " +
-  //   std::to_string(_pinInterface->digitalRead(RESET)));
-  if (_pinInterface->digitalRead(RESET) == LOW) {
-    // Serial.println("Reset press detected _pinInterface->digitalRead( RESET )
-    // "
+  // SerialObject Serial;
+  // Serial.println("readReset()");
+  // std::cout << "PLAYER_BUTTONS: " <<
+  // _pinInterface->pinAnalogRead(PLAYER_BUTTONS) << std::endl;
+  if (_pinInterface->pinDigitalRead(RESET) == LOW) {
+    // Serial.println("Reset press detected _pinInterface->pinDigitalRead( RESET
+    // ) "
     //                "== LOW infinite loop starts here...");
-    while (_pinInterface->digitalRead(RESET) == LOW) {
-      //   Serial.println("waiting for reset release...");
-      GameTimer::delay(250);  // _digiFunctions->gameDelay( 1000 );          //
-                              // careful here!!!
-    }                         // infinite loop
+    if (SIMULATION == 0) {
+      while (_pinInterface->pinDigitalRead(RESET) == LOW) {
+        // Serial.println("waiting for reset release...");
+        GameTimer::gameDelay(25);  // careful here!!!
+      }                            // semi infinite loop
+    }
     // Serial.println("exited loop.");
     // _digiFunctions->gameDelay( 1000 );
     _reset.resetScoreboard();
     // _digiFunctions->clearPinState();
   } else {
-    // Serial.println("_pinInterface->digitalRead( RESET ) != LOW");
+    // Serial.println("_pinInterface->pinDigitalRead( RESET ) != LOW");
   }
 }
 
 void Inputs::readUndoButton() {
-  if (_pinInterface->digitalRead(UNDO) == LOW) {
-    // Serial.println("entering _pinInterface->digitalRead( UNDO ) == LOW ");
+  // SerialObject Serial;
+  if (_pinInterface->pinDigitalRead(UNDO) == LOW) {
+    // Serial.println("entering _pinInterface->pinDigitalRead( UNDO ) == LOW ");
     // Serial.println("infinite loop...  waiting for it to go HIGH...");
-    while (_pinInterface->digitalRead(UNDO) == LOW) {
-      // Serial.println("infinite loop...  waiting for it to go HIGH...");
-      GameTimer::delay(250);
-      if (SIMULATION) break;
+    // Serial.println("broke out of loop.");
+    if (SIMULATION == 0) {
+      while (_pinInterface->pinDigitalRead(UNDO) == LOW) {
+        GameTimer::gameDelay(25);
+      }
     }
-    GameTimer::delay(2000);
+    // GameTimer::gameDelay(2000 );
     _gameState->setUndo(1);  // undo = true;
   } else {
-    // Serial.println("_pinInterface->digitalRead( UNDO ) != LOW");
+    // Serial.println( "_pinInterface->pinDigitalRead( UNDO ) != LOW" );
   }
 }
 
-int Inputs::readRotary() {           // TODO: make this one read.
+int Inputs::readRotary() {  // TODO: make this one read.
+  // SerialObject Serial;
   _gameState->setRotaryPosition(0);  // int rotaryPosition = 0;
-  //   Serial.println("reading rotary pin " + ROTARY);
-  int rotaryAnalogValue = _pinInterface->analogRead(ROTARY);
+  // Serial.println("reading rotary pin " + ROTARY);
+  int rotaryAnalogValue = _pinInterface->pinAnalogRead(ROTARY);
   if (rotaryAnalogValue <= 100) {
     _gameState->setRotaryPosition(1);
   }  // rotaryPosition = 1
   if (rotaryAnalogValue >= 350 && rotaryAnalogValue <= 450) {
     _gameState->setRotaryPosition(2); /* rotaryPosition = 2 */
+    ;
   }
   if (rotaryAnalogValue >= 550 && rotaryAnalogValue <= 700) {
     _gameState->setRotaryPosition(3); /* rotaryPosition = 3 */
+    ;
   }
   if (rotaryAnalogValue >= 750 && rotaryAnalogValue <= 800) {
     _gameState->setRotaryPosition(4); /* rotaryPosition = 4 */
+    ;
   }
   if (rotaryAnalogValue >= 850 && rotaryAnalogValue <= 1000) {
     _gameState->setRotaryPosition(5); /* rotaryPosition = 5 */
+    ;
   }
-
+  // Serial.print("rotaryPosition set to: " +
+  //              _gameState->getRotaryPosition() /* rotaryPosition */);
   // if ( rotaryPosition != prevRotaryPosition  ) {
   if (_gameState->getRotaryPosition() != _gameState->getPrevRotaryPosition()) {
     _gameState->setRotaryChange(1);  // rotaryChange = true;
@@ -81,12 +93,13 @@ int Inputs::readRotary() {           // TODO: make this one read.
 }
 
 void Inputs::readPlayerButtons() {
-  //   Serial.println("reading player buttons...");
-  int anlgPlyrBtnVal = _pinInterface->analogRead(PLAYER_BUTTONS);
+  // SerialObject Serial;
+  // Serial.println("reading player buttons...");
+  int anlgPlyrBtnVal = _pinInterface->pinAnalogRead(PLAYER_BUTTONS);
   if (anlgPlyrBtnVal <= 1000) {  // if one of the player buttons is pressed...
     // Serial.println("analog value of player button input: " +
     //                std::to_string(anlgPlyrBtnVal) + ".");
-    GameTimer::delay(20);  // _digiFunctions->gameDelay( 20 );
+    GameTimer::gameDelay(20);  // _digiFunctions->gameDelay( 20 );
     if (anlgPlyrBtnVal <= 50) {
       _gameState->setPlayerButton(1); /* playerButton = 1 */
     } else if (anlgPlyrBtnVal >= 350 && anlgPlyrBtnVal <= 400) {
@@ -96,15 +109,15 @@ void Inputs::readPlayerButtons() {
     } else if (anlgPlyrBtnVal >= 750 && anlgPlyrBtnVal <= 800) {
       _gameState->setPlayerButton(4); /* playerButton = 4 */
     }
-    while (_pinInterface->analogRead(PLAYER_BUTTONS) <= 1000) {
-      // Serial.println( "PLAYER_BUTTONS: " + String( _pinInterface->analogRead(
-      // PLAYER_BUTTONS ) ) );
-      //   Serial.println("waiting for player button to release...");
-      GameTimer::delay(250);  // Be careful with the infinite loop!!!
-      if (SIMULATION) break;
+    if (SIMULATION == 0) {
+      while (_pinInterface->pinAnalogRead(PLAYER_BUTTONS) <= 1000) {
+        // GameTimer::gameDelay( 750 );  // Be careful inside this infinite
+        // loop!!!
+      }
     }
-    // String thePlayerButton = String( _gameState->getPlayerButton());
-
-    // Serial.println("done reading buttons.");
+    // std::string thePlayerButton =
+    // std::to_string(_gameState->getPlayerButton()); Serial.println("done
+    // reading buttons.  playerButton = " +
+    //                thePlayerButton /* playerButton */);
   }
 }

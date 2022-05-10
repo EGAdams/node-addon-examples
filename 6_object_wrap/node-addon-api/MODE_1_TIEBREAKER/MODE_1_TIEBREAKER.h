@@ -1,9 +1,6 @@
-#pragma once
-//
-//
-//
 #ifndef MODE_1_TIEBREAKER_H
 #define MODE_1_TIEBREAKER_H
+#include "Arduino.h"
 #include "GAME_LEDs.h"
 #include "GameState.h"
 #include "MODE_1_WIN_SEQUENCES.h"
@@ -46,14 +43,14 @@ class Mode1TieBreaker {
  private:
   Player* _player1;
   Player* _player2;
-  GameState* _gameState;
-  Undo _undo;
   PinInterface* _pinInterface;
+  GameState* _gameState;
   PointLeds _pointLeds;
   GameLeds _gameLeds;
   ServeLeds _serveLeds;
   SetLeds _setLeds;
   Mode1WinSequences _mode1WinSequences;
+  Undo _undo;
 };
 
 #endif

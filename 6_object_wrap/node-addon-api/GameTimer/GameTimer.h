@@ -1,12 +1,12 @@
 #ifndef GameTimer_h
 #define GameTimer_h
-
+#include "Arduino.h"
 class GameTimer {
  public:
   GameTimer();
   void sleep_until(int milliseconds);
-  static void delay(int milliseconds);
-  static unsigned long millis(int default = 0);
+  static void gameDelay(int milliseconds);
+  static unsigned long gameMillis();
   ~GameTimer();
 };
 

@@ -1,4 +1,5 @@
 #include "RESET.h"
+#include "Arduino.h"
 #include "DIGI_V6_15.h"
 #include "PinInterface.h"
 
@@ -13,44 +14,44 @@ Reset::Reset(Player* player1,
 Reset::~Reset() {}
 
 void Reset::resetScoreboard() {
-  _pinInterface->digitalWrite(P1_POINTS_LED1, LOW);
-  _pinInterface->digitalWrite(P1_POINTS_LED2, LOW);
-  _pinInterface->digitalWrite(P1_POINTS_LED3, LOW);
-  _pinInterface->digitalWrite(
+  _pinInterface->pinDigitalWrite(P1_POINTS_LED1, LOW);
+  _pinInterface->pinDigitalWrite(P1_POINTS_LED2, LOW);
+  _pinInterface->pinDigitalWrite(P1_POINTS_LED3, LOW);
+  _pinInterface->pinDigitalWrite(
       P1_POINTS_LED4,
       LOW);  //<------- add a mapped for loop to flash Player 1 LED's ---<<
 
-  _pinInterface->digitalWrite(P2_POINTS_LED1, LOW);
-  _pinInterface->digitalWrite(P2_POINTS_LED2, LOW);
-  _pinInterface->digitalWrite(P2_POINTS_LED3, LOW);
-  _pinInterface->digitalWrite(P2_POINTS_LED4, LOW);
+  _pinInterface->pinDigitalWrite(P2_POINTS_LED1, LOW);
+  _pinInterface->pinDigitalWrite(P2_POINTS_LED2, LOW);
+  _pinInterface->pinDigitalWrite(P2_POINTS_LED3, LOW);
+  _pinInterface->pinDigitalWrite(P2_POINTS_LED4, LOW);
 
-  _pinInterface->digitalWrite(P1_GAMES_LED0, LOW);
-  _pinInterface->digitalWrite(P1_GAMES_LED1, LOW);
-  _pinInterface->digitalWrite(P1_GAMES_LED2, LOW);
-  _pinInterface->digitalWrite(P1_GAMES_LED3, LOW);
-  _pinInterface->digitalWrite(P1_GAMES_LED4, LOW);
-  _pinInterface->digitalWrite(P1_GAMES_LED5, LOW);
-  _pinInterface->digitalWrite(P1_GAMES_LED6, LOW);
-  _pinInterface->digitalWrite(P1_TIEBREAKER, LOW);
+  _pinInterface->pinDigitalWrite(P1_GAMES_LED0, LOW);
+  _pinInterface->pinDigitalWrite(P1_GAMES_LED1, LOW);
+  _pinInterface->pinDigitalWrite(P1_GAMES_LED2, LOW);
+  _pinInterface->pinDigitalWrite(P1_GAMES_LED3, LOW);
+  _pinInterface->pinDigitalWrite(P1_GAMES_LED4, LOW);
+  _pinInterface->pinDigitalWrite(P1_GAMES_LED5, LOW);
+  _pinInterface->pinDigitalWrite(P1_GAMES_LED6, LOW);
+  _pinInterface->pinDigitalWrite(P1_TIEBREAKER, LOW);
 
-  _pinInterface->digitalWrite(P2_GAMES_LED0, LOW);
-  _pinInterface->digitalWrite(P2_GAMES_LED1, LOW);
-  _pinInterface->digitalWrite(P2_GAMES_LED2, LOW);
-  _pinInterface->digitalWrite(P2_GAMES_LED3, LOW);
-  _pinInterface->digitalWrite(P2_GAMES_LED4, LOW);
-  _pinInterface->digitalWrite(P2_GAMES_LED5, LOW);
-  _pinInterface->digitalWrite(P2_GAMES_LED6, LOW);
-  _pinInterface->digitalWrite(P2_TIEBREAKER, LOW);
+  _pinInterface->pinDigitalWrite(P2_GAMES_LED0, LOW);
+  _pinInterface->pinDigitalWrite(P2_GAMES_LED1, LOW);
+  _pinInterface->pinDigitalWrite(P2_GAMES_LED2, LOW);
+  _pinInterface->pinDigitalWrite(P2_GAMES_LED3, LOW);
+  _pinInterface->pinDigitalWrite(P2_GAMES_LED4, LOW);
+  _pinInterface->pinDigitalWrite(P2_GAMES_LED5, LOW);
+  _pinInterface->pinDigitalWrite(P2_GAMES_LED6, LOW);
+  _pinInterface->pinDigitalWrite(P2_TIEBREAKER, LOW);
 
-  _pinInterface->digitalWrite(P1_SETS_LED1, LOW);
-  _pinInterface->digitalWrite(P1_SETS_LED2, LOW);
+  _pinInterface->pinDigitalWrite(P1_SETS_LED1, LOW);
+  _pinInterface->pinDigitalWrite(P1_SETS_LED2, LOW);
 
-  _pinInterface->digitalWrite(P2_SETS_LED1, LOW);
-  _pinInterface->digitalWrite(P2_SETS_LED2, LOW);
+  _pinInterface->pinDigitalWrite(P2_SETS_LED1, LOW);
+  _pinInterface->pinDigitalWrite(P2_SETS_LED2, LOW);
 
-  _pinInterface->digitalWrite(P1_SERVE, LOW);
-  _pinInterface->digitalWrite(P2_SERVE, LOW);
+  _pinInterface->pinDigitalWrite(P1_SERVE, LOW);
+  _pinInterface->pinDigitalWrite(P2_SERVE, LOW);
 
   tieLEDsOff();
 
@@ -61,7 +62,7 @@ void Reset::resetScoreboard() {
   _gameState->setPlayerButton(0);  // playerButton = 0;
   _gameState->setStarted(
       /*1*/ 0);  // gameStart = true; TODO: the placing of this is questionable
-                 //_pinInterface->gameDelay( 200 ); // delay( 200 );
+  GameTimer::gameDelay(200);  // delay( 200 );
 }
 
 void Reset::refresh() {
@@ -75,30 +76,30 @@ void Reset::refresh() {
 
 void Reset::tieLEDsOn() {
   _gameState->setTieLEDsOn(1);  // tieLEDsOn = true;
-  _pinInterface->digitalWrite(P1_TIEBREAKER, HIGH);
-  _pinInterface->digitalWrite(P2_TIEBREAKER, HIGH);
+  _pinInterface->pinDigitalWrite(P1_TIEBREAKER, HIGH);
+  _pinInterface->pinDigitalWrite(P2_TIEBREAKER, HIGH);
 }
 
 void Reset::tieLEDsOff() {
   _gameState->setTieLEDsOn(0);  // tieLEDsOn = false;
-  _pinInterface->digitalWrite(P1_TIEBREAKER, LOW);
-  _pinInterface->digitalWrite(P2_TIEBREAKER, LOW);
+  _pinInterface->pinDigitalWrite(P1_TIEBREAKER, LOW);
+  _pinInterface->pinDigitalWrite(P2_TIEBREAKER, LOW);
 }
 
 void Reset::resetPreviousValues() {
-  prev3TieLEDsOn = false;
-  prev2TieLEDsOn = false;
-  prev1TieLEDsOn = false;
-  prevTieLEDsOn = false;
+  _gameState->setPrev3TieLEDsOn(0);  //  prev3TieLEDsOn = false;
+  _gameState->setPrev2TieLEDsOn(0);  //  prev2TieLEDsOn = false;
+  _gameState->setPrev1TieLEDsOn(0);  //  prev1TieLEDsOn = false;
+  _gameState->setPrevTieLEDsOn(0);   //  prevTieLEDsOn = false;
 
-  prevSetTieBreak = 0;
-  prev1SetTieBreak = 0;
-  prev2SetTieBreak = 0;
-  prev3SetTieBreak = 0;
-  prev3TieBreak = 0;
-  prev2TieBreak = 0;
-  prev1TieBreak = 0;
-  prevTieBreak = 0;
+  _gameState->setPrevSetTieBreak(0);   //  prevSetTieBreak = 0;
+  _gameState->setPrev1SetTieBreak(0);  //  prev1SetTieBreak = 0;
+  _gameState->setPrev2SetTieBreak(0);  //  prev2SetTieBreak = 0;
+  _gameState->setPrev3SetTieBreak(0);  //  prev3SetTieBreak = 0;
+  _gameState->setPrev3TieBreak(0);     //  prev3TieBreak = 0;
+  _gameState->setPrev2TieBreak(0);     //  prev2TieBreak = 0;
+  _gameState->setPrev1TieBreak(0);     //  prev1TieBreak = 0;
+  _gameState->setPrevTieBreak(0);      //  prevTieBreak = 0;
 
   _player1->setPoints(0);   // p1Points = 0;
   _player2->setPoints(0);   // p2Points = 0;

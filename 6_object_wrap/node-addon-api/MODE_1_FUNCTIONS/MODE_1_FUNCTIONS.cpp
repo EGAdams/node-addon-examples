@@ -1,5 +1,5 @@
 #include "MODE_1_FUNCTIONS.h"
-// #include <chrono>
+#include "Arduino.h"
 #include "DIGI_V6_15.h"
 
 Mode1Functions::Mode1Functions(Player* player1,
@@ -9,9 +9,10 @@ Mode1Functions::Mode1Functions(Player* player1,
     : _player1(player1),
       _player2(player2),
       _gameState(gameState),
+      _undo(player1, player2, pinInterface, gameState),
       _pointLeds(player1, player2, pinInterface),
       _mode1Score(player1, player2, pinInterface, gameState),
-      _undo(player1, player2, pinInterface, gameState) {}
+      _serveLeds(pinInterface, gameState) {}
 
 Mode1Functions::~Mode1Functions() {}
 
@@ -32,15 +33,14 @@ void Mode1Functions::mode1ButtonFunction() {
                                                               // p2PointsMem;
         _pointLeds.updatePoints();
       }
-
-      GameTimer::delay(buttonDelay);
+      GameTimer::gameDelay(_gameState->getButtonDelay() /* buttonDelay */);
       _player1->setPoints(_player1->getPoints() + 1);  // p1Points++;
       _undo.memory();
       _mode1Score.mode1P1Score();
       break;
 
     case 2:
-      GameTimer::delay(buttonDelay);
+      GameTimer::gameDelay(_gameState->getButtonDelay() /* buttonDelay */);
       _undo.mode1Undo();  // Mode1Undo();
       break;
 
@@ -57,14 +57,14 @@ void Mode1Functions::mode1ButtonFunction() {
         _pointLeds.updatePoints();                            // UpdatePoints();
       }
 
-      GameTimer::delay(buttonDelay);
+      GameTimer::gameDelay(_gameState->getButtonDelay() /* buttonDelay */);
       _player2->setPoints(_player2->getPoints() + 1);  // p2Points++;
       _undo.memory();                                  // Memory();
       _mode1Score.mode1P2Score();                      // Mode1P2Score();
       break;
 
     case 4:
-      GameTimer::delay(buttonDelay);
+      GameTimer::gameDelay(_gameState->getButtonDelay() /* buttonDelay */);
       _undo.mode1Undo();  // Mode1Undo();
       break;
   }
@@ -72,16 +72,17 @@ void Mode1Functions::mode1ButtonFunction() {
 }
 
 void Mode1Functions::mode1ServeFunction() {
-  // SetMode1Undo();
-  // ServeSwitch();
+  _undo.setMode1Undo();      // SetMode1Undo();
+  _serveLeds.serveSwitch();  // ServeSwitch();
 }
 
 void Mode1Functions::pointFlash() {
   if (_gameState->getPointFlash() == 1 /* pointFlash == true */) {
     if (_player1->getPoints() /* p1Points */ > 3) {
-      // if ( now - previous_time > flashDelay ) {
+      // if ( now - previous_time > _gameState->getFlashDelay() /* flashDelay */
+      // ) {
       if (_gameState->getNow() /* now */ - _gameState->getPreviousTime() >
-          flashDelay) {
+          _gameState->getFlashDelay() /* flashDelay */) {
         if (_gameState->getToggle() /* toggle */ == 0) {
           _player1->setPoints(99);    // p1Points = 99;
           _pointLeds.updatePoints();  // UpdatePoints();
@@ -89,7 +90,6 @@ void Mode1Functions::pointFlash() {
         } else {
           _player1->setPoints(
               _gameState->getP1PointsMem() /* p1PointsMem */);  // p1Points =
-                                                                // p1PointsMem;
           _pointLeds.updatePoints();  //  UpdatePoints();
           _gameState->setToggle(0);   // toggle = 0;
         }
@@ -99,9 +99,10 @@ void Mode1Functions::pointFlash() {
     }
 
     if (_player2->getPoints() /* p2Points */ > 3) {
-      // if ( now - previous_time > flashDelay ) {
+      // if ( now - previous_time > _gameState->getFlashDelay() /* flashDelay */
+      // ) {
       if (_gameState->getNow() /* now */ - _gameState->getPreviousTime() >
-          flashDelay) {
+          _gameState->getFlashDelay() /* flashDelay */) {
         if (_gameState->getToggle() /* toggle */ == 0) {
           _player2->setPoints(99);    // p2Points = 99;
           _pointLeds.updatePoints();  // UpdatePoints();
@@ -109,7 +110,6 @@ void Mode1Functions::pointFlash() {
         } else {
           _player2->setPoints(
               _gameState->getP2PointsMem() /* p2PointsMem */);  // p2Points =
-                                                                // p2PointsMem;
           _pointLeds.updatePoints();  //  UpdatePoints();
           _gameState->setToggle(0);   // toggle = 0;
         }

@@ -26,7 +26,7 @@ class DigiFunctions {
   int digitalRead(int pin);
   int analogRead(int pin);
   void gameDelay(int ms);
-  unsigned long millis(int hack);
+  unsigned long gameMillis(int hack);
   GameState* getGameState() { return _gameState; }
 
  private:
@@ -37,7 +37,7 @@ class DigiFunctions {
   ScoreBoard* _scoreBoard;
   GameModes _gameModes;
   TranslateConstant _translateConstant;
-  PinState _pinState;
+  PinState* _pinState(std::map<std::string, int>* pinMap);
 };
 
 #endif

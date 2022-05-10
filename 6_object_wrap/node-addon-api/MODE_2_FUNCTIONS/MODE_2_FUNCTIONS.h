@@ -1,12 +1,13 @@
-#pragma once
 #ifndef MODE_2_FUNCTIONS_h
 #define MODE_2_FUNCTIONS_h
+#include "Arduino.h"
 #include "GAME_LEDs.h"
 #include "GameState.h"
 #include "GameTimer.h"
 #include "POINT_LEDs.h"
 #include "Player.h"
 #include "SET_LEDs.h"
+
 class Mode2Functions {
  public:
   Mode2Functions(Player* player1,

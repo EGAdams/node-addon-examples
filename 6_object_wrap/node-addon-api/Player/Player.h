@@ -1,6 +1,7 @@
-#pragma once
 #ifndef Player_h
 #define Player_h
+
+#include "Arduino.h"
 
 class Player {
  public:

@@ -190,22 +190,11 @@ Napi::Value CppInterface::digitalWrite(const Napi::CallbackInfo& info) {
 
 Napi::Value CppInterface::getPinMap(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
-
   std::cout << "getPinMap called..." << std::endl;
-
-  // Create a new instance
   Napi::Object pinMap = Napi::Object::New(env);
-  // std::map<std::string, int> pinState = _cpp_interface_pin_map; //
-  // _gameObject->getPinInterface()->getPinMapMap();
-
-  std::cout << "before looping through pin map..." << std::endl;
   for (const std::pair<const std::string, int>& p :
        _gameObject->getPinInterface()->getPinStateMap() /* pinState */) {
-    std::cout << "getting key from p.first: " << p.first << std::endl;
     int key = std::stoi(p.first);
-    std::cout << "_translator.get_translated_constant( key ): "
-              << _translator.get_translated_constant((key)) << std::endl;
-    std::cout << "key: " << key << "  p.second: " << p.second << std::endl;
     pinMap.Set(_translator.get_translated_constant(key), p.second);
   }
 

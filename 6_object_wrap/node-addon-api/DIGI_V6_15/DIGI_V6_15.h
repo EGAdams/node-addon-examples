@@ -14,7 +14,7 @@
 // #define OUTPUT 0
 #define LOW 0
 #define HIGH 1
-#define SIMULATION 0
+#define SIMULATION 1
 #define PLAYER_BUTTONS                                                         \
   202  // A2 // 202 // changed from A2 to rid of compiler warning
 #define ROTARY                                                                 \

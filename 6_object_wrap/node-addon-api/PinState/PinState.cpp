@@ -1,4 +1,5 @@
 #include "PinState.h"
+#include <fstream>
 #include <iostream>
 
 PinState::PinState(std::map<std::string, int>* cpp_interface_pin_map)
@@ -16,6 +17,14 @@ int PinState::getPinState(std::string pin) {
 
 void PinState::setPinState(std::string pin, int state) {
   _pin_map[pin] = state;
+  std::string pin_file_path =
+      "C:\\Users\\EG\\Desktop\\2022\\april\\5th_week\\node-addon-examples\\6_"
+      "object_wrap\\node-addon-api\\pin_data\\";
+  std::ofstream pin_file(
+      pin_file_path +
+      _translateConstant.get_translated_constant(std::stoi(pin)) + ".txt");
+  pin_file << state;
+  pin_file.close();
 }
 
 void PinState::clear() {

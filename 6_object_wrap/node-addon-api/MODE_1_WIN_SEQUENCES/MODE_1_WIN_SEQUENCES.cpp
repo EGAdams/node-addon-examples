@@ -19,15 +19,25 @@ Mode1WinSequences::Mode1WinSequences(Player* player1,
       _undo(player1, player2, pinInterface, gameState) {}
 
 void Mode1WinSequences::p1GameWinSequence() {
+  std::cout
+      << "Mode1WinSequences::p1GameWinSequence()  calling _undo.memory()..."
+      << std::endl;
   _undo.memory();
+  std::cout << "done _undo.memory()." << std::endl;
   for (int currentPulseCount = 0;
        currentPulseCount < _gameState->getGameWinPulseCount();
        currentPulseCount++) {
-    _player1->setGames(99);   // p1Games = 99;
+    std::cout << "currentPulseCount: " << currentPulseCount << std::endl;
+    std::cout << "setting player 1 games to 99..." << std::endl;
+    _player1->setGames(99);  // p1Games = 99;
+    std::cout << "updating game LEDs..." << std::endl;
     _gameLeds.updateGames();  // UpdateGames();
     GameTimer::gameDelay(_gameState->getGameFlashDelay() /* flashDelay */);
+    std::cout << "setting player 1 games to _gameState->getP1GamesMem()..."
+              << std::endl;
     _player1->setGames(_gameState->getP1GamesMem());  // p1Games = p1GamesMem;
-    _gameLeds.updateGames();                          // UpdateGames();
+    std::cout << "updating game LEDs..." << std::endl;
+    _gameLeds.updateGames();  // UpdateGames();
     GameTimer::gameDelay(_gameState->getGameFlashDelay() /* flashDelay */);
   }
   _player1->setPoints(0);  // p1Points = 0;
@@ -179,7 +189,6 @@ void Mode1WinSequences::p2MatchWinSequence() {
     GameTimer::gameDelay(_gameState->getFlashDelay() /* flashDelay */);
   }
   _reset.resetScoreboard();
-  // Serial.println("End P2 Match Win Sequence");
 }
 
 void Mode1WinSequences::p1TBGameWinSequence() {
@@ -194,12 +203,7 @@ void Mode1WinSequences::p1TBGameWinSequence() {
     //    TieLEDsOff();
     //    UpdateGames();
     _setLeds.updateSets();  // UpdateSets();
-    GameTimer::gameDelay(
-        _gameState
-            ->getFlashDelay() /* flashDelay */);  // delay(
-                                                  // _gameState->getFlashDelay()
-                                                  // /* flashDelay */  );
-
+    GameTimer::gameDelay(_gameState->getFlashDelay() /* flashDelay */);
     //    p1Games = p1GamesMem;
     //    p2Games = p2GamesMem;
     _player1->setSets(
@@ -207,12 +211,9 @@ void Mode1WinSequences::p1TBGameWinSequence() {
     // tieLEDsOn();
     // _gameLeds.updateGames();       // UpdateGames();
     _setLeds.updateSets();  // UpdateSets();
-    GameTimer::gameDelay(
-        _gameState
-            ->getFlashDelay() /* flashDelay */);  // delay(
-                                                  // _gameState->getFlashDelay()
-                                                  // /* flashDelay */  );
+    GameTimer::gameDelay(_gameState->getFlashDelay() /* flashDelay */);
   }
+
   tieLEDsOff();
   _gameState->setTieBreak(0);  // tieBreak = false;
   _player1->setGames(0);       // p1Games = 0;

@@ -4,6 +4,7 @@
 #pragma once
 #include <map>
 #include <string>
+#include "TranslateConstant.h"
 
 class PinState {
  public:
@@ -16,6 +17,7 @@ class PinState {
 
  private:
   std::map<std::string, int> _pin_map;
+  TranslateConstant _translateConstant;
 };
 
 #endif

@@ -44,6 +44,7 @@ GameState::GameState(Player* player1, Player* player2) {
   _updateDisplayDelay = 700;
   _buttonDelay = 300;
   _flashDelay = 1000;
+  _gameFlashDelay = 750;
   _tiePulseCount = 3;
   _gameWinPulseCount = 3;
   _setWinPulseCount = 3;
@@ -650,4 +651,11 @@ void GameState::setPrev3Serve(int prev3Serve) {
 }
 int GameState::getPrev3Serve() {
   return _prev3Serve;
+}
+
+void GameState::setGameFlashDelay(int gameFlashDelay) {
+  _gameFlashDelay = gameFlashDelay;
+}
+int GameState::getGameFlashDelay() {
+  return _gameFlashDelay;
 }

@@ -24,6 +24,7 @@ class GameObject {
              GameModes* gameModes,
              ScoreBoard* scoreBoard,
              WebLiquidCrystal* lcd);
+  GameObject();
   ~GameObject();
   void start();
   PinInterface* getPinInterface();
@@ -40,6 +41,7 @@ class GameObject {
   GameModes* _gameModes;
   ScoreBoard* _scoreBoard;
   WebLiquidCrystal* _webLiquidCrystal;
+  std::map<std::string, int>* _pin_map;
 };
 
 #endif

@@ -12,12 +12,14 @@
 
 // #define INPUT 0 // not in windows.. ouch!!
 // #define OUTPUT 0
-// #define LOW 0
-// #define HIGH 1
-#define SIMULATION 1
-#define PLAYER_BUTTONS 202  // changed from A2 to rid of compiler warning
+#define LOW 0
+#define HIGH 1
+#define SIMULATION 0
+#define PLAYER_BUTTONS                                                         \
+  202  // A2 // 202 // changed from A2 to rid of compiler warning
 #define ROTARY                                                                 \
-  15  // changed from A15 to rid of compiler error in second line of setup()
+  15  // A15        //15   // changed from A15 to rid of compiler error in
+      // second line of setup()
 #define UNDO 26
 #define RESET 38
 

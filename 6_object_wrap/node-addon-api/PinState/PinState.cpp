@@ -13,6 +13,7 @@ PinState::PinState(std::map<std::string, int>* cpp_interface_pin_map)
 PinState::~PinState() {}
 
 int PinState::getPinState(std::string pin) {
+  std::cout << "getPinState() returning: " << pin << std::endl;
   return _pin_map[pin];
 }
 

@@ -69,16 +69,24 @@ void GameModes::mode1() {
 void GameModes::mode2() {
   // SerialObject Serial;
   // Serial.println(" Starting Mode2.");
-  _inputs.readUndoButton();     // ReadUndoButton();    // sets undo to true if
-                                // button is pressed.
-  _inputs.readPlayerButtons();  // ReadPlayerButtons();
-                                // if one of the player buttons is pressed,
-                                // the playerButton variable is set to the
-                                // player number.
+  // _inputs.readUndoButton();     // ReadUndoButton();    // sets undo to true
+  // if
+  //                               // button is pressed.
+  // _inputs.readPlayerButtons();  // ReadPlayerButtons();
+  //                               // if one of the player buttons is pressed,
+  //                               // the playerButton variable is set to the
+  //                               // player number.
 
-  _mode2Functions.m2PlayerButtons(
-      _gameState->getPlayerButton() /* playerButton */);
-  _mode2Functions.m2Loop();  // May want this on, may not.
+  // _mode2Functions.m2PlayerButtons(
+  // _gameState->getPlayerButton() /* playerButton */);
+  // _mode2Functions.m2Loop();  // May want this on, may not.
+  _gameState->setNow(GameTimer::gameMillis());  // now =
+  if (_gameState->getTieBreakOnly() == 0) {
+    _gameState->setTieBreak(1);  // tieBreak = true;
+    _mode1TieBreaker.tieBreakEnable();
+    _gameState->setTieBreakOnly(1);  // tieBreakOnly = true;
+  }
+  mode1();
 }
 
 void GameModes::mode4() {

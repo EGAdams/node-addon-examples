@@ -3,20 +3,20 @@
 
 #include <napi.h>
 #include <iostream>
-#include <memory>
-#include <string>
-#include <type_traits>
-#include "GAME_MODES.h"
+// #include <memory>
+// #include <string>
+// #include <type_traits>
+// #include "GAME_MODES.h"
 #include "GameObject.h"
-#include "GameState.h"
-#include "GameTimer.h"
-#include "Inputs.h"
+// #include "GameState.h"
+// #include "GameTimer.h"
+// #include "Inputs.h"
 #include "PinInterface.h"
 #include "PinState.h"
-#include "Player.h"
-#include "ScoreBoard.h"
+// #include "Player.h"
+// #include "ScoreBoard.h"
 #include "TranslateConstant.h"
-#include "WebLiquidCrystal.h"
+// #include "WebLiquidCrystal.h"
 
 class CppInterface : public Napi::ObjectWrap<CppInterface> {
  public:
@@ -31,10 +31,8 @@ class CppInterface : public Napi::ObjectWrap<CppInterface> {
   Napi::Value digitalRead(const Napi::CallbackInfo& info);
   Napi::Value analogRead(const Napi::CallbackInfo& info);
   Napi::Value gameLoop(const Napi::CallbackInfo& info);
-  Napi::Value getPinState(const Napi::CallbackInfo& info);
+  Napi::Value getPinMap(const Napi::CallbackInfo& info);
 
-  double value_;
-  TranslateConstant _translator;
   //   GameObject        _gameObject( Player *player1,
   //                                 Player *player2,
   //                                 PinState *pinState,
@@ -45,7 +43,11 @@ class CppInterface : public Napi::ObjectWrap<CppInterface> {
   //                                 GameModes *gameModes,
   //                                 ScoreBoard *scoreBoard,
   //                                 WebLiquidCrystal *webLiquidCrystal );
+
+  double value_;
+  TranslateConstant _translator;
   GameObject* _gameObject;
+  GameObject gameObject;
   PinInterface* _pinInterface;
   PinState* _pinState;
   std::map<std::string, int> _cpp_interface_pin_map;

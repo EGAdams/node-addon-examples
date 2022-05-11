@@ -182,6 +182,9 @@ class GameState {
   void setPrev3Serve(int prevServe);
   int getPrev3Serve();
 
+  void setGameFlashDelay(int gameFlashDelay);
+  int getGameFlashDelay();
+
  private:
   Player* _player1;
   Player* _player2;
@@ -225,20 +228,21 @@ class GameState {
   int _updateDisplayDelay;    // = 100;
   int _buttonDelay;           // = 100;
   unsigned long _flashDelay;  // = 1000;
-  int _tiePulseCount;         // = 3;
-  int _gameWinPulseCount;     // = 0 /* 3 */;
-  int _setWinPulseCount;      // = 0 /* 3 */;
-  int _matchWinPulseCount;    // = 5;
-  int _prevPointFlash;        // = 0;
-  int _prevP1Points;          // = 0;
-  int _prevP2Points;          // = 0;
-  int _prevP1Games;           // = 0;
-  int _prevP2Games;           // = 0;
-  int _prevP1Sets;            // = 0;
-  int _prevP2Sets;            // = 0;
-  int _prevP1Matches;         // = 0;
-  int _prevP2Matches;         // = 0;
-  int _prevServe;             // = 0;
+  int _gameFlashDelay;      // = 750;  // still experimenting with this value...
+  int _tiePulseCount;       // = 3;
+  int _gameWinPulseCount;   // = 0 /* 3 */;
+  int _setWinPulseCount;    // = 0 /* 3 */;
+  int _matchWinPulseCount;  // = 5;
+  int _prevPointFlash;      // = 0;
+  int _prevP1Points;        // = 0;
+  int _prevP2Points;        // = 0;
+  int _prevP1Games;         // = 0;
+  int _prevP2Games;         // = 0;
+  int _prevP1Sets;          // = 0;
+  int _prevP2Sets;          // = 0;
+  int _prevP1Matches;       // = 0;
+  int _prevP2Matches;       // = 0;
+  int _prevServe;           // = 0;
 
   int _prev1PointFlash;
   int _prev1P1Points;

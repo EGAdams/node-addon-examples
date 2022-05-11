@@ -25,10 +25,10 @@ void Mode1WinSequences::p1GameWinSequence() {
        currentPulseCount++) {
     _player1->setGames(99);   // p1Games = 99;
     _gameLeds.updateGames();  // UpdateGames();
-    GameTimer::gameDelay(_gameState->getFlashDelay() /* flashDelay */);
+    GameTimer::gameDelay(_gameState->getGameFlashDelay() /* flashDelay */);
     _player1->setGames(_gameState->getP1GamesMem());  // p1Games = p1GamesMem;
     _gameLeds.updateGames();                          // UpdateGames();
-    GameTimer::gameDelay(_gameState->getFlashDelay() /* flashDelay */);
+    GameTimer::gameDelay(_gameState->getGameFlashDelay() /* flashDelay */);
   }
   _player1->setPoints(0);  // p1Points = 0;
   _player2->setPoints(0);  // p2Points = 0;
@@ -107,11 +107,11 @@ void Mode1WinSequences::p2GameWinSequence() {
        currentPulseCount++) {
     _player2->setGames(99);   // p2Games = 99;
     _gameLeds.updateGames();  // UpdateGames();
-    GameTimer::gameDelay(_gameState->getFlashDelay() /* flashDelay */);
+    GameTimer::gameDelay(_gameState->getGameFlashDelay() /* flashDelay */);
 
     _player2->setGames(_gameState->getP2GamesMem());  // p2Games = p2GamesMem;
     _gameLeds.updateGames();                          // UpdateGames();
-    GameTimer::gameDelay(_gameState->getFlashDelay() /* flashDelay */);
+    GameTimer::gameDelay(_gameState->getGameFlashDelay() /* flashDelay */);
   }
   _player1->setPoints(0);  // p1Points = 0;
   _player2->setPoints(0);  // p2Points = 0;

@@ -16,24 +16,23 @@ Inputs::~Inputs(){};
 void Inputs::readReset() {
   // SerialObject Serial;
   // Serial.println("readReset()");
-  // std::cout << "PLAYER_BUTTONS: " <<
-  // _pinInterface->pinAnalogRead(PLAYER_BUTTONS) << std::endl;
+  std::cout << "inside readReset()  calling pinDigitalRead()..." << std::endl;
   if (_pinInterface->pinDigitalRead(RESET) == LOW) {
     // Serial.println("Reset press detected _pinInterface->pinDigitalRead( RESET
     // ) "
     //                "== LOW infinite loop starts here...");
     if (SIMULATION == 0) {
       while (_pinInterface->pinDigitalRead(RESET) == LOW) {
-        // Serial.println("waiting for reset release...");
+        std::cout << "waiting for reset release..." << std::endl;
         GameTimer::gameDelay(25);  // careful here!!!
       }                            // semi infinite loop
     }
-    // Serial.println("exited loop.");
+    std::cout << "exited loop.  calling _reset.resetScoreboard..." << std::endl;
     // _digiFunctions->gameDelay( 1000 );
     _reset.resetScoreboard();
     // _digiFunctions->clearPinState();
   } else {
-    // Serial.println("_pinInterface->pinDigitalRead( RESET ) != LOW");
+    std::cout << "_pinInterface->pinDigitalRead( RESET ) != LOW" << std::endl;
   }
 }
 
@@ -65,19 +64,15 @@ int Inputs::readRotary() {  // TODO: make this one read.
   }  // rotaryPosition = 1
   if (rotaryAnalogValue >= 350 && rotaryAnalogValue <= 450) {
     _gameState->setRotaryPosition(2); /* rotaryPosition = 2 */
-    ;
   }
   if (rotaryAnalogValue >= 550 && rotaryAnalogValue <= 700) {
     _gameState->setRotaryPosition(3); /* rotaryPosition = 3 */
-    ;
   }
   if (rotaryAnalogValue >= 750 && rotaryAnalogValue <= 800) {
     _gameState->setRotaryPosition(4); /* rotaryPosition = 4 */
-    ;
   }
   if (rotaryAnalogValue >= 850 && rotaryAnalogValue <= 1000) {
     _gameState->setRotaryPosition(5); /* rotaryPosition = 5 */
-    ;
   }
   // Serial.print("rotaryPosition set to: " +
   //              _gameState->getRotaryPosition() /* rotaryPosition */);

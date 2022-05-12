@@ -16,23 +16,24 @@ Inputs::~Inputs(){};
 void Inputs::readReset() {
   // SerialObject Serial;
   // Serial.println("readReset()");
-  std::cout << "inside readReset()  calling pinDigitalRead()..." << std::endl;
+  // std::cout << "PLAYER_BUTTONS: " <<
+  // _pinInterface->pinAnalogRead(PLAYER_BUTTONS) << std::endl;
   if (_pinInterface->pinDigitalRead(RESET) == LOW) {
     // Serial.println("Reset press detected _pinInterface->pinDigitalRead( RESET
     // ) "
     //                "== LOW infinite loop starts here...");
     if (SIMULATION == 0) {
       while (_pinInterface->pinDigitalRead(RESET) == LOW) {
-        std::cout << "waiting for reset release..." << std::endl;
+        // Serial.println("waiting for reset release...");
         GameTimer::gameDelay(25);  // careful here!!!
       }                            // semi infinite loop
     }
-    std::cout << "exited loop.  calling _reset.resetScoreboard..." << std::endl;
+    // Serial.println("exited loop.");
     // _digiFunctions->gameDelay( 1000 );
     _reset.resetScoreboard();
     // _digiFunctions->clearPinState();
   } else {
-    std::cout << "_pinInterface->pinDigitalRead( RESET ) != LOW" << std::endl;
+    // Serial.println("_pinInterface->pinDigitalRead( RESET ) != LOW");
   }
 }
 

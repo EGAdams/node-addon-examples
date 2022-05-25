@@ -10,6 +10,7 @@
 #include "PinState.h"
 #include "Player.h"
 #include "ScoreBoard.h"
+#include "SubjectManager.h"
 #include "WebLiquidCrystal.h"
 
 class GameObject {
@@ -42,6 +43,7 @@ class GameObject {
   ScoreBoard* _scoreBoard;
   WebLiquidCrystal* _webLiquidCrystal;
   std::map<std::string, int>* _pin_map;
+  SubjectManager* _subjectManager;
 };
 
 #endif

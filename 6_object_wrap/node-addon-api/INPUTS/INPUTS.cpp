@@ -55,8 +55,8 @@ void Inputs::readUndoButton() {
   }
 }
 
-int Inputs::readRotary() {  // TODO: make this one read.
-  // SerialObject Serial;
+int Inputs::readRotary() {           // TODO: make this one read.
+                                     // SerialObject Serial;
   _gameState->setRotaryPosition(0);  // int rotaryPosition = 0;
   // Serial.println("reading rotary pin " + ROTARY);
   int rotaryAnalogValue = _pinInterface->pinAnalogRead(ROTARY);

@@ -36,6 +36,7 @@ GameObject::GameObject() {
   _gameInputs = new Inputs(_player1, _player2, _pinInterface, _gameState);
   _gameModes = new GameModes(_player1, _player2, _pinInterface, _gameState);
   _scoreBoard = new ScoreBoard(_player1, _player2, _webLiquidCrystal);
+  _subjectManager = new SubjectManager();
   std::cout << "GameObject::GameObject() done" << std::endl;
 }
 
@@ -48,6 +49,7 @@ void GameObject::loopGame() {
   _gameModes->setGameMode(_gameInputs->readRotary());
   std::cout << "GameObject::loopGame() calling gameDelay()..." << std::endl;
   GameTimer::gameDelay(25);
+  _subjectManager->gameStateUpdate(_gameState);
 }
 
 PinInterface* GameObject::getPinInterface() {

@@ -197,7 +197,6 @@ class GameState {
   int _serveSwitch;
   int _playerButton;
   int _undo;
-  int _gameStarted;
   int _rotaryPosition;
   int _prevRotaryPosition;
   int _rotaryChange;

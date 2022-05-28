@@ -12,3 +12,4 @@ npm-debug.log*
 .DS_Store
 pin_data/
 6_object_wrap/node-addon-api/dist/
+game_state_data.txt

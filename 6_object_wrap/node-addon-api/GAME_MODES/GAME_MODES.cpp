@@ -40,8 +40,8 @@ void GameModes::gameStart() {
 }
 
 void GameModes::mode1() {
-  // // std::cout << "mode 1.  PLAYER_BUTTON: " <<
-  // _pinInterface->pinDigitalRead( PLAYER_BUTTONS ) << std::endl;
+  std::cout << "mode 1.  PLAYER_BUTTON: "
+            << _pinInterface->pinDigitalRead(PLAYER_BUTTONS) << std::endl;
   _gameState->setNow(GameTimer::gameMillis());          // now =
   _inputs.readUndoButton();                             // ReadUndoButton();
   if (_gameState->getUndo() == 1 /* undo == true */) {  // undo button pressed
@@ -49,10 +49,12 @@ void GameModes::mode1() {
     _undo.mode1Undo();
   }  // Mode1Undo();
 
+  std::cout << "reading player buttons..." << std::endl;
   _inputs.readPlayerButtons();  // digital read on player buttons.  sets
                                 // playerButton if tripped.
-  _serveLeds.serveSwitch();     // ServeSwitch(); // if serveSwitch >= 2,
-                                // serveSwitch = 0; and toggle serve variable
+  std::cout << "calling serveSwitch()..." << std::endl;
+  _serveLeds.serveSwitch();  // ServeSwitch(); // if serveSwitch >= 2,
+                             // serveSwitch = 0; and toggle serve variable
 
   if (_gameState->getTieBreak() == 1 /* tieBreak == true */) {
     _mode1TieBreaker.tieBreaker();
@@ -64,6 +66,7 @@ void GameModes::mode1() {
     _mode1Functions.mode1ButtonFunction();  // Mode1ButtonFunction();
     _mode1Functions.pointFlash();           // PointFlash();
   }
+  std::cout << "done mode1." << std::endl;
 }
 
 void GameModes::mode2() {
@@ -120,19 +123,21 @@ void GameModes::setGameMode(int rotaryPosition) {
 
     case 1:
       // Serial.println("Game Mode 1");
+      std::cout << "calling gameStart()..." << std::endl;
       gameStart();  // sets gameStart to true. resets player and score board.
+      std::cout << "Game Mode 1" << std::endl;
       mode1();
       break;
 
     case 2:  // Game mode 2 (test mode)
-      // std::cout << "Game Mode 2" << std::endl;
+             // std::cout << "Game Mode 2" << std::endl;
       gameStart();
       mode2();
       // Serial.println("Game Mode 2");
       break;
 
     case 3:  // Game mode 3 (Not yet written)
-      // Serial.println("Game Mode 3 redirecting to Mode1...");
+             // Serial.println("Game Mode 3 redirecting to Mode1...");
       gameStart();
       mode1();
       // Mode2();
@@ -140,7 +145,7 @@ void GameModes::setGameMode(int rotaryPosition) {
       break;
 
     case 4:  // Game mode 4 (Not yet written)
-      // Serial.println("Game Mode 4");
+             // Serial.println("Game Mode 4");
       gameStart();
       mode4();
       // Mode2();
@@ -148,8 +153,8 @@ void GameModes::setGameMode(int rotaryPosition) {
       break;
 
     case 5:  // Game mode 5 (Not yet written)
-      // Serial.println("Game Mode 5");
-      // Mode2();
+             // Serial.println("Game Mode 5");
+             // Mode2();
       noCode();
       break;
   }

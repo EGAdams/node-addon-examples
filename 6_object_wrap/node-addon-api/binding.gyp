@@ -30,7 +30,8 @@
                    "PinInterface/PinInterface.h", "PinInterface/PinInterface.cpp",
                    "Player/Player.h", "Player/Player.cpp",
                    "Serial.h", "Serial.cpp",
-                   "Arduino/Arduino.h", "SubjectManager/SubjectManager.h", "SubjectManager/SubjectManager.cpp"
+                   "Arduino/Arduino.h", "SubjectManager/SubjectManager.h", "SubjectManager/SubjectManager.cpp",
+                   "TieLeds/TieLeds.h", "TieLeds/TieLeds.cpp",
                     ],
       "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")",
@@ -38,7 +39,7 @@
         "PinInterface", "Player", "GameState", "GameTimer", "INPUTS", "RESET",
         "POINT_LEDs", "MODE_1_FUNCTIONS", "MODE_1_SCORE", "SERVE_LEDs", "MODE_1_TIEBREAKER",
         "MODE_1_WIN_SEQUENCES", "SET_LEDs", "MODE_2_FUNCTIONS", "GameObject",
-        "WebLiquidCrystal", "ScoreBoard", "TranslateConstant", "SubjectManager"
+        "WebLiquidCrystal", "ScoreBoard", "TranslateConstant", "SubjectManager", "TieLeds"
       ],
       'defines': [ 'NAPI_DISABLE_CPP_EXCEPTIONS' ],
     }

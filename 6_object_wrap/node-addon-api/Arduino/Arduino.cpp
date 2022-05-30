@@ -11,3 +11,7 @@ int ArduinoObject::gameMillis() {
   std::cout << "gameMillis() called..." << std::endl;
   return 1000;
 }
+
+void ArduinoObject::logUpdate(std::string message) {
+  std::cout << message << std::endl;
+}

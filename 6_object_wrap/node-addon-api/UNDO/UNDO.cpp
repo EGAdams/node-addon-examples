@@ -12,7 +12,8 @@ Undo::Undo(Player* player1,
       _pointLeds(player1, player2, pinInterface),
       _gameLeds(player1, player2, pinInterface),
       _setLeds(player1, player2, pinInterface),
-      _serveLeds(pinInterface, gameState){};
+      _serveLeds(pinInterface, gameState),
+      _tieLeds(pinInterface){};
 
 Undo::~Undo(){};
 
@@ -145,6 +146,7 @@ void Undo::setMode1Undo() {
 
 void Undo::mode1Undo() {
   GameTimer::gameDelay(250);
+  std::cout << "done sleeping." << std::endl;
   _gameState->setPointFlash(
       /* pointFlash = */ _gameState->getPrevPointFlash() /* prevPointFlash */);
   _player1->setPoints(
@@ -172,6 +174,7 @@ void Undo::mode1Undo() {
   _gameState->setTieLEDsOn(
       /*tieLEDsOn   = */ _gameState->getPrevTieLEDsOn() /* prevTieLEDsOn  */);
 
+  std::cout << "checking point flash..." << std::endl;
   _gameState->setPrevPointFlash(
       _gameState->getPrev1PointFlash());  // prevPointFlash = prev1PointFlash;
   _gameState->setPrevP1Points(
@@ -199,7 +202,7 @@ void Undo::mode1Undo() {
           ->getPrev1SetTieBreak());  // prevSetTieBreak = prev1SetTieBreak;
   _gameState->setPrevTieLEDsOn(
       _gameState->getPrev1TieLEDsOn());  // prevTieLEDsOn = prev1TieLEDsOn;
-
+  std::cout << "done checking point flash." << std::endl;
   _gameState->setPrev1PointFlash(
       _gameState->getPrev2PointFlash());  // prev1PointFlash = prev2PointFlash;
   _gameState->setPrev1P1Points(
@@ -220,6 +223,7 @@ void Undo::mode1Undo() {
       _gameState->getPrev2P2Matches());  // prev1P2Matches = prev2P2Matches;
   _gameState->setPrev1Serve(
       _gameState->getPrev2Serve());  // prev1Serve = prev2Serve;
+  std::cout << "done checking point flash." << std::endl;
   _gameState->setPrev1TieBreak(
       _gameState->getPrev2TieBreak());  // prev1TieBreak = prev2TieBreak;
   _gameState->setPrev1SetTieBreak(
@@ -238,14 +242,17 @@ void Undo::mode1Undo() {
       _gameState->getPrev3P1Games());  // prev2P1Games = prev3P1Games;
   _gameState->setPrev2P2Games(
       _gameState->getPrev3P2Games());  // prev2P2Games = prev3P2Games;
+  std::cout << "done checking point flash 4." << std::endl;
   _gameState->setPrev2P1Sets(
       _gameState->getPrev3P1Sets());  // prev2P1Sets = prev3P1Sets;
   _gameState->setPrev2P2Sets(
       _gameState->getPrev3P2Sets());  // prev2P2Sets = prev3P2Sets;
+  std::cout << "done checking point flash 5." << std::endl;
   _gameState->setPrev2P1Matches(
       _gameState->getPrev3P1Matches());  // prev2P1Matches = prev3P1Matches;
   _gameState->setPrev2P2Matches(
       _gameState->getPrev3P2Matches());  // prev2P2Matches = prev3P2Matches;
+  std::cout << "done checking point flash 6." << std::endl;
   _gameState->setPrev2Serve(
       _gameState->getPrev3Serve());  // prev2Serve = prev3Serve;
   _gameState->setPrev2TieBreak(
@@ -253,21 +260,23 @@ void Undo::mode1Undo() {
   _gameState->setPrev2SetTieBreak(
       _gameState
           ->getPrev3SetTieBreak());  // prev2SetTieBreak = prev3SetTieBreak;
+  std::cout << "done checking point flash 7." << std::endl;
   _gameState->setPrev2TieLEDsOn(
       _gameState->getPrev3TieLEDsOn());  // prev2TieLEDsOn = prev3TieLEDsOn;
 
   if (_gameState->getTieLEDsOn() == 1 /* tieLEDsOn == true */) {
     // _mode1TieBreaker.tieLEDsOn();  // TieLEDsOn();
     _gameState->setTieLEDsOn(1);  // tieLEDsOn = true;
-    _pinInterface->pinDigitalWrite(P1_TIEBREAKER, HIGH);
-    _pinInterface->pinDigitalWrite(P2_TIEBREAKER, HIGH);
+    _tieLeds.turnOn();
   }
+  std::cout << "done checking point flash." << std::endl;
   if (_gameState->getTieLEDsOn() == 0 /* tieLEDsOn == false */) {
     // _mode1TieBreaker.tieLEDsOff(); // TieLEDsOff();
+    std::cout << "turning set tie leds off..." << std::endl;
+    _tieLeds.turnOff();
     _gameState->setTieLEDsOn(0);  // tieLEDsOn = false;
-    _pinInterface->pinDigitalWrite(P1_TIEBREAKER, LOW);
-    _pinInterface->pinDigitalWrite(P2_TIEBREAKER, LOW);
   }
+  std::cout << "updating leds..." << std::endl;
   _pointLeds.updatePoints();    // UpdatePoints();
   _gameLeds.updateGames();      // UpdateGames();
   _setLeds.updateSets();        // UpdateSets();

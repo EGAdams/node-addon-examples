@@ -16,15 +16,21 @@ int PinState::getPinState(std::string pin) {
 }
 
 void PinState::setPinState(std::string pin, int state) {
+  std::cout << "Setting pin " << pin << " to state " << state << std::endl;
   _pin_map[pin] = state;
   std::string pin_file_path =
       "C:\\Users\\EG\\Desktop\\2022\\april\\5th_week\\node-addon-examples\\6_"
       "object_wrap\\node-addon-api\\pin_data\\";
+  std::cout << "writing to pin_file_path: " << pin_file_path << " ..."
+            << std::endl;
   std::ofstream pin_file(
       pin_file_path +
       _translateConstant.get_translated_constant(std::stoi(pin)) + ".txt");
   pin_file << state;
+  std::cout << "done writing to pin_file_path: " << pin_file_path << " ..."
+            << std::endl;
   pin_file.close();
+  std::cout << "done setPinState()" << std::endl;
 }
 
 void PinState::clear() {

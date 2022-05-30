@@ -15,6 +15,7 @@ class ArduinoObject {
   ~ArduinoObject();
   void gameDelay(int timeToDelay);
   int gameMillis();
+  void logUpdate(std::string message);
 };
 
 #endif

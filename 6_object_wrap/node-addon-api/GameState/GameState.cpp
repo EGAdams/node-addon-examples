@@ -14,7 +14,6 @@ GameState::GameState(Player* player1, Player* player2) {
   _serveSwitch = 1;
   _playerButton = 0;
   _undo = 0;
-  _gameStarted = 0;
   _freezePlayerButton = 0;
   _prev3TieLEDsOn = 0;  // = false;
   _prev2TieLEDsOn = 0;  // = false;
@@ -44,7 +43,7 @@ GameState::GameState(Player* player1, Player* player2) {
   _updateDisplayDelay = 700;
   _buttonDelay = 300;
   _flashDelay = 1000;
-  _gameFlashDelay = 750;
+  _gameFlashDelay = 250;
   _tiePulseCount = 3;
   _gameWinPulseCount = 3;
   _setWinPulseCount = 3;

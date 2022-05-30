@@ -50,6 +50,10 @@ void GameObject::loopGame() {
   std::cout << "GameObject::loopGame() calling gameDelay()..." << std::endl;
   GameTimer::gameDelay(25);
   _subjectManager->gameStateUpdate(_gameState);
+  std::cout << "writing low to P1_TIEBREAKER..." << std::endl;
+  _pinInterface->pinDigitalWrite(P1_TIEBREAKER, LOW);
+  std::cout << "writing low to P2_TIEBREAKER..." << std::endl;
+  _pinInterface->pinDigitalWrite(P2_TIEBREAKER, LOW);
 }
 
 PinInterface* GameObject::getPinInterface() {

@@ -8,6 +8,7 @@
 #include "PinInterface.h"
 #include "SERVE_LEDs.h"
 #include "SET_LEDs.h"
+#include "TieLeds.h"
 
 class Undo {
  public:
@@ -29,6 +30,7 @@ class Undo {
   GameLeds _gameLeds;
   SetLeds _setLeds;
   ServeLeds _serveLeds;
+  TieLeds _tieLeds;
 };
 
 #endif

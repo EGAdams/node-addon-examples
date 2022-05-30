@@ -38,7 +38,7 @@ void Inputs::readReset() {
 }
 
 void Inputs::readUndoButton() {
-  // SerialObject Serial;
+  // _arduino.logUpdate( "readUndoButton()" );
   if (_pinInterface->pinDigitalRead(UNDO) == LOW) {
     // Serial.println("entering _pinInterface->pinDigitalRead( UNDO ) == LOW ");
     // Serial.println("infinite loop...  waiting for it to go HIGH...");
@@ -49,14 +49,16 @@ void Inputs::readUndoButton() {
       }
     }
     // GameTimer::gameDelay(2000 );
+    // _arduino.logUpdate( "setting undo to \"1\"" );
     _gameState->setUndo(1);  // undo = true;
   } else {
     // Serial.println( "_pinInterface->pinDigitalRead( UNDO ) != LOW" );
   }
 }
 
-int Inputs::readRotary() {           // TODO: make this one read.
-                                     // SerialObject Serial;
+int Inputs::readRotary() {  // TODO: make this one read.
+                            // SerialObject Serial;
+  std::cout << "readRotary()..." << std::endl;
   _gameState->setRotaryPosition(0);  // int rotaryPosition = 0;
   // Serial.println("reading rotary pin " + ROTARY);
   int rotaryAnalogValue = _pinInterface->pinAnalogRead(ROTARY);
@@ -85,6 +87,7 @@ int Inputs::readRotary() {           // TODO: make this one read.
             ->getRotaryPosition());  //  prevRotaryPosition = rotaryPosition;
     _reset.refresh();  // set rotaryChange to false and reset the scoreboard
   }
+  std::cout << "returning " << _gameState->getRotaryPosition() << std::endl;
   return _gameState->getRotaryPosition();
 }
 

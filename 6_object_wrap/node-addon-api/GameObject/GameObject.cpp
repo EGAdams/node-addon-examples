@@ -45,7 +45,7 @@ GameObject::GameObject() {
 GameObject::~GameObject(){};
 
 void GameObject::loopGame() {
-  _logger->logUpdate("starting loop game...");
+  _logger->logUpdate("starting loop game...", __FUNCTION__);
   std::cout << "GameObject::loopGame() calling readReset()..." << std::endl;
   _gameInputs->readReset();
   std::cout << "GameObject::loopGame() calling setGameMode()..." << std::endl;
@@ -53,7 +53,7 @@ void GameObject::loopGame() {
   std::cout << "GameObject::loopGame() calling gameDelay()..." << std::endl;
   GameTimer::gameDelay(25);
   _subjectManager->gameStateUpdate(_gameState);
-  _logger->logUpdate("loop game done.");
+  _logger->logUpdate("loop game done.", __FUNCTION__);
 }
 
 PinInterface* GameObject::getPinInterface() {

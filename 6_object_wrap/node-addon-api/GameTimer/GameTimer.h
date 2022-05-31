@@ -4,10 +4,10 @@
 class GameTimer {
  public:
   GameTimer();
+  ~GameTimer();
   void sleep_until(int milliseconds);
   static void gameDelay(int milliseconds);
   static unsigned long gameMillis();
-  ~GameTimer();
 };
 
 #endif

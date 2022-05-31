@@ -26,6 +26,7 @@ unsigned long GameTimer::gameMillis() {
   std::chrono::milliseconds ms =
       std::chrono::duration_cast<std::chrono::milliseconds>(
           std::chrono::system_clock::now().time_since_epoch());
+  std::cout << "gameMillis(): " << ms.count() << std::endl;
   return ms.count();
   // return millis( placeHolder );
   // return millis(); // TODO: find out if we can use Arduino's millis() here.

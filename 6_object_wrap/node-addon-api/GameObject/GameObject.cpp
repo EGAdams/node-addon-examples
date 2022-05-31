@@ -37,12 +37,15 @@ GameObject::GameObject() {
   _gameModes = new GameModes(_player1, _player2, _pinInterface, _gameState);
   _scoreBoard = new ScoreBoard(_player1, _player2, _webLiquidCrystal);
   _subjectManager = new SubjectManager();
+  _logger = new Logger(
+      "C:\\Users\\EG\\Desktop\\2022\\may\\4th_week\\log_viewer_sand\\test.txt");
   std::cout << "GameObject::GameObject() done" << std::endl;
 }
 
 GameObject::~GameObject(){};
 
 void GameObject::loopGame() {
+  _logger->logUpdate("starting loop game...");
   std::cout << "GameObject::loopGame() calling readReset()..." << std::endl;
   _gameInputs->readReset();
   std::cout << "GameObject::loopGame() calling setGameMode()..." << std::endl;
@@ -50,10 +53,7 @@ void GameObject::loopGame() {
   std::cout << "GameObject::loopGame() calling gameDelay()..." << std::endl;
   GameTimer::gameDelay(25);
   _subjectManager->gameStateUpdate(_gameState);
-  std::cout << "writing low to P1_TIEBREAKER..." << std::endl;
-  _pinInterface->pinDigitalWrite(P1_TIEBREAKER, LOW);
-  std::cout << "writing low to P2_TIEBREAKER..." << std::endl;
-  _pinInterface->pinDigitalWrite(P2_TIEBREAKER, LOW);
+  _logger->logUpdate("loop game done.");
 }
 
 PinInterface* GameObject::getPinInterface() {

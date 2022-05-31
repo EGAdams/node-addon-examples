@@ -20,11 +20,7 @@ void PinInterface::pinAnalogWrite(int pin, int value) {
 }
 
 void PinInterface::pinDigitalWrite(int pin, int value) {
-  std::cout << "PinInterface::pinDigitalWrite(" << pin << ", " << value << ")"
-            << std::endl;
   _pinState->setPinState(std::to_string(pin), value);
-  std::cout << "done PinInterface::pinDigitalWrite(" << pin << ", " << value
-            << ")" << std::endl;
 }
 
 std::map<std::string, int> PinInterface::getPinStateMap() {

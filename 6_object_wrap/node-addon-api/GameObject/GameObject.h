@@ -6,6 +6,7 @@
 #include "GameState.h"
 #include "GameTimer.h"
 #include "INPUTS.h"
+#include "Logger.h"
 #include "PinInterface.h"
 #include "PinState.h"
 #include "Player.h"
@@ -44,6 +45,7 @@ class GameObject {
   WebLiquidCrystal* _webLiquidCrystal;
   std::map<std::string, int>* _pin_map;
   SubjectManager* _subjectManager;
+  Logger* _logger;
 };
 
 #endif

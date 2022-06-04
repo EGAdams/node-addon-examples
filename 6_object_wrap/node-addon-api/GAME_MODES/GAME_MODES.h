@@ -6,6 +6,8 @@
 #include "GameState.h"
 #include "GameTimer.h"
 #include "INPUTS.h"
+#include "IniReader.h"
+#include "Logger.h"
 #include "MODE_1_FUNCTIONS.h"
 #include "MODE_1_TIEBREAKER.h"
 #include "MODE_2_FUNCTIONS.h"
@@ -15,14 +17,17 @@
 #include "SERVE_LEDs.h"
 #include "SET_LEDs.h"
 #include "UNDO.h"
+class History;
 class GameModes {
  public:
   GameModes(Player* player1,
             Player* player2,
             PinInterface* pinInterface,
-            GameState* gameState);
+            GameState* gameState,
+            History* history);
   ~GameModes();
   void gameStart();
+  void testStart();
   void mode1();
   void mode2();
   void mode4();
@@ -43,6 +48,9 @@ class GameModes {
   Mode1TieBreaker _mode1TieBreaker;
   Mode1Functions _mode1Functions;
   Mode2Functions _mode2Functions;
+  IniReader _iniReader;
+  Logger* _logger;
+  History* _history;
 };
 
 #endif

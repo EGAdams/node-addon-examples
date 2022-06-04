@@ -8,7 +8,6 @@
                    "GameTimer/GameTimer.h", "GameTimer/GameTimer.cpp",
                    "TranslateConstant/TranslateConstant.h", "TranslateConstant/TranslateConstant.cpp",
                    "GameState/GameState.h", "GameState/GameState.cpp",
-                   "DigiFunctions.h", "DigiFunctions.cpp",
                    "WebLiquidCrystal/WebLiquidCrystal.h", "WebLiquidCrystal/WebLiquidCrystal.cpp",
                    "RESET/RESET.h", "RESET/RESET.cpp",
                    "DIGI_V6_15/DIGI_V6_15.h",
@@ -33,6 +32,8 @@
                    "Arduino/Arduino.h", "SubjectManager/SubjectManager.h", "SubjectManager/SubjectManager.cpp",
                    "TieLeds/TieLeds.h", "TieLeds/TieLeds.cpp",
                    "Logger/Logger.h", "Logger/Logger.cpp",
+                   "IniReader/IniReader.h", "IniReader/IniReader.cpp",
+                   "History/History.h", "History/History.cpp",
                     ],
       "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")",
@@ -41,7 +42,7 @@
         "POINT_LEDs", "MODE_1_FUNCTIONS", "MODE_1_SCORE", "SERVE_LEDs", "MODE_1_TIEBREAKER",
         "MODE_1_WIN_SEQUENCES", "SET_LEDs", "MODE_2_FUNCTIONS", "GameObject",
         "WebLiquidCrystal", "ScoreBoard", "TranslateConstant", "SubjectManager", "TieLeds",
-        "Logger"
+        "Logger", "IniReader", "History"
       ],
       'defines': [ 'NAPI_DISABLE_CPP_EXCEPTIONS' ],
     }

@@ -4,8 +4,10 @@ GameModes::~GameModes() {}
 GameModes::GameModes(Player* player1,
                      Player* player2,
                      PinInterface* pinInterface,
-                     GameState* gameState)
-    : _player1(player1),
+                     GameState* gameState,
+                     History* history)
+    : _history(history),
+      _player1(player1),
       _player2(player2),
       _pinInterface(pinInterface),
       _gameState(gameState),
@@ -17,7 +19,10 @@ GameModes::GameModes(Player* player1,
       _serveLeds(pinInterface, gameState),
       _mode1TieBreaker(player1, player2, pinInterface, gameState),
       _mode1Functions(player1, player2, pinInterface, gameState),
-      _mode2Functions(player1, player2, pinInterface, gameState) {}
+      _mode2Functions(player1, player2, pinInterface, gameState) {
+  _logger = new Logger(
+      "C:\\Users\\EG\\Desktop\\2022\\may\\4th_week\\log_viewer_sand\\test.txt");
+}
 
 void GameModes::gameStart() {
   if (_gameState->getStarted() == 0) {  // if not started...
@@ -102,6 +107,31 @@ void GameModes::mode4() {
   mode1();
 }
 
+void GameModes::testStart() {
+  if (_gameState->getStarted() == 0) {  // if not started...
+    _iniReader.OpenFile("C:\\Users\\EG\\Desktop\\2022\\may\\4th_week\\log_"
+                        "viewer_sand\\test.ini");
+    _player1->setPoints(
+        std::stoi(_iniReader.GetString("TieBreak", "player1_points")));
+    _player2->setPoints(
+        std::stoi(_iniReader.GetString("TieBreak", "player1_points")));
+    _player1->setGames(
+        std::stoi(_iniReader.GetString("TieBreak", "player1_games")));
+    _player2->setGames(
+        std::stoi(_iniReader.GetString("TieBreak", "player2_games")));
+    _player1->setSets(
+        std::stoi(_iniReader.GetString("TieBreak", "player1_sets")));
+    _player2->setSets(
+        std::stoi(_iniReader.GetString("TieBreak", "player2_sets")));
+    _logger->logUpdate("updating points, games and set LEDs...", __FUNCTION__);
+    _pointLeds.updatePoints();
+    _gameLeds.updateGames();
+    _setLeds.updateSets();
+    _gameState->setTieBreakOnly(0);
+    _gameState->setStarted(1);
+  }
+}
+
 void GameModes::noCode() {
   // SerialObject Serial;
   // Serial.println("No Code");
@@ -146,10 +176,12 @@ void GameModes::setGameMode(int rotaryPosition) {
 
     case 4:  // Game mode 4 (Not yet written)
              // Serial.println("Game Mode 4");
-      gameStart();
-      mode4();
-      // Mode2();
-      // noCode();
+             //   gameStart();
+             //   mode4();
+             // Mode2();
+             // noCode();
+      testStart();
+      mode1();
       break;
 
     case 5:  // Game mode 5 (Not yet written)

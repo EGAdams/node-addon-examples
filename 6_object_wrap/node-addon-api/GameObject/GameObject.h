@@ -5,6 +5,7 @@
 #include "GAME_MODES.h"
 #include "GameState.h"
 #include "GameTimer.h"
+#include "History.h"
 #include "INPUTS.h"
 #include "Logger.h"
 #include "PinInterface.h"
@@ -46,6 +47,7 @@ class GameObject {
   std::map<std::string, int>* _pin_map;
   SubjectManager* _subjectManager;
   Logger* _logger;
+  History* _history;
 };
 
 #endif

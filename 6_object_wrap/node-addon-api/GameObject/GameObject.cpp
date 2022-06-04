@@ -32,9 +32,11 @@ GameObject::GameObject() {
   _player2 = new Player(1);
   _pinState = new PinState(_pin_map);
   _pinInterface = new PinInterface(_pinState);
+  _history = new History();
   _gameState = new GameState(_player1, _player2);
   _gameInputs = new Inputs(_player1, _player2, _pinInterface, _gameState);
-  _gameModes = new GameModes(_player1, _player2, _pinInterface, _gameState);
+  _gameModes =
+      new GameModes(_player1, _player2, _pinInterface, _gameState, _history);
   _scoreBoard = new ScoreBoard(_player1, _player2, _webLiquidCrystal);
   _subjectManager = new SubjectManager();
   _logger = new Logger(

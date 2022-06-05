@@ -37,19 +37,15 @@ void Undo::memory() {
 }
 
 void Undo::setMode1Undo(History* history) {
-  _logger->logUpdate("inside set mode 1 undo.", __FUNCTION__);
   GameState gameState;
-  _logger->logUpdate("setting player 1 points to .. " +
-                         std::to_string(_gameState->getPlayer1Points()),
-                     __FUNCTION__);
-  gameState.setPlayer1Points(_gameState->getPlayer1Points());
-  gameState.setPlayer2Points(_gameState->getPlayer2Points());
-  gameState.setPlayer1Games(_gameState->getPlayer1Games());
-  gameState.setPlayer2Games(_gameState->getPlayer2Games());
-  gameState.setPlayer1Sets(_gameState->getPlayer1Sets());
-  gameState.setPlayer2Sets(_gameState->getPlayer2Sets());
-  gameState.setPlayer1Matches(_gameState->getPlayer1Matches());
-  gameState.setPlayer2Matches(_gameState->getPlayer2Matches());
+  gameState.setPlayer1Points(_player1->getPoints());
+  gameState.setPlayer2Points(_player2->getPoints());
+  gameState.setPlayer1Games(_player1->getGames());
+  gameState.setPlayer2Games(_player2->getGames());
+  gameState.setPlayer1Sets(_player1->getSets());
+  gameState.setPlayer2Sets(_player2->getSets());
+  gameState.setPlayer1Matches(_player1->getMatches());
+  gameState.setPlayer2Matches(_player2->getMatches());
 
   gameState.setServe(_gameState->getServe());
   gameState.setTieBreak(_gameState->getTieBreak());
@@ -61,8 +57,6 @@ void Undo::setMode1Undo(History* history) {
   gameState.setToggle(_gameState->getToggle());
   gameState.setTieBreakOnly(_gameState->getTieBreakOnly());
   gameState.setTieBreakMem(_gameState->getTieBreakMem());
-
-  _logger->logUpdate("pushing game state to history stack...", __FUNCTION__);
   history->push(gameState);
 
   //   _gameState->setPrev3PointFlash(
@@ -192,21 +186,22 @@ void Undo::mode1Undo(History* history) {
   GameTimer::gameDelay(250);
   _logger->logUpdate("done sleeping.", __FUNCTION__);
   _logger->logUpdate("getting last game state... ", __FUNCTION__);
-  GameState gameState = (history->pop());
   _logger->logUpdate("history size = " + std::to_string(history->size()),
                      __FUNCTION__);
-  _logger->logUpdate("setting player 1 points to " +
-                         std::to_string(gameState.getPlayer1Points()),
-                     __FUNCTION__);
-  _gameState->setPlayer1Points(gameState.getPlayer1Points());
-  _gameState->setPlayer2Points(gameState.getPlayer2Points());
-  _gameState->setPlayer1Games(gameState.getPlayer1Games());
-  _gameState->setPlayer2Games(gameState.getPlayer2Games());
-  _gameState->setPlayer1Sets(gameState.getPlayer1Sets());
-  _gameState->setPlayer2Sets(gameState.getPlayer2Sets());
-  _gameState->setPlayer1Matches(gameState.getPlayer1Matches());
-  _gameState->setPlayer2Matches(gameState.getPlayer2Matches());
-
+  if (history->size() == 0) {
+    _logger->logUpdate("history size = 0.  can not undo.  returning...",
+                       __FUNCTION__);
+    return;
+  }
+  GameState gameState = (history->pop());
+  _player1->setPoints(gameState.getPlayer1Points());
+  _player2->setPoints(gameState.getPlayer2Points());
+  _player1->setGames(gameState.getPlayer1Games());
+  _player2->setGames(gameState.getPlayer2Games());
+  _player1->setSets(gameState.getPlayer1Sets());
+  _player2->setSets(gameState.getPlayer2Sets());
+  _player1->setMatches(gameState.getPlayer1Matches());
+  _player2->setMatches(gameState.getPlayer2Matches());
   _gameState->setServe(gameState.getServe());
   _gameState->setTieBreak(gameState.getTieBreak());
   _gameState->setSetTieBreak(gameState.getSetTieBreak());

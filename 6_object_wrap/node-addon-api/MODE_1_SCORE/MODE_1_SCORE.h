@@ -18,7 +18,8 @@ class Mode1Score {
   Mode1Score(Player* player1,
              Player* player2,
              PinInterface* pinInterface,
-             GameState* gameState);
+             GameState* gameState,
+             History* history);
   ~Mode1Score();
   void mode1P1Score();
   void mode1P1Games();
@@ -39,6 +40,7 @@ class Mode1Score {
   SetLeds _setLeds;
   Mode1WinSequences _mode1WinSequences;
   Undo _undo;
+  History* _history;
 };
 
 #endif

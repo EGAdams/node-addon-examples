@@ -7,12 +7,14 @@
 #include "POINT_LEDs.h"
 #include "PinInterface.h"
 #include "UNDO.h"
+class History;
 class Mode1Functions {
  public:
   Mode1Functions(Player* player1,
                  Player* player2,
                  PinInterface* pinInterface,
-                 GameState* gameState);
+                 GameState* gameState,
+                 History* history);
   ~Mode1Functions();
   void mode1ButtonFunction();
   void mode1ServeFunction();
@@ -26,6 +28,7 @@ class Mode1Functions {
   PointLeds _pointLeds;
   Mode1Score _mode1Score;
   ServeLeds _serveLeds;
+  History* _history;
 };
 
 #endif

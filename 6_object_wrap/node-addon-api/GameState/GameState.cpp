@@ -2,10 +2,7 @@
 #include "Arduino.h"
 
 GameState::~GameState() {}
-GameState::GameState(Player* player1, Player* player2)
-    : _player1(player1), _player2(player2) {
-  _player1 = player1;
-  _player2 = player2;
+GameState::GameState() {
   _pointFlash = 0;
   _serve = 0;
   _tieBreak = 0;
@@ -658,4 +655,68 @@ void GameState::setGameFlashDelay(int gameFlashDelay) {
 }
 int GameState::getGameFlashDelay() {
   return _gameFlashDelay;
+}
+
+int GameState::getPlayer1Points() {
+  return _player1_points;
+}
+
+void GameState::setPlayer1Points(int player1Points) {
+  _player1_points = player1Points;
+}
+
+int GameState::getPlayer2Points() {
+  return _player2_points;
+}
+
+void GameState::setPlayer2Points(int player2Points) {
+  _player2_points = player2Points;
+}
+
+int GameState::getPlayer1Games() {
+  return _player1_games;
+}
+
+void GameState::setPlayer1Games(int player1Games) {
+  _player1_games = player1Games;
+}
+
+int GameState::getPlayer2Games() {
+  return _player2_games;
+}
+
+void GameState::setPlayer2Games(int player2Games) {
+  _player2_games = player2Games;
+}
+
+int GameState::getPlayer1Sets() {
+  return _player1_sets;
+}
+
+void GameState::setPlayer1Sets(int player1Sets) {
+  _player1_sets = player1Sets;
+}
+
+int GameState::getPlayer2Sets() {
+  return _player2_sets;
+}
+
+void GameState::setPlayer2Sets(int player2Sets) {
+  _player2_sets = player2Sets;
+}
+
+int GameState::getPlayer1Matches() {
+  return _player1_matches;
+}
+
+void GameState::setPlayer1Matches(int player1Matches) {
+  _player1_matches = player1Matches;
+}
+
+int GameState::getPlayer2Matches() {
+  return _player2_matches;
+}
+
+void GameState::setPlayer2Matches(int player2Matches) {
+  _player2_matches = player2Matches;
 }

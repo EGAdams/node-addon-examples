@@ -5,11 +5,13 @@
 Mode1Score::Mode1Score(Player* player1,
                        Player* player2,
                        PinInterface* pinInterface,
-                       GameState* gameState)
-    : _player1(player1),
+                       GameState* gameState,
+                       History* history)
+    : _history(history),
+      _player1(player1),
       _player2(player2),
       _gameState(gameState),
-      _mode1TieBreaker(player1, player2, pinInterface, gameState),
+      _mode1TieBreaker(player1, player2, pinInterface, gameState, history),
       _pointLeds(player1, player2, pinInterface),
       _gameLeds(player1, player2, pinInterface),
       _setLeds(player1, player2, pinInterface),
@@ -55,8 +57,7 @@ void Mode1Score::mode1P1Games() {
       _mode1TieBreaker.tieBreakEnable();
     }
     if (_gameState->getTieBreak() == 0 /* tieBreak == false */) {
-      if ((_player1->getGames() -
-           _player2->getGames() /* p1Games - p2Games */) > 1) {
+      if ((_player1->getGames() - _player2->getGames()) > 1) {
         _player1->setSets(_player1->getSets() + 1);  // p1Sets++;
         _setLeds.updateSets();
         // GameTimer::gameDelay( _gameState->getUpdateDisplayDelay());

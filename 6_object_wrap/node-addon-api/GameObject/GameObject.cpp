@@ -33,7 +33,7 @@ GameObject::GameObject() {
   _pinState = new PinState(_pin_map);
   _pinInterface = new PinInterface(_pinState);
   _history = new History();
-  _gameState = new GameState(_player1, _player2);
+  _gameState = new GameState();
   _gameInputs = new Inputs(_player1, _player2, _pinInterface, _gameState);
   _gameModes =
       new GameModes(_player1, _player2, _pinInterface, _gameState, _history);

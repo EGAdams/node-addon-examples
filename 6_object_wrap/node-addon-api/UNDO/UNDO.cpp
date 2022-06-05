@@ -34,7 +34,30 @@ void Undo::memory() {
       _gameState->getSetTieBreak());  // setTieBreakMem = setTieBreak;
 }
 
-void Undo::setMode1Undo() {
+void Undo::setMode1Undo(History* history) {
+  GameState gameState;
+  gameState.setPlayer1Points(_gameState->getPlayer1Points());
+  gameState.setPlayer2Points(_gameState->getPlayer2Points());
+  gameState.setPlayer1Games(_gameState->getPlayer1Games());
+  gameState.setPlayer2Games(_gameState->getPlayer2Games());
+  gameState.setPlayer1Sets(_gameState->getPlayer1Sets());
+  gameState.setPlayer2Sets(_gameState->getPlayer2Sets());
+  gameState.setPlayer1Matches(_gameState->getPlayer1Matches());
+  gameState.setPlayer2Matches(_gameState->getPlayer2Matches());
+
+  gameState.setServe(_gameState->getServe());
+  gameState.setTieBreak(_gameState->getTieBreak());
+  gameState.setSetTieBreak(_gameState->getSetTieBreak());
+  gameState.setServeSwitch(_gameState->getServeSwitch());
+  gameState.setUndo(_gameState->getUndo());
+  gameState.setStarted(_gameState->getStarted());
+  gameState.setRotaryChange(_gameState->getRotaryChange());
+  gameState.setToggle(_gameState->getToggle());
+  gameState.setTieBreakOnly(_gameState->getTieBreakOnly());
+  gameState.setTieBreakMem(_gameState->getTieBreakMem());
+
+  history->push(gameState);
+
   //   _gameState->setPrev3PointFlash(
   //       _gameState->getPrev2PointFlash());  // prev3PointFlash =
   //       prev2PointFlash;
@@ -158,7 +181,7 @@ void Undo::setMode1Undo() {
   //       _gameState->getTieLEDsOn());  // prevTieLEDsOn   = tieLEDsOn;
 }
 
-void Undo::mode1Undo() {
+void Undo::mode1Undo(History* history) {
   GameTimer::gameDelay(250);
   std::cout << "done sleeping." << std::endl;
   _gameState->setPointFlash(

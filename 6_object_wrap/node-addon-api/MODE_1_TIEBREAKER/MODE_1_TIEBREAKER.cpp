@@ -10,8 +10,10 @@
 Mode1TieBreaker::Mode1TieBreaker(Player* player1,
                                  Player* player2,
                                  PinInterface* pinInterface,
-                                 GameState* gameState)
-    : _player1(player1),
+                                 GameState* gameState,
+                                 History* history)
+    : _history(history),
+      _player1(player1),
       _player2(player2),
       _pinInterface(pinInterface),
       _gameState(gameState),
@@ -45,26 +47,26 @@ void Mode1TieBreaker::mode1TBButtonFunction() {
 
     case 1:
       GameTimer::gameDelay(_gameState->getButtonDelay() /* buttonDelay */);
-      _undo.setMode1Undo();                          // SetMode1Undo();
+      _undo.setMode1Undo(_history);                  // SetMode1Undo();
       _player1->setGames(_player1->getGames() + 1);  // p1Games++;
       mode1TBP1Games();                              // Mode1TBP1Games();
       break;
 
     case 2:
       GameTimer::gameDelay(_gameState->getButtonDelay() /* buttonDelay */);
-      _undo.mode1Undo();  // Mode1Undo();
+      _undo.mode1Undo(_history);  // Mode1Undo();
       break;
 
     case 3:
       GameTimer::gameDelay(_gameState->getButtonDelay() /* buttonDelay */);
-      _undo.setMode1Undo();                          // SetMode1Undo();
+      _undo.setMode1Undo(_history);                  // SetMode1Undo();
       _player2->setGames(_player2->getGames() + 1);  // p2Games++;
       mode1TBP2Games();                              //  Mode1TBP2Games();
       break;
 
     case 4:
       GameTimer::gameDelay(_gameState->getButtonDelay() /* buttonDelay */);
-      _undo.mode1Undo();  // Mode1Undo();
+      _undo.mode1Undo(_history);  // Mode1Undo();
       break;
   }
   _gameState->setPlayerButton(0); /* PlayerButton */ /* playerButton */  // = 0;
@@ -89,7 +91,7 @@ void Mode1TieBreaker::mode1SetTBButtonFunction() {
               ->getButtonDelay() /* buttonDelay */);  // delay(
                                                       // _gameState->getButtonDelay()
                                                       // /* buttonDelay */  );
-      _undo.setMode1Undo();                          // SetMode1Undo();
+      _undo.setMode1Undo(_history);                  // SetMode1Undo();
       _player1->setGames(_player1->getGames() + 1);  // p1Games++;
       mode1SetTBP1Games();
       break;
@@ -100,7 +102,7 @@ void Mode1TieBreaker::mode1SetTBButtonFunction() {
               ->getButtonDelay() /* buttonDelay */);  // delay(
                                                       // _gameState->getButtonDelay()
                                                       // /* buttonDelay */  );
-      _undo.mode1Undo();  // Mode1Undo();
+      _undo.mode1Undo(_history);  // Mode1Undo();
       break;
 
     case 3:
@@ -109,7 +111,7 @@ void Mode1TieBreaker::mode1SetTBButtonFunction() {
               ->getButtonDelay() /* buttonDelay */);  // delay(
                                                       // _gameState->getButtonDelay()
                                                       // /* buttonDelay */  );
-      _undo.setMode1Undo();                          // SetMode1Undo();
+      _undo.setMode1Undo(_history);                  // SetMode1Undo();
       _player2->setGames(_player2->getGames() + 1);  // p2Games++;
       mode1SetTBP2Games();
       break;
@@ -120,7 +122,7 @@ void Mode1TieBreaker::mode1SetTBButtonFunction() {
               ->getButtonDelay() /* buttonDelay */);  // delay(
                                                       // _gameState->getButtonDelay()
                                                       // /* buttonDelay */  );;
-      _undo.mode1Undo();  // Mode1Undo();
+      _undo.mode1Undo(_history);  // Mode1Undo();
       break;
   }
   _gameState->setPlayerButton(0); /* playerButton */  // = 0;

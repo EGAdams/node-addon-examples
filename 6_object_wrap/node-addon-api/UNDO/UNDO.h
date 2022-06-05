@@ -4,6 +4,7 @@
 #include "GAME_LEDs.h"
 #include "GameState.h"
 #include "GameTimer.h"
+#include "History.h"
 #include "POINT_LEDs.h"
 #include "PinInterface.h"
 #include "SERVE_LEDs.h"
@@ -17,9 +18,9 @@ class Undo {
        PinInterface* pinInterface,
        GameState* gameState);
   ~Undo();
-  void setMode1Undo();
+  void setMode1Undo(History* history);
   void memory();
-  void mode1Undo();
+  void mode1Undo(History* history);
 
  private:
   Player* _player1;

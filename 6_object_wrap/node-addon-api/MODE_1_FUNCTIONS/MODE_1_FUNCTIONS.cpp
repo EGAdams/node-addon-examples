@@ -5,13 +5,15 @@
 Mode1Functions::Mode1Functions(Player* player1,
                                Player* player2,
                                PinInterface* pinInterface,
-                               GameState* gameState)
-    : _player1(player1),
+                               GameState* gameState,
+                               History* history)
+    : _history(history),
+      _player1(player1),
       _player2(player2),
       _gameState(gameState),
       _undo(player1, player2, pinInterface, gameState),
       _pointLeds(player1, player2, pinInterface),
-      _mode1Score(player1, player2, pinInterface, gameState),
+      _mode1Score(player1, player2, pinInterface, gameState, history),
       _serveLeds(pinInterface, gameState) {}
 
 Mode1Functions::~Mode1Functions() {}
@@ -22,7 +24,7 @@ void Mode1Functions::mode1ButtonFunction() {
       break;
 
     case 1:
-      _undo.setMode1Undo();
+      _undo.setMode1Undo(_history);
       if (_gameState->getPointFlash() == 1 /* *_pointFlash == true */) {
         _gameState->setPointFlash(0);  // *_pointFlash = false;
         _player1->setPoints(
@@ -41,11 +43,11 @@ void Mode1Functions::mode1ButtonFunction() {
 
     case 2:
       GameTimer::gameDelay(_gameState->getButtonDelay() /* buttonDelay */);
-      _undo.mode1Undo();  // Mode1Undo();
+      _undo.mode1Undo(_history);  // Mode1Undo();
       break;
 
     case 3:
-      _undo.setMode1Undo();  // SetMode1Undo();
+      _undo.setMode1Undo(_history);  // SetMode1Undo();
       if (_gameState->getPointFlash() == 1 /* pointFlash == true */) {
         _gameState->setPointFlash(0);  // pointFlash = false;
         _player1->setPoints(
@@ -65,15 +67,15 @@ void Mode1Functions::mode1ButtonFunction() {
 
     case 4:
       GameTimer::gameDelay(_gameState->getButtonDelay() /* buttonDelay */);
-      _undo.mode1Undo();  // Mode1Undo();
+      _undo.mode1Undo(_history);  // Mode1Undo();
       break;
   }
   _gameState->setPlayerButton(0);  // playerButton = 0;
 }
 
 void Mode1Functions::mode1ServeFunction() {
-  _undo.setMode1Undo();      // SetMode1Undo();
-  _serveLeds.serveSwitch();  // ServeSwitch();
+  _undo.setMode1Undo(_history);  // SetMode1Undo();
+  _serveLeds.serveSwitch();      // ServeSwitch();
 }
 
 void Mode1Functions::pointFlash() {

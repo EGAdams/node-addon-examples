@@ -16,7 +16,8 @@ class Mode1TieBreaker {
   Mode1TieBreaker(Player* player1,
                   Player* player2,
                   PinInterface* pinInterface,
-                  GameState* gameState);
+                  GameState* gameState,
+                  History* history);
   ~Mode1TieBreaker();
   void tieBreaker();
   void setTieBreaker();
@@ -51,6 +52,7 @@ class Mode1TieBreaker {
   SetLeds _setLeds;
   Mode1WinSequences _mode1WinSequences;
   Undo _undo;
+  History* _history;
 };
 
 #endif

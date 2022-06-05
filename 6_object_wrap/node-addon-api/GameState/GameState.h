@@ -7,7 +7,6 @@
 class GameState {
  public:
   GameState();
-  GameState(Player* player1, Player* player2);
   ~GameState();
   void setUpdateDisplayDelay(int delay);
   int getUpdateDisplayDelay();
@@ -185,9 +184,32 @@ class GameState {
   void setGameFlashDelay(int gameFlashDelay);
   int getGameFlashDelay();
 
+  int getPlayer1Points();
+  void setPlayer1Points(int player1Points);
+  int getPlayer2Points();
+  void setPlayer2Points(int player2Points);
+  int getPlayer1Games();
+  void setPlayer1Games(int player1Games);
+  int getPlayer2Games();
+  void setPlayer2Games(int player2Games);
+  int getPlayer1Sets();
+  void setPlayer1Sets(int player1Sets);
+  int getPlayer2Sets();
+  void setPlayer2Sets(int player2Sets);
+  int getPlayer1Matches();
+  void setPlayer1Matches(int player1Matches);
+  int getPlayer2Matches();
+  void setPlayer2Matches(int player2Matches);
+
  private:
-  Player* _player1;
-  Player* _player2;
+  int _player1_points;
+  int _player2_points;
+  int _player1_games;
+  int _player2_games;
+  int _player1_sets;
+  int _player2_sets;
+  int _player1_matches;
+  int _player2_matches;
   int _pointFlash;
   int _serve;
   int _tieBreak;

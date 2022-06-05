@@ -17,8 +17,8 @@ GameModes::GameModes(Player* player1,
       _inputs(player1, player2, pinInterface, gameState),
       _undo(player1, player2, pinInterface, gameState),
       _serveLeds(pinInterface, gameState),
-      _mode1TieBreaker(player1, player2, pinInterface, gameState),
-      _mode1Functions(player1, player2, pinInterface, gameState),
+      _mode1TieBreaker(player1, player2, pinInterface, gameState, history),
+      _mode1Functions(player1, player2, pinInterface, gameState, history),
       _mode2Functions(player1, player2, pinInterface, gameState) {
   _logger = new Logger(
       "C:\\Users\\EG\\Desktop\\2022\\may\\4th_week\\log_viewer_sand\\test.txt");
@@ -51,7 +51,7 @@ void GameModes::mode1() {
   _inputs.readUndoButton();                             // ReadUndoButton();
   if (_gameState->getUndo() == 1 /* undo == true */) {  // undo button pressed
     _gameState->setUndo(0);                             // undo = false;
-    _undo.mode1Undo();
+    _undo.mode1Undo(_history);
   }  // Mode1Undo();
 
   std::cout << "reading player buttons..." << std::endl;

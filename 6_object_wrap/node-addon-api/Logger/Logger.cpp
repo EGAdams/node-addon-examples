@@ -9,7 +9,6 @@ Logger::Logger(std::string file_path) : _file_path(file_path) {
   std::cout << "Constructing Logger..." << std::endl;
   std::cout << "opening file:" << file_path << std::endl;
   _log_file.open(_file_path, std::ios::out | std::ios::app);
-  std::cout << "file opened:" << _log_file.is_open() << std::endl;
 }
 
 Logger::~Logger() {
@@ -46,15 +45,10 @@ int Logger::_get_random_number() {
   std::cout << "game millis before log: "
             << this->_get_seconds_since_epoch() * 1000 << std::endl;
   int random_variable = std::rand();
-  std::cout << "checking for in array random variable: " << random_variable
-            << std::endl;
   while (inArray(random_variable)) {
-    std::cout << "random variable: " << random_variable << " already used"
-              << std::endl;
     random_variable++;
   }
   _used_random_numbers.push_back(random_variable);
-  std::cout << "using random variable: " + random_variable << std::endl;
   return random_variable;
 }
 

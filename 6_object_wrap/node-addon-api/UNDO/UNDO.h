@@ -5,6 +5,7 @@
 #include "GameState.h"
 #include "GameTimer.h"
 #include "History.h"
+#include "Logger.h"
 #include "POINT_LEDs.h"
 #include "PinInterface.h"
 #include "SERVE_LEDs.h"
@@ -32,6 +33,7 @@ class Undo {
   SetLeds _setLeds;
   ServeLeds _serveLeds;
   TieLeds _tieLeds;
+  Logger* _logger;
 };
 
 #endif

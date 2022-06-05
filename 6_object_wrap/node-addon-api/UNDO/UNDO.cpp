@@ -13,7 +13,9 @@ Undo::Undo(Player* player1,
       _gameLeds(player1, player2, pinInterface),
       _setLeds(player1, player2, pinInterface),
       _serveLeds(pinInterface, gameState),
-      _tieLeds(pinInterface){};
+      _tieLeds(pinInterface) {
+  _logger = new Logger(LOG_FILE_PATH);
+};
 
 Undo::~Undo(){};
 
@@ -35,7 +37,11 @@ void Undo::memory() {
 }
 
 void Undo::setMode1Undo(History* history) {
+  _logger->logUpdate("inside set mode 1 undo.", __FUNCTION__);
   GameState gameState;
+  _logger->logUpdate("setting player 1 points to .. " +
+                         std::to_string(_gameState->getPlayer1Points()),
+                     __FUNCTION__);
   gameState.setPlayer1Points(_gameState->getPlayer1Points());
   gameState.setPlayer2Points(_gameState->getPlayer2Points());
   gameState.setPlayer1Games(_gameState->getPlayer1Games());
@@ -56,6 +62,7 @@ void Undo::setMode1Undo(History* history) {
   gameState.setTieBreakOnly(_gameState->getTieBreakOnly());
   gameState.setTieBreakMem(_gameState->getTieBreakMem());
 
+  _logger->logUpdate("pushing game state to history stack...", __FUNCTION__);
   history->push(gameState);
 
   //   _gameState->setPrev3PointFlash(
@@ -183,137 +190,178 @@ void Undo::setMode1Undo(History* history) {
 
 void Undo::mode1Undo(History* history) {
   GameTimer::gameDelay(250);
-  std::cout << "done sleeping." << std::endl;
-  _gameState->setPointFlash(
-      /* pointFlash = */ _gameState->getPrevPointFlash() /* prevPointFlash */);
-  _player1->setPoints(
-      /* p1Points   = */ _gameState->getPrevP1Points() /* prevP1Points   */);
-  _player2->setPoints(
-      /* p2Points   = */ _gameState->getPrevP2Points() /* prevP2Points   */);
-  _player1->setGames(
-      /* p1Games    = */ _gameState->getPrevP1Games() /* prevP1Games    */);
-  _player2->setGames(
-      /* p2Games    = */ _gameState->getPrevP2Games() /* prevP2Games    */);
-  _player1->setSets(
-      /* p1Sets     = */ _gameState->getPrevP1Sets() /*  prevP1Sets    */);
-  _player2->setSets(
-      /* p2Sets     = */ _gameState->getPrevP2Sets() /* prevP2Sets     */);
-  _player1->setMatches(
-      /* p1Matches  = */ _gameState->getPrevP1Matches() /* prevP1Matches  */);
-  _player2->setMatches(
-      /* p2Matches  = */ _gameState->getPrevP2Matches() /* prevP2Matches  */);
-  _gameState->setServe(
-      /* serve      = */ _gameState->getPrevServe() /* prevServe      */);
-  _gameState->setTieBreak(
-      /* tieBreak   = */ _gameState->getPrevTieBreak() /* prevTieBreak   */);
-  _gameState->setSetTieBreak(
-      /*setTieBreak = */ _gameState->getPrevSetTieBreak() /* prevSetTieBreak*/);
-  _gameState->setTieLEDsOn(
-      /*tieLEDsOn   = */ _gameState->getPrevTieLEDsOn() /* prevTieLEDsOn  */);
+  _logger->logUpdate("done sleeping.", __FUNCTION__);
+  _logger->logUpdate("getting last game state... ", __FUNCTION__);
+  GameState gameState = (history->pop());
+  _logger->logUpdate("history size = " + std::to_string(history->size()),
+                     __FUNCTION__);
+  _logger->logUpdate("setting player 1 points to " +
+                         std::to_string(gameState.getPlayer1Points()),
+                     __FUNCTION__);
+  _gameState->setPlayer1Points(gameState.getPlayer1Points());
+  _gameState->setPlayer2Points(gameState.getPlayer2Points());
+  _gameState->setPlayer1Games(gameState.getPlayer1Games());
+  _gameState->setPlayer2Games(gameState.getPlayer2Games());
+  _gameState->setPlayer1Sets(gameState.getPlayer1Sets());
+  _gameState->setPlayer2Sets(gameState.getPlayer2Sets());
+  _gameState->setPlayer1Matches(gameState.getPlayer1Matches());
+  _gameState->setPlayer2Matches(gameState.getPlayer2Matches());
 
-  std::cout << "checking point flash..." << std::endl;
-  _gameState->setPrevPointFlash(
-      _gameState->getPrev1PointFlash());  // prevPointFlash = prev1PointFlash;
-  _gameState->setPrevP1Points(
-      _gameState->getPrev1P1Points());  // prevP1Points = prev1P1Points;
-  _gameState->setPrevP2Points(
-      _gameState->getPrev1P2Points());  // prevP2Points = prev1P2Points;
-  _gameState->setPrevP1Games(
-      _gameState->getPrev1P1Games());  // prevP1Games = prev1P1Games;
-  _gameState->setPrevP2Games(
-      _gameState->getPrev1P2Games());  // prevP2Games = prev1P2Games;
-  _gameState->setPrevP1Sets(
-      _gameState->getPrev1P1Sets());  // prevP1Sets = prev1P1Sets;
-  _gameState->setPrevP2Sets(
-      _gameState->getPrev1P2Sets());  // prevP2Sets = prev1P2Sets;
-  _gameState->setPrevP1Matches(
-      _gameState->getPrev1P1Matches());  // prevP1Matches = prev1P1Matches;
-  _gameState->setPrevP2Matches(
-      _gameState->getPrev1P2Matches());  // prevP2Matches = prev1P2Matches;
-  _gameState->setPrevServe(
-      _gameState->getPrev1Serve());  // prevServe = prev1Serve;
-  _gameState->setPrevTieBreak(
-      _gameState->getPrev1TieBreak());  // prevTieBreak = prev1TieBreak;
-  _gameState->setPrevSetTieBreak(
-      _gameState
-          ->getPrev1SetTieBreak());  // prevSetTieBreak = prev1SetTieBreak;
-  _gameState->setPrevTieLEDsOn(
-      _gameState->getPrev1TieLEDsOn());  // prevTieLEDsOn = prev1TieLEDsOn;
-  std::cout << "done checking point flash." << std::endl;
-  _gameState->setPrev1PointFlash(
-      _gameState->getPrev2PointFlash());  // prev1PointFlash = prev2PointFlash;
-  _gameState->setPrev1P1Points(
-      _gameState->getPrev2P1Points());  // prev1P1Points = prev2P1Points;
-  _gameState->setPrev1P2Points(
-      _gameState->getPrev2P2Points());  // prev1P2Points = prev2P2Points;
-  _gameState->setPrev1P1Games(
-      _gameState->getPrev2P1Games());  // prev1P1Games = prev2P1Games;
-  _gameState->setPrev1P2Games(
-      _gameState->getPrev2P2Games());  // prev1P2Games = prev2P2Games;
-  _gameState->setPrev1P1Sets(
-      _gameState->getPrev2P1Sets());  // prev1P1Sets = prev2P1Sets;
-  _gameState->setPrev1P2Sets(
-      _gameState->getPrev2P2Sets());  // prev1P2Sets = prev2P2Sets;
-  _gameState->setPrev1P1Matches(
-      _gameState->getPrev2P1Matches());  // prev1P1Matches = prev2P1Matches;
-  _gameState->setPrev1P2Matches(
-      _gameState->getPrev2P2Matches());  // prev1P2Matches = prev2P2Matches;
-  _gameState->setPrev1Serve(
-      _gameState->getPrev2Serve());  // prev1Serve = prev2Serve;
-  std::cout << "done checking point flash." << std::endl;
-  _gameState->setPrev1TieBreak(
-      _gameState->getPrev2TieBreak());  // prev1TieBreak = prev2TieBreak;
-  _gameState->setPrev1SetTieBreak(
-      _gameState
-          ->getPrev2SetTieBreak());  // prev1SetTieBreak = prev2SetTieBreak;
-  _gameState->setPrev1TieLEDsOn(
-      _gameState->getPrev2TieLEDsOn());  // prev1TieLEDsOn = prev2TieLEDsOn;
+  _gameState->setServe(gameState.getServe());
+  _gameState->setTieBreak(gameState.getTieBreak());
+  _gameState->setSetTieBreak(gameState.getSetTieBreak());
+  _gameState->setServeSwitch(gameState.getServeSwitch());
+  _gameState->setUndo(gameState.getUndo());
+  _gameState->setStarted(gameState.getStarted());
+  _gameState->setRotaryChange(gameState.getRotaryChange());
+  _gameState->setToggle(gameState.getToggle());
+  _gameState->setTieBreakOnly(gameState.getTieBreakOnly());
+  _gameState->setTieBreakMem(gameState.getTieBreakMem());
+  //   _gameState->setPointFlash(
+  //       /* pointFlash = */ _gameState->getPrevPointFlash() /* prevPointFlash
+  //       */);
+  //   _player1->setPoints(
+  //       /* p1Points   = */ _gameState->getPrevP1Points() /* prevP1Points */);
+  //   _player2->setPoints(
+  //       /* p2Points   = */ _gameState->getPrevP2Points() /* prevP2Points */);
+  //   _player1->setGames(
+  //       /* p1Games    = */ _gameState->getPrevP1Games() /* prevP1Games */);
+  //   _player2->setGames(
+  //       /* p2Games    = */ _gameState->getPrevP2Games() /* prevP2Games */);
+  //   _player1->setSets(
+  //       /* p1Sets     = */ _gameState->getPrevP1Sets() /*  prevP1Sets    */);
+  //   _player2->setSets(
+  //       /* p2Sets     = */ _gameState->getPrevP2Sets() /* prevP2Sets     */);
+  //   _player1->setMatches(
+  //       /* p1Matches  = */ _gameState->getPrevP1Matches() /* prevP1Matches
+  //       */);
+  //   _player2->setMatches(
+  //       /* p2Matches  = */ _gameState->getPrevP2Matches() /* prevP2Matches
+  //       */);
+  //   _gameState->setServe(
+  //       /* serve      = */ _gameState->getPrevServe() /* prevServe      */);
+  //   _gameState->setTieBreak(
+  //       /* tieBreak   = */ _gameState->getPrevTieBreak() /* prevTieBreak */);
+  //   _gameState->setSetTieBreak(
+  //       /*setTieBreak = */ _gameState->getPrevSetTieBreak() /*
+  //       prevSetTieBreak*/);
+  //   _gameState->setTieLEDsOn(
+  //       /*tieLEDsOn   = */ _gameState->getPrevTieLEDsOn() /* prevTieLEDsOn
+  //       */);
 
-  _gameState->setPrev2PointFlash(
-      _gameState->getPrev3PointFlash());  // prev2PointFlash = prev3PointFlash;
-  _gameState->setPrev2P1Points(
-      _gameState->getPrev3P1Points());  // prev2P1Points = prev3P1Points;
-  _gameState->setPrev2P2Points(
-      _gameState->getPrev3P2Points());  // prev2P2Points = prev3P2Points;
-  _gameState->setPrev2P1Games(
-      _gameState->getPrev3P1Games());  // prev2P1Games = prev3P1Games;
-  _gameState->setPrev2P2Games(
-      _gameState->getPrev3P2Games());  // prev2P2Games = prev3P2Games;
-  std::cout << "done checking point flash 4." << std::endl;
-  _gameState->setPrev2P1Sets(
-      _gameState->getPrev3P1Sets());  // prev2P1Sets = prev3P1Sets;
-  _gameState->setPrev2P2Sets(
-      _gameState->getPrev3P2Sets());  // prev2P2Sets = prev3P2Sets;
-  std::cout << "done checking point flash 5." << std::endl;
-  _gameState->setPrev2P1Matches(
-      _gameState->getPrev3P1Matches());  // prev2P1Matches = prev3P1Matches;
-  _gameState->setPrev2P2Matches(
-      _gameState->getPrev3P2Matches());  // prev2P2Matches = prev3P2Matches;
-  std::cout << "done checking point flash 6." << std::endl;
-  _gameState->setPrev2Serve(
-      _gameState->getPrev3Serve());  // prev2Serve = prev3Serve;
-  _gameState->setPrev2TieBreak(
-      _gameState->getPrev3TieBreak());  // prev2TieBreak = prev3TieBreak;
-  _gameState->setPrev2SetTieBreak(
-      _gameState
-          ->getPrev3SetTieBreak());  // prev2SetTieBreak = prev3SetTieBreak;
-  std::cout << "done checking point flash 7." << std::endl;
-  _gameState->setPrev2TieLEDsOn(
-      _gameState->getPrev3TieLEDsOn());  // prev2TieLEDsOn = prev3TieLEDsOn;
+  //   std::cout << "checking point flash..." << std::endl;
+  //   _gameState->setPrevPointFlash(
+  //       _gameState->getPrev1PointFlash());  // prevPointFlash =
+  //       prev1PointFlash;
+  //   _gameState->setPrevP1Points(
+  //       _gameState->getPrev1P1Points());  // prevP1Points = prev1P1Points;
+  //   _gameState->setPrevP2Points(
+  //       _gameState->getPrev1P2Points());  // prevP2Points = prev1P2Points;
+  //   _gameState->setPrevP1Games(
+  //       _gameState->getPrev1P1Games());  // prevP1Games = prev1P1Games;
+  //   _gameState->setPrevP2Games(
+  //       _gameState->getPrev1P2Games());  // prevP2Games = prev1P2Games;
+  //   _gameState->setPrevP1Sets(
+  //       _gameState->getPrev1P1Sets());  // prevP1Sets = prev1P1Sets;
+  //   _gameState->setPrevP2Sets(
+  //       _gameState->getPrev1P2Sets());  // prevP2Sets = prev1P2Sets;
+  //   _gameState->setPrevP1Matches(
+  //       _gameState->getPrev1P1Matches());  // prevP1Matches = prev1P1Matches;
+  //   _gameState->setPrevP2Matches(
+  //       _gameState->getPrev1P2Matches());  // prevP2Matches = prev1P2Matches;
+  //   _gameState->setPrevServe(
+  //       _gameState->getPrev1Serve());  // prevServe = prev1Serve;
+  //   _gameState->setPrevTieBreak(
+  //       _gameState->getPrev1TieBreak());  // prevTieBreak = prev1TieBreak;
+  //   _gameState->setPrevSetTieBreak(
+  //       _gameState
+  //           ->getPrev1SetTieBreak());  // prevSetTieBreak = prev1SetTieBreak;
+  //   _gameState->setPrevTieLEDsOn(
+  //       _gameState->getPrev1TieLEDsOn());  // prevTieLEDsOn = prev1TieLEDsOn;
+  //   std::cout << "done checking point flash." << std::endl;
+  //   _gameState->setPrev1PointFlash(
+  //       _gameState->getPrev2PointFlash());  // prev1PointFlash =
+  //       prev2PointFlash;
+  //   _gameState->setPrev1P1Points(
+  //       _gameState->getPrev2P1Points());  // prev1P1Points = prev2P1Points;
+  //   _gameState->setPrev1P2Points(
+  //       _gameState->getPrev2P2Points());  // prev1P2Points = prev2P2Points;
+  //   _gameState->setPrev1P1Games(
+  //       _gameState->getPrev2P1Games());  // prev1P1Games = prev2P1Games;
+  //   _gameState->setPrev1P2Games(
+  //       _gameState->getPrev2P2Games());  // prev1P2Games = prev2P2Games;
+  //   _gameState->setPrev1P1Sets(
+  //       _gameState->getPrev2P1Sets());  // prev1P1Sets = prev2P1Sets;
+  //   _gameState->setPrev1P2Sets(
+  //       _gameState->getPrev2P2Sets());  // prev1P2Sets = prev2P2Sets;
+  //   _gameState->setPrev1P1Matches(
+  //       _gameState->getPrev2P1Matches());  // prev1P1Matches =
+  //       prev2P1Matches;
+  //   _gameState->setPrev1P2Matches(
+  //       _gameState->getPrev2P2Matches());  // prev1P2Matches =
+  //       prev2P2Matches;
+  //   _gameState->setPrev1Serve(
+  //       _gameState->getPrev2Serve());  // prev1Serve = prev2Serve;
+  //   std::cout << "done checking point flash." << std::endl;
+  //   _gameState->setPrev1TieBreak(
+  //       _gameState->getPrev2TieBreak());  // prev1TieBreak = prev2TieBreak;
+  //   _gameState->setPrev1SetTieBreak(
+  //       _gameState
+  //           ->getPrev2SetTieBreak());  // prev1SetTieBreak =
+  //           prev2SetTieBreak;
+  //   _gameState->setPrev1TieLEDsOn(
+  //       _gameState->getPrev2TieLEDsOn());  // prev1TieLEDsOn =
+  //       prev2TieLEDsOn;
+
+  //   _gameState->setPrev2PointFlash(
+  //       _gameState->getPrev3PointFlash());  // prev2PointFlash =
+  //       prev3PointFlash;
+  //   _gameState->setPrev2P1Points(
+  //       _gameState->getPrev3P1Points());  // prev2P1Points = prev3P1Points;
+  //   _gameState->setPrev2P2Points(
+  //       _gameState->getPrev3P2Points());  // prev2P2Points = prev3P2Points;
+  //   _gameState->setPrev2P1Games(
+  //       _gameState->getPrev3P1Games());  // prev2P1Games = prev3P1Games;
+  //   _gameState->setPrev2P2Games(
+  //       _gameState->getPrev3P2Games());  // prev2P2Games = prev3P2Games;
+  //   std::cout << "done checking point flash 4." << std::endl;
+  //   _gameState->setPrev2P1Sets(
+  //       _gameState->getPrev3P1Sets());  // prev2P1Sets = prev3P1Sets;
+  //   _gameState->setPrev2P2Sets(
+  //       _gameState->getPrev3P2Sets());  // prev2P2Sets = prev3P2Sets;
+  //   std::cout << "done checking point flash 5." << std::endl;
+  //   _gameState->setPrev2P1Matches(
+  //       _gameState->getPrev3P1Matches());  // prev2P1Matches =
+  //       prev3P1Matches;
+  //   _gameState->setPrev2P2Matches(
+  //       _gameState->getPrev3P2Matches());  // prev2P2Matches =
+  //       prev3P2Matches;
+  //   std::cout << "done checking point flash 6." << std::endl;
+  //   _gameState->setPrev2Serve(
+  //       _gameState->getPrev3Serve());  // prev2Serve = prev3Serve;
+  //   _gameState->setPrev2TieBreak(
+  //       _gameState->getPrev3TieBreak());  // prev2TieBreak = prev3TieBreak;
+  //   _gameState->setPrev2SetTieBreak(
+  //       _gameState
+  //           ->getPrev3SetTieBreak());  // prev2SetTieBreak =
+  //           prev3SetTieBreak;
+  //   std::cout << "done checking point flash 7." << std::endl;
+  //   _gameState->setPrev2TieLEDsOn(
+  //       _gameState->getPrev3TieLEDsOn());  // prev2TieLEDsOn =
+  //       prev3TieLEDsOn;
 
   if (_gameState->getTieLEDsOn() == 1 /* tieLEDsOn == true */) {
     // _mode1TieBreaker.tieLEDsOn();  // TieLEDsOn();
     _gameState->setTieLEDsOn(1);  // tieLEDsOn = true;
     _tieLeds.turnOn();
   }
-  std::cout << "done checking point flash." << std::endl;
   if (_gameState->getTieLEDsOn() == 0 /* tieLEDsOn == false */) {
     // _mode1TieBreaker.tieLEDsOff(); // TieLEDsOff();
     std::cout << "turning set tie leds off..." << std::endl;
     _tieLeds.turnOff();
     _gameState->setTieLEDsOn(0);  // tieLEDsOn = false;
   }
-  std::cout << "updating leds..." << std::endl;
+  _logger->logUpdate("updating leds...", __FUNCTION__);
   _pointLeds.updatePoints();    // UpdatePoints();
   _gameLeds.updateGames();      // UpdateGames();
   _setLeds.updateSets();        // UpdateSets();

@@ -9,7 +9,8 @@
 //
 //  Written by Chris Bean for Teensy 4.1 only
 //
-
+#define LOG_FILE_PATH                                                          \
+  "C:\\Users\\EG\\Desktop\\2022\\may\\4th_week\\log_viewer_sand\\test.txt"
 // #define INPUT 0 // not in windows.. ouch!!
 // #define OUTPUT 0
 #define LOW 0

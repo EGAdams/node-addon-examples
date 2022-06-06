@@ -28,7 +28,7 @@ class Logger {
   Logger(String path);
   ~Logger();
   void logUpdate(String message, String caller);
-}
+};
 #endif  // defined _WIN*
 
 #endif  // Logger_h

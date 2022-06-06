@@ -34,13 +34,13 @@ class Mode1Score {
   Player* _player1;
   Player* _player2;
   GameState* _gameState;
+  History* _history;
   Mode1TieBreaker _mode1TieBreaker;
   PointLeds _pointLeds;
   GameLeds _gameLeds;
   SetLeds _setLeds;
   Mode1WinSequences _mode1WinSequences;
   Undo _undo;
-  History* _history;
 };
 
 #endif

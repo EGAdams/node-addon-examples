@@ -24,11 +24,11 @@ class Mode1Functions {
   Player* _player1;
   Player* _player2;
   GameState* _gameState;
+  History* _history;
   Undo _undo;
   PointLeds _pointLeds;
   Mode1Score _mode1Score;
   ServeLeds _serveLeds;
-  History* _history;
 };
 
 #endif

@@ -184,13 +184,7 @@ void Undo::setMode1Undo(History* history) {
 
 void Undo::mode1Undo(History* history) {
   GameTimer::gameDelay(250);
-  _logger->logUpdate("done sleeping.", __FUNCTION__);
-  _logger->logUpdate("getting last game state... ", __FUNCTION__);
-  _logger->logUpdate("history size = " + std::to_string(history->size()),
-                     __FUNCTION__);
   if (history->size() == 0) {
-    _logger->logUpdate("history size = 0.  can not undo.  returning...",
-                       __FUNCTION__);
     return;
   }
   GameState gameState = (history->pop());
@@ -352,7 +346,6 @@ void Undo::mode1Undo(History* history) {
   }
   if (_gameState->getTieLEDsOn() == 0 /* tieLEDsOn == false */) {
     // _mode1TieBreaker.tieLEDsOff(); // TieLEDsOff();
-    std::cout << "turning set tie leds off..." << std::endl;
     _tieLeds.turnOff();
     _gameState->setTieLEDsOn(0);  // tieLEDsOn = false;
   }

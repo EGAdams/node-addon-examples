@@ -6,7 +6,7 @@
 #include "GameState.h"
 #include "GameTimer.h"
 #include "INPUTS.h"
-#include "IniReader.h"
+// #include "IniReader.h"
 #include "Logger.h"
 #include "MODE_1_FUNCTIONS.h"
 #include "MODE_1_TIEBREAKER.h"
@@ -39,6 +39,7 @@ class GameModes {
   Player* _player2;
   PinInterface* _pinInterface;
   GameState* _gameState;
+  History* _history;
   PointLeds _pointLeds;
   GameLeds _gameLeds;
   SetLeds _setLeds;
@@ -50,7 +51,6 @@ class GameModes {
   Mode2Functions _mode2Functions;
   //   IniReader _iniReader;
   Logger* _logger;
-  History* _history;
 };
 
 #endif

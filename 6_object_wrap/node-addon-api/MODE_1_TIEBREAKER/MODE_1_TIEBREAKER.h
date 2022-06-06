@@ -46,13 +46,13 @@ class Mode1TieBreaker {
   Player* _player2;
   PinInterface* _pinInterface;
   GameState* _gameState;
+  History* _history;
   PointLeds _pointLeds;
   GameLeds _gameLeds;
   ServeLeds _serveLeds;
   SetLeds _setLeds;
   Mode1WinSequences _mode1WinSequences;
   Undo _undo;
-  History* _history;
 };
 
 #endif

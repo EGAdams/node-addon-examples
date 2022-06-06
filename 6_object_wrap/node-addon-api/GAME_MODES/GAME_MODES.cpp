@@ -26,27 +26,21 @@ GameModes::GameModes(Player* player1,
 
 void GameModes::gameStart() {
   if (_gameState->getStarted() == 0) {  // if not started...
-    // std::cout << "resetting points, games and set counters to zero..." <<
-    // std::endl;
-    _player1->setPoints(0);  // p1Points = 0;
-    _player2->setPoints(0);  // p2Points = 0;
-    _player1->setGames(0);   // p1Games = 0;
-    _player2->setGames(0);   // p2Games = 0;
-    _player1->setSets(0);    // p1Sets = 0;
-    _player2->setSets(0);    // p2Sets = 0;
-    // std::cout << "updating points, games and set LEDs..." << std::endl;
-    _pointLeds.updatePoints();       // UpdatePoints();
-    _gameLeds.updateGames();         // UpdateGames();
-    _setLeds.updateSets();           // UpdateSets();
-    _gameState->setTieBreakOnly(0);  // tieBreakOnly = false;
-    // std::cout << "setting game started flag..." << std::endl;
-    _gameState->setStarted(1);  // gameStart = false; // set to started.
+    _player1->setPoints(0);             // p1Points = 0;
+    _player2->setPoints(0);             // p2Points = 0;
+    _player1->setGames(0);              // p1Games = 0;
+    _player2->setGames(0);              // p2Games = 0;
+    _player1->setSets(0);               // p1Sets = 0;
+    _player2->setSets(0);               // p2Sets = 0;
+    _pointLeds.updatePoints();          // UpdatePoints();
+    _gameLeds.updateGames();            // UpdateGames();
+    _setLeds.updateSets();              // UpdateSets();
+    _gameState->setTieBreakOnly(0);     // tieBreakOnly = false;
+    _gameState->setStarted(1);          // gameStart = false; // set to started.
   }
 }
 
 void GameModes::mode1() {
-  std::cout << "mode 1.  PLAYER_BUTTON: "
-            << _pinInterface->pinDigitalRead(PLAYER_BUTTONS) << std::endl;
   _gameState->setNow(GameTimer::gameMillis());          // now =
   _inputs.readUndoButton();                             // ReadUndoButton();
   if (_gameState->getUndo() == 1 /* undo == true */) {  // undo button pressed
@@ -54,12 +48,10 @@ void GameModes::mode1() {
     _undo.mode1Undo(_history);
   }  // Mode1Undo();
 
-  std::cout << "reading player buttons..." << std::endl;
   _inputs.readPlayerButtons();  // digital read on player buttons.  sets
                                 // playerButton if tripped.
-  std::cout << "calling serveSwitch()..." << std::endl;
-  _serveLeds.serveSwitch();  // ServeSwitch(); // if serveSwitch >= 2,
-                             // serveSwitch = 0; and toggle serve variable
+  _serveLeds.serveSwitch();     // ServeSwitch(); // if serveSwitch >= 2,
+                                // serveSwitch = 0; and toggle serve variable
 
   if (_gameState->getTieBreak() == 1 /* tieBreak == true */) {
     _mode1TieBreaker.tieBreaker();
@@ -71,7 +63,6 @@ void GameModes::mode1() {
     _mode1Functions.mode1ButtonFunction();  // Mode1ButtonFunction();
     _mode1Functions.pointFlash();           // PointFlash();
   }
-  std::cout << "done mode1." << std::endl;
 }
 
 void GameModes::mode2() {
@@ -152,9 +143,7 @@ void GameModes::setGameMode(int rotaryPosition) {
 
     case 1:
       // Serial.println("Game Mode 1");
-      std::cout << "calling gameStart()..." << std::endl;
       gameStart();  // sets gameStart to true. resets player and score board.
-      std::cout << "Game Mode 1" << std::endl;
       mode1();
       break;
 

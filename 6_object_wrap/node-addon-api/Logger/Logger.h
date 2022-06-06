@@ -6,6 +6,8 @@
 #include <vector>
 #include "GameTimer.h"
 
+#if defined _WIN32 || defined _WIN64
+
 class Logger {
  public:
   Logger(std::string file_path);
@@ -20,5 +22,13 @@ class Logger {
   std::ofstream _log_file;
   std::vector<int> _used_random_numbers;
 };
+#else
+class Logger {
+ public:
+  Logger(String path);
+  ~Logger();
+  void logUpdate(String message, String caller);
+}
+#endif  // defined _WIN*
 
 #endif  // Logger_h

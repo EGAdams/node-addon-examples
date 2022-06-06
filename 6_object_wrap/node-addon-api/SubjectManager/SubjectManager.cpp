@@ -9,6 +9,7 @@
 SubjectManager::SubjectManager() {}
 SubjectManager::~SubjectManager() {}
 
+#if defined _WIN32 || defined _WIN64
 void SubjectManager::gameStateUpdate(GameState* gameState) {
   std::string update_path =
       "C:\\Users\\EG\\Desktop\\2022\\april\\5th_week\\node-addon-examples\\6_"
@@ -223,3 +224,6 @@ void SubjectManager::gameStateUpdate(GameState* gameState) {
   game_state_file << stringifiedGameState;
   game_state_file.close();
 }
+#else
+void SubjectManager::gameStateUpdate(GameState* gameState) {}
+#endif

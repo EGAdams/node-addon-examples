@@ -109,26 +109,25 @@ void GameModes::mode4() {
 
 void GameModes::testStart() {
   if (_gameState->getStarted() == 0) {  // if not started...
-    _iniReader.OpenFile("C:\\Users\\EG\\Desktop\\2022\\may\\4th_week\\log_"
-                        "viewer_sand\\test.ini");
-    _player1->setPoints(
-        std::stoi(_iniReader.GetString("TieBreak", "player1_points")));
-    _player2->setPoints(
-        std::stoi(_iniReader.GetString("TieBreak", "player1_points")));
-    _player1->setGames(
-        std::stoi(_iniReader.GetString("TieBreak", "player1_games")));
-    _player2->setGames(
-        std::stoi(_iniReader.GetString("TieBreak", "player2_games")));
-    _player1->setSets(
-        std::stoi(_iniReader.GetString("TieBreak", "player1_sets")));
-    _player2->setSets(
-        std::stoi(_iniReader.GetString("TieBreak", "player2_sets")));
-    _logger->logUpdate("updating points, games and set LEDs...", __FUNCTION__);
-    _pointLeds.updatePoints();
-    _gameLeds.updateGames();
-    _setLeds.updateSets();
-    _gameState->setTieBreakOnly(0);
-    _gameState->setStarted(1);
+    // _iniReader.OpenFile("C:\\Users\\EG\\Desktop\\2022\\may\\4th_week\\log_"
+    //                     "viewer_sand\\test.ini");
+    // _player1->setPoints(
+    //     std::stoi(_iniReader.GetString("TieBreak", "player1_points")));
+    // _player2->setPoints(
+    //     std::stoi(_iniReader.GetString("TieBreak", "player1_points")));
+    // _player1->setGames(
+    //     std::stoi(_iniReader.GetString("TieBreak", "player1_games")));
+    // _player2->setGames(
+    //     std::stoi(_iniReader.GetString("TieBreak", "player2_games")));
+    // _player1->setSets(
+    //     std::stoi(_iniReader.GetString("TieBreak", "player1_sets")));
+    // _player2->setSets(
+    //     std::stoi(_iniReader.GetString("TieBreak", "player2_sets")));
+    // _logger->logUpdate("updating points, games and set LEDs...",
+    // __FUNCTION__); _pointLeds.updatePoints(); _gameLeds.updateGames();
+    // _setLeds.updateSets();
+    // _gameState->setTieBreakOnly(0);
+    // _gameState->setStarted(1);
   }
 }
 

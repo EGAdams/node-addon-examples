@@ -44,10 +44,12 @@ class GameObject {
   GameModes* _gameModes;
   ScoreBoard* _scoreBoard;
   WebLiquidCrystal* _webLiquidCrystal;
-  std::map<std::string, int>* _pin_map;
   SubjectManager* _subjectManager;
   Logger* _logger;
   History* _history;
+#if defined _WIN32 || defined _WIN64
+  std::map<std::string, int>* _pin_map;
+#endif
 };
 
 #endif

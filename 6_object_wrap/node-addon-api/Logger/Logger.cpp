@@ -5,6 +5,7 @@
 #include <iostream>
 #include <regex>
 
+#if defined _WIN32 || defined _WIN64
 Logger::Logger(std::string file_path) : _file_path(file_path) {
   std::cout << "Constructing Logger..." << std::endl;
   std::cout << "opening file:" << file_path << std::endl;
@@ -60,3 +61,8 @@ bool Logger::inArray(int supposed_random_number) {
   }
   return false;
 }
+#else
+Logger::Logger(String path) {}
+Logger::~Logger() {}
+void Logger::logUpdate(String message, String caller = "unknown") {}
+#endif

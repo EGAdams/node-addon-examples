@@ -48,7 +48,7 @@ class GameModes {
   Mode1TieBreaker _mode1TieBreaker;
   Mode1Functions _mode1Functions;
   Mode2Functions _mode2Functions;
-  IniReader _iniReader;
+  //   IniReader _iniReader;
   Logger* _logger;
   History* _history;
 };

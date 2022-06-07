@@ -1,36 +1,37 @@
 #include "GameTimer.h"
 #include "Arduino.h"
-// #include <chrono>
-// #include <thread>
+#if defined _WIN32 || defined _WIN64
+#include <chrono>
+#include <thread>
+#endif
 
-GameTimer::GameTimer() {
-  // cout << "GameTimer::GameTimer() called..." << endl;
-}
+GameTimer::GameTimer() {}
 
 void GameTimer::gameDelay(int milliseconds) {
-  // cout << "Sleeping for " << milliseconds << " milliseconds" << endl;
-  // std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
-  // delay( milliseconds ); // TODO: find out if we can use Arduino delay()
-  // here. delay( milliseconds );
+#if defined _WIN32 || defined _WIN64
+  std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+#else
   delay(milliseconds);
+#endif
 }
-GameTimer::~GameTimer() {
-  // cout << "GameTimer::GameTimer() called..." << endl;
-}
+GameTimer::~GameTimer() {}
 
 void GameTimer::sleep_until(int milliseconds) {
-  // cout << "Sleeping until " << milliseconds << " milliseconds" << endl;
-  // std::this_thread::sleep_until(std::chrono::system_clock::now() +
-  //                               std::chrono::milliseconds(milliseconds));
-  // sleep_until( milliseconds );
+#if defined _WIN32 || defined _WIN64
+  std::this_thread::sleep_until(std::chrono::system_clock::now() +
+                                std::chrono::milliseconds(milliseconds));
+#else
+  sleep_until(milliseconds);
+#endif
 }
 
 unsigned long GameTimer::gameMillis() {
-  // std::chrono::milliseconds ms =
-  //     std::chrono::duration_cast<std::chrono::milliseconds>(
-  //         std::chrono::system_clock::now().time_since_epoch());
-  // return ms.count();
-  // return millis( placeHolder );
-  // return millis(); // TODO: find out if we can use Arduino's millis() here.
+#if defined _WIN32 || defined _WIN64
+  std::chrono::milliseconds ms =
+      std::chrono::duration_cast<std::chrono::milliseconds>(
+          std::chrono::system_clock::now().time_since_epoch());
+  return ms.count();
+#else
   return millis();
+#endif
 }
